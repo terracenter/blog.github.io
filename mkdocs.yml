@@ -1,23 +1,23 @@
 # docs_dir: docs
-site_name: La Biblioteca de Humanbyte
-repo_url: https://github.com/terracenter/biblioteca
-site_author: Terracenter
+site_name: El Blog de Humanbyte
+repo_url: https://github.com/terracenter/blog
+site_author: Freddy Taborda
 
 theme:
   name: material
   features:
-    - content.code.copy
-    - navigation.footer
-    - navigation.instant
-    - navigation.instant.prefetch
-    - navigation.instant.progress
-    - navigation.tracking
+    # # - content.code.copy
+    # # - navigation.instant
+    # # - navigation.instant.prefetch
+    # - navigation.instant.progress
+    # - navigation.tracking
     - navigation.tabs
     - navigation.tabs.sticky
+    # - navigation.sections
     - navigation.path
     - navigation.prune
-    - navigation.indexes
-    - toc.follow
+    # - navigation.indexes
+    # - toc.follow
     - navigation.top
     - search.suggest
     - search.highlight

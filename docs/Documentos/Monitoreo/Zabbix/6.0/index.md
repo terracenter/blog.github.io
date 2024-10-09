@@ -1,1 +1,0 @@
-# Index doc Zabbix 6.0
