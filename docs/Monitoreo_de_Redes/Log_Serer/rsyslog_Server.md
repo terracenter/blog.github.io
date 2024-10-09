@@ -5,7 +5,6 @@
         ```bash
         sudo apt install -y rsyslog
         ```
-        ```
     * Tras la instalación, puede comprobar su estado de funcionamiento de la siguiente manera:
         sudo systemctl status rsyslog
         ```
@@ -15,7 +14,7 @@
          ```
 
      * Proceda y descomente las siguientes líneas que permiten la recepción de syslog UDP y TCP desde clientes remotos.
-         ```
+        ```
         # provides UDP syslog reception
         module(load="imudp")
         input(type="imudp" port="514")
