@@ -1,0 +1,2242 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Freddy Taborda">
+      
+      
+      
+        <link rel="prev" href="../../1.Introduccion/5.Novedades_de_Zabbix_7.0.0/">
+      
+      
+        <link rel="next" href="../../18.Interfaz_web/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>17 Cifrado - El Blog de Humanbyte</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-5T8Q8F61MQ"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-5T8Q8F61MQ",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-5T8Q8F61MQ",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#17-cifrado" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="El Blog de Humanbyte" class="md-header__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            El Blog de Humanbyte
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              17  Cifrado
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Bienvenidos a la Biblioteca
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-tabs__link">
+          
+  
+  Cursos
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../Docs/" class="md-tabs__link">
+          
+  
+  Docs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../Libros/" class="md-tabs__link">
+          
+  
+  Libros
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../Manuales/Linux/00.Seguridad/" class="md-tabs__link">
+          
+  
+  Manuales
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../Log_Serer/rsyslog_Server/" class="md-tabs__link">
+          
+  
+  Monitoreo de Redes
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-tabs__link">
+          
+  
+  Virtualizacion
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="El Blog de Humanbyte" class="md-nav__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    El Blog de Humanbyte
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bienvenidos a la Biblioteca
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cursos
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../../Docs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Docs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../../Libros/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Libros
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../../Manuales/Linux/00.Seguridad/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Manuales
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoreo de Redes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoreo de Redes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Log_Serer/rsyslog_Server/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Log Serer
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../6.0/Documentacion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6.0
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2_2" id="__nav_6_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    7.0
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            7.0
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Manual de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../1.Introduccion/5.Novedades_de_Zabbix_7.0.0/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    1.Introduccion
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2_2_3" id="__nav_6_2_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    17.Cifrado
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_6_2_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            17.Cifrado
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    17  Cifrado
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    17  Cifrado
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#17-cifrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      17 Cifrado
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17 Cifrado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vision-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visión general
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitaciones
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilacion-de-zabbix-con-soporte-de-encriptacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilación de Zabbix con soporte de encriptación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-del-cifrado-de-la-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestión del cifrado de la conexión
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zabbix_get-y-zabbix_sender-con-cifrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      zabbix_get y zabbix_sender con cifrado
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ciphersuites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ciphersuites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cifrados-configurados-por-el-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cifrados configurados por el usuario
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cifrados configurados por el usuario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conexiones-salientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conexiones salientes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conexiones-entrantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conexiones entrantes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conexiones entrantes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplos-de-cifrados-configurados-por-el-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplos de cifrados configurados por el usuario
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probar-cadenas-de-cifrado-y-permitir-solo-cifrados-pfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probar cadenas de cifrado y permitir sólo cifrados PFS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probar cadenas de cifrado y permitir sólo cifrados PFS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambio-de-aes128-a-aes256" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cambio de AES128 a AES256
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../18.Interfaz_web/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    18.Interfaz web
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../21.Apendices/2.Instalacion_y_configuracion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    21.Apendices
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Blog/Creacion_de_plantillas_para_dispositivos_SNMP/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Virtualizacion
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#17-cifrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      17 Cifrado
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="17 Cifrado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vision-general" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visión general
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitaciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitaciones
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compilacion-de-zabbix-con-soporte-de-encriptacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilación de Zabbix con soporte de encriptación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gestion-del-cifrado-de-la-conexion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gestión del cifrado de la conexión
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zabbix_get-y-zabbix_sender-con-cifrado" class="md-nav__link">
+    <span class="md-ellipsis">
+      zabbix_get y zabbix_sender con cifrado
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ciphersuites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ciphersuites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cifrados-configurados-por-el-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cifrados configurados por el usuario
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cifrados configurados por el usuario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conexiones-salientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conexiones salientes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conexiones-entrantes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conexiones entrantes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Conexiones entrantes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejemplos-de-cifrados-configurados-por-el-usuario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejemplos de cifrados configurados por el usuario
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#probar-cadenas-de-cifrado-y-permitir-solo-cifrados-pfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probar cadenas de cifrado y permitir sólo cifrados PFS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probar cadenas de cifrado y permitir sólo cifrados PFS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambio-de-aes128-a-aes256" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cambio de AES128 a AES256
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>17  Cifrado</h1>
+
+<h2 id="17-cifrado">17 Cifrado</h2>
+<h3 id="vision-general">Visión general</h3>
+<p>Zabbix soporta comunicaciones encriptadas entre componentes Zabbix usando el protocolo Transport Layer Security (TLS) v.1.2 y 1.3 (dependiendo de la librería crypto). Se admite el cifrado basado en certificados y en claves precompartidas.</p>
+<p>Se puede configurar el cifrado de las conexiones:</p>
+<ul>
+<li>Entre servidor Zabbix, proxy Zabbix, agente Zabbix, utilidades zabbix_sender y zabbix_get</li>
+<li>A la base de datos Zabbix desde el <a href="https://www.zabbix.com/documentation/devel/en/manual/appendix/install/db_encrypt">frontend Zabbix y el servidor/proxy</a></li>
+</ul>
+<p>El cifrado es opcional y configurable para componentes individuales</p>
+<ul>
+<li>Algunos proxies y agentes pueden configurarse para utilizar el cifrado basado en certificados con el servidor, mientras que otros pueden utilizar el cifrado basado en claves precompartidas, y otros continúan con las comunicaciones sin cifrar (como antes).</li>
+<li>El servidor (proxy) puede utilizar diferentes configuraciones de cifrado para diferentes hosts</li>
+</ul>
+<p>Los programas daemon de Zabbix utilizan un puerto de escucha para las conexiones entrantes encriptadas y no encriptadas. Añadir un cifrado no requiere abrir nuevos puertos en los cortafuegos.</p>
+<h3 id="limitaciones">Limitaciones</h3>
+<ul>
+<li>Las claves privadas se almacenan en texto plano en archivos legibles por los componentes de Zabbix durante el arranque.</li>
+<li>Las claves precompartidas se introducen en el frontend de Zabbix y se almacenan en la base de datos de Zabbix en texto plano.</li>
+<li>El cifrado incorporado no protege las comunicaciones:</li>
+<li>Entre el servidor web que ejecuta el frontend Zabbix y el navegador web del usuario</li>
+<li>Entre el frontend Zabbix y el servidor Zabbix</li>
+<li>Actualmente cada conexión encriptada se abre con un handshake TLS completo, no hay caché de sesión ni tickets implementados.</li>
+<li>Al añadir el cifrado aumenta el tiempo de las comprobaciones y acciones de los elementos, en función de la latencia de la red.</li>
+<li>Por ejemplo, si el retardo del paquete es de 100 ms, abrir una conexión TCP y enviar una solicitud sin cifrar tarda unos 200 ms. Con el cifrado se añaden unos 1000 ms para establecer la conexión TLS. Con cifrado se añaden unos 1000 ms para establecer la conexión TLS;</li>
+<li>Puede que sea necesario aumentar los tiempos de espera, de lo contrario algunos elementos y acciones que ejecutan scripts remotos en los agentes pueden funcionar con conexiones sin cifrar, pero fallar con tiempo de espera con cifrado.</li>
+<li>El cifrado no está soportado por el <a href="https://www.zabbix.com/documentation/devel/en/manual/discovery/network_discovery">descubrimiento de red</a>. Las comprobaciones del agente Zabbix realizadas por el descubrimiento de red no estarán cifradas y si el agente Zabbix está configurado para rechazar conexiones no cifradas, dichas comprobaciones no tendrán éxito.</li>
+</ul>
+<h3 id="compilacion-de-zabbix-con-soporte-de-encriptacion">Compilación de Zabbix con soporte de encriptación</h3>
+<ul>
+<li>Para soportar encriptación Zabbix debe ser compilado y enlazado con una de las librerías crypto soportadas:</li>
+<li>GnuTLS - a partir de la versión 3.1.18</li>
+<li>OpenSSL - versiones 1.0.1, 1.0.2, 1.1.0, 1.1.1, 3.0.x</li>
+<li>LibreSSL - probado con las versiones 2.7.4, 2.8.2:<ul>
+<li>LibreSSL 2.6.x no es compatible</li>
+<li>LibreSSL es soportado como un reemplazo compatible de OpenSSL; las nuevas funciones tls_*() API específicas de LibreSSL no son utilizadas. Los componentes de Zabbix compilados con LibreSSL no podrán usar PSK, sólo se pueden usar certificados.</li>
+</ul>
+</li>
+</ul>
+<p><strong>NOTA</strong>:</p>
+<blockquote>
+<p>Puede encontrar más información sobre la configuración de SSL para Zabbix frontend consultando estas mejores prácticas.</p>
+</blockquote>
+<p>La biblioteca se selecciona especificando la opción correspondiente en el script "configure":</p>
+<ul>
+<li>--con-gnutls[=DIR]</li>
+<li>--with-openssl[=DIR] (también se utiliza para LibreSSL)</li>
+</ul>
+<p>Por ejemplo, para configurar las fuentes para el servidor y el agente con OpenSSL puede usar algo como:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./configure<span class="w"> </span>--enable-server<span class="w"> </span>--enable-agent<span class="w"> </span>--with-mysql<span class="w"> </span>--enable-ipv6<span class="w"> </span>--with-net-snmp<span class="w"> </span>--with-libcurl<span class="w"> </span>--with-libxml2<span class="w"> </span>--with-openssl
+</code></pre></div>
+<p>Diferentes componentes de Zabbix pueden ser compilados con diferentes librerías criptográficas (por ejemplo, un servidor con OpenSSL, un agente con GnuTLS).</p>
+<p><strong>ATENCIÓN</strong>:</p>
+<blockquote>
+<p>Si planea usar claves pre-compartidas (PSK), considere usar las librerías GnuTLS u OpenSSL 1.1.0 (o más recientes) en componentes Zabbix que usen PSKs. Las librerías GnuTLS y OpenSSL 1.1.0 soportan cifrados PSK con Perfect Forward Secrecy. Las versiones anteriores de la biblioteca OpenSSL (1.0.1, 1.0.2c) también admiten PSK, pero los cifrados PSK disponibles no proporcionan Perfect Forward Secrecy.</p>
+</blockquote>
+<h3 id="gestion-del-cifrado-de-la-conexion">Gestión del cifrado de la conexión</h3>
+<p>Conexiones en Zabbix puede utilizar:</p>
+<ul>
+<li>Sin cifrado (por defecto)</li>
+<li><a href="https://www.zabbix.com/documentation/devel/en/manual/encryption/using_certificates">Cifrado basado en certificado RSA</a></li>
+<li><a href="https://www.zabbix.com/documentation/devel/en/manual/encryption/using_pre_shared_keys">Cifrado basado en PSK</a></li>
+</ul>
+<p>Hay dos parámetros importantes utilizados para especificar el cifrado entre los componentes de Zabbix:</p>
+<ul>
+<li>TLSConnect - especifica qué encriptación utilizar para las conexiones salientes (sin encriptar, PSK o certificado).</li>
+<li>TLSAccept - especifica qué tipos de conexiones se permiten para las conexiones entrantes (sin cifrar, PSK o certificado). Se pueden especificar uno o más valores.</li>
+</ul>
+<p><code>TLSConnect</code> se utiliza en los ficheros de configuración del proxy Zabbix (en modo activo, especifica sólo conexiones al servidor) y del agente Zabbix (para comprobaciones activas). En el frontend de Zabbix el equivalente a TLSConnect es el campo Conexiones a host en <strong>Data collection → Hosts → <mismo host> → pestaña Encryption</strong> y el campo Conexiones a proxy en <strong>Administration → Proxies → <mismo proxy> → pestaña Encryption</strong>. Si el tipo de cifrado configurado para la conexión falla, no se intentará ningún otro tipo de cifrado.</p>
+<p><code>TLSAccept</code> se utiliza en los ficheros de configuración del proxy Zabbix (en modo pasivo, especifica sólo conexiones desde el servidor) y del agente Zabbix (para comprobaciones pasivas). En el frontend de Zabbix el equivalente a TLSAccept es el campo Conexiones desde host en <strong>Data collection → Hosts → <mismo host> → pestaña Encryption</strong> y el campo Conexiones desde proxy en <strong>Administration → Proxies → <mismo proxy> → pestaña Encryption</strong>.</p>
+<p>Normalmente sólo se configura un tipo de cifrado para los cifrados entrantes. Pero es posible que desee cambiar el tipo de cifrado, por ejemplo, de no cifrado a basado en certificado con el mínimo tiempo de inactividad y posibilidad de reversión. Para ello:</p>
+<ul>
+<li>Establece <code>TLSAccept=unencrypted,cert</code> en el fichero de configuración del agente y reinicia el agente Zabbix</li>
+<li>Prueba la conexión con zabbix_get al agente usando certificado. Si funciona, puede reconfigurar el cifrado para ese agente en el frontend de Zabbix en la pestaña <strong>Data collection → Hosts → <mismo host> → Encryption</strong> colocando  <code>Connections to host</code> en <code>Certificate</code>.</li>
+<li>Cuando la caché de configuración del servidor se actualiza (y la configuración del proxy se actualiza si el host es monitorizado por el proxy) entonces las conexiones a ese agente serán encriptadas.</li>
+<li>Si todo funciona como se espera puedes establecer <code>TLSAccept=cert</code> en el fichero de configuración del agente y reiniciar el agente Zabbix. Ahora el agente sólo aceptará conexiones cifradas basadas en certificados. Las conexiones sin cifrar y basadas en PSK serán rechazadas.</li>
+</ul>
+<p>De forma similar funciona en servidor y proxy. Si en el frontend de Zabbix en la configuración del host Conexiones desde el host se establece en "Certificado" entonces sólo se aceptarán conexiones encriptadas basadas en certificados desde el agente (comprobaciones activas) y zabbix_sender (elementos trapper).</p>
+<p>Lo más probable es que configures las conexiones entrantes y salientes para que utilicen el mismo tipo de cifrado o ningún tipo de cifrado. Pero técnicamente es posible configurarlo de forma asimétrica, por ejemplo, cifrado basado en certificados para las conexiones entrantes y basado en PSK para las salientes.</p>
+<p>La configuración de cifrado para cada host se muestra en el frontend de Zabbix, en <strong><em>Data collection → Hosts</em></strong> en la columna <strong>*Agent encryption</strong>. Por ejemplo:</p>
+<table>
+<thead>
+<tr>
+<th>Ejemplo</th>
+<th>Connections to host</th>
+<th>Allowed connections from host</th>
+<th>Rejected connections from host</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="" src="../assets/20240208_110826_none_none.png" /></td>
+<td>Sin cifrar</td>
+<td>Sin cifrar</td>
+<td>Cifrado, certificado y cifrado basado en PSK</td>
+</tr>
+<tr>
+<td><img alt="" src="../assets/20240208_110916_cert_cert.png" /></td>
+<td>Cifrado, basado en certificados</td>
+<td>Cifrado basado en certificados</td>
+<td>Sin cifrar y cifrado basado en PSK</td>
+</tr>
+<tr>
+<td><img alt="" src="../assets/20240208_111001_psk_psk.png" /></td>
+<td>Cifrado, basado en PSK</td>
+<td>Cifrado, basado en PSK</td>
+<td>Sin cifrar y cifrado basado en certificados</td>
+</tr>
+<tr>
+<td><img alt="" src="../assets/20240208_111154_psk_none_psk.png" /></td>
+<td>Cifrado, basado en PSK</td>
+<td>Sin cifrar y cifrado basado en PSK</td>
+<td>Cifrado basado en certificados</td>
+</tr>
+<tr>
+<td><img alt="" src="../assets/20240208_111240_cert_all.png" /></td>
+<td>Cifrado, basado en certificados</td>
+<td>Sin cifrar, PSK o cifrado basado en certificado</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>ATENCIÓN:</strong></p>
+<blockquote>
+<p>Las conexiones no están cifradas por defecto. El cifrado debe configurarse individualmente para cada host y proxy.</p>
+</blockquote>
+<h3 id="zabbix_get-y-zabbix_sender-con-cifrado">zabbix_get y zabbix_sender con cifrado</h3>
+<p>Consulte las páginas de manual <a href="https://www.zabbix.com/documentation/devel/en/manpages/zabbix_get">zabbix_get</a> y <a href="https://www.zabbix.com/documentation/devel/en/manual/encryption#:~:text=See%20zabbix_get%20and-,zabbix_sender,-manpages%20for%20using">zabbix_sender</a> para utilizarlas con cifrado.</p>
+<h3 id="ciphersuites">Ciphersuites</h3>
+<p>Los cifrados por defecto se configuran internamente durante el arranque de Zabbix.</p>
+<p>También se admiten cifrados configurados por el usuario para GnuTLS y OpenSSL. Los usuarios pueden configurar los cifradores de acuerdo con sus políticas de seguridad. El uso de esta función es opcional (los cifrados por defecto siguen funcionando).</p>
+<p>Para las bibliotecas criptográficas compiladas con la configuración predeterminada, las reglas incorporadas de Zabbix suelen dar como resultado los siguientes cifrados (en orden de mayor a menor prioridad):</p>
+<table>
+<thead>
+<tr>
+<th>BibliotecaLibrar</th>
+<th>Cifrados de certificado</th>
+<th>Cifrados PSK</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>GnuTLS 3.1.18</em></td>
+<td>TLS_ECDHE_RSA_AES_128_GCM_SHA256<br/>TLS_ECDHE_RSA_AES_128_CBC_SHA256<br/>TLS_ECDHE_RSA_AES_128_CBC_SHA1<br/>TLS_RSA_AES_128_GCM_SHA256<br/>TLS_RSA_AES_128_CBC_SHA256<br/>TLS_RSA_AES_128_CBC_SHA1</td>
+<td>TLS_ECDHE_PSK_AES_128_CBC_SHA256<br/>TLS_ECDHE_PSK_AES_128_CBC_SHA1<br/>TLS_PSK_AES_128_GCM_SHA256<br/>TLS_PSK_AES_128_CBC_SHA256<br/>TLS_PSK_AES_128_CBC_SHA1</td>
+</tr>
+<tr>
+<td><em>OpenSSL 1.0.2c</em></td>
+<td>ECDHE-RSA-AES128-GCM-SHA256<br/>ECDHE-RSA-AES128-SHA256<br/>ECDHE-RSA-AES128-SHA<br/>AES128-GCM-SHA256<br/>AES128-SHA256<br/>AES128-SHA</td>
+<td>PSK-AES128-CBC-SHA</td>
+</tr>
+<tr>
+<td><em>OpenSSL 1.1.0</em></td>
+<td>ECDHE-RSA-AES128-GCM-SHA256<br/>ECDHE-RSA-AES128-SHA256<br/>ECDHE-RSA-AES128-SHA<br/>AES128-GCM-SHA256<br/>AES128-CCM8<br/>AES128-CCM<br/>AES128-SHA256<br/>AES128-SHA<br/></td>
+<td>ECDHE-PSK-AES128-CBC-SHA256<br/>ECDHE-PSK-AES128-CBC-SHA<br/>PSK-AES128-GCM-SHA256<br/>PSK-AES128-CCM8<br/>PSK-AES128-CCM<br/>PSK-AES128-CBC-SHA256<br/>PSK-AES128-CBC-SHA</td>
+</tr>
+<tr>
+<td><em>OpenSSL 1.1.1d</em></td>
+<td>TLS_AES_256_GCM_SHA384<br/>TLS_CHACHA20_POLY1305_SHA256<br/>TLS_AES_128_GCM_SHA256<br/>ECDHE-RSA-AES128-GCM-SHA256<br/>ECDHE-RSA-AES128-SHA256<br/>ECDHE-RSA-AES128-SHA<br/>AES128-GCM-SHA256<br/>AES128-CCM8<br/>AES128-CCM<br/>AES128-SHA256<br/>AES128-SHA</td>
+<td>TLS_CHACHA20_POLY1305_SHA256<br/>TLS_AES_128_GCM_SHA256<br/>ECDHE-PSK-AES128-CBC-SHA256<br/>ECDHE-PSK-AES128-CBC-SHA<br/>PSK-AES128-GCM-SHA256<br/>PSK-AES128-CCM8<br/>PSK-AES128-CCM<br/>PSK-AES128-CBC-SHA256<br/>PSK-AES128-CBC-SHA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cifrados-configurados-por-el-usuario">Cifrados configurados por el usuario</h3>
+<p>Los criterios de selección de cifrado incorporados pueden anularse con cifrados configurados por el usuario.</p>
+<p><strong>ATENCIÓN</strong>:</p>
+<blockquote>
+<p>Los cifrados configurados por el usuario son una función destinada a usuarios avanzados que entienden los cifrados TLS, su seguridad y las consecuencias de los errores, y que se sienten cómodos con la resolución de problemas TLS.</p>
+</blockquote>
+<p>Los criterios de selección de la cifrado incorporada pueden anularse utilizando los siguientes parámetros:</p>
+<table>
+<thead>
+<tr>
+<th>Anular ámbito</th>
+<th>Parámetro</th>
+<th>Valor</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Selección de cifrado para certificados</td>
+<td>TLSCipherCert13</td>
+<td>Valid OpenSSL 1.1.1<a href="https://www.openssl.org/docs/man1.1.1/man1/ciphers.html">cipher strings</a> for TLS 1.3 protocol (their values are passed to the OpenSSL function <code>SSL_CTX_set_ciphersuites()</code>).</td>
+<td>Criterios de selección de cifrados basados en certificados para TLS 1.3</td>
+</tr>
+<tr>
+<td></td>
+<td>TLSCipherCert</td>
+<td>Valid OpenSSL<a href="https://www.openssl.org/docs/man1.1.1/man1/ciphers.html">cipher strings</a> for TLS 1.2 or valid GnuTLS <a href="https://gnutls.org/manual/html_node/Priority-Strings.html">priority strings</a>. Their values are passed to the <code>SSL_CTX_set_cipher_list()</code> or <code>gnutls_priority_init()</code> functions, respectively.</td>
+<td>Criterios de selección de cifrado basados en certificados para TLS 1.2/1.3 (GnuTLS), TLS 1.2 (OpenSSL)</td>
+</tr>
+<tr>
+<td>Selección de cifrado para PSK</td>
+<td>TLSCipherPSK13</td>
+<td>Valid OpenSSL 1.1.1<a href="https://www.openssl.org/docs/man1.1.1/man1/ciphers.html">cipher strings</a> for TLS 1.3 protocol (their values are passed to the OpenSSL function <code>SSL_CTX_set_ciphersuites()</code>).</td>
+<td>Criterios de selección de cifrados basados en PSK para TLS 1.3  Solo OpenSSL 1.1.1 o posterior.</td>
+</tr>
+<tr>
+<td></td>
+<td>TLSCipherPSK</td>
+<td>Valid OpenSSL<a href="https://www.openssl.org/docs/man1.1.1/man1/ciphers.html">cipher strings</a> for TLS 1.2 or valid GnuTLS <a href="https://gnutls.org/manual/html_node/Priority-Strings.html">priority strings</a>. Their values are passed to the <code>SSL_CTX_set_cipher_list()</code> or <code>gnutls_priority_init()</code> functions, respectively.</td>
+<td>PSK-based ciphersuite selection criteria for TLS 1.2/1.3 (GnuTLS), TLS 1.2 (OpenSSL)</td>
+</tr>
+<tr>
+<td>Lista combinada de cifrados para certificado y PSK</td>
+<td>TLSCipherAll13</td>
+<td>Valid OpenSSL 1.1.1<a href="https://www.openssl.org/docs/man1.1.1/man1/ciphers.html">cipher strings</a> for TLS 1.3 protocol (their values are passed to the OpenSSL function <code>SSL_CTX_set_ciphersuites()</code>).</td>
+<td>Ciphersuite selection criteria for TLS 1.3<br/><br/>Only OpenSSL 1.1.1 or newer.</td>
+</tr>
+<tr>
+<td></td>
+<td>TLSCipherAll</td>
+<td>Valid OpenSSL<a href="https://www.openssl.org/docs/man1.1.1/man1/ciphers.html">cipher strings</a> for TLS 1.2 or valid GnuTLS <a href="https://gnutls.org/manual/html_node/Priority-Strings.html">priority strings</a>. Their values are passed to the <code>SSL_CTX_set_cipher_list()</code> or <code>gnutls_priority_init()</code> functions, respectively.</td>
+<td>Ciphersuite selection criteria for TLS 1.2/1.3 (GnuTLS), TLS 1.2 (OpenSSL)</td>
+</tr>
+</tbody>
+</table>
+<p>Para anular la selección de ciphersuite en las utilidades zabbix_get y zabbix_sender - utilice los parámetros de línea de comandos:</p>
+<ul>
+<li>--tls-cipher13</li>
+<li>--tls-cipher</li>
+</ul>
+<p>Los nuevos parámetros son opcionales. Si no se especifica un parámetro, se utiliza el valor interno por defecto. Si se define un parámetro, no puede estar vacío.</p>
+<p>Si la configuración de un valor TLSCipher* en la biblioteca crypto falla, el servidor, proxy o agente no se iniciará y se registrará un error.</p>
+<p>Es importante comprender cuándo es aplicable cada parámetro.</p>
+<h4 id="conexiones-salientes">Conexiones salientes</h4>
+<p>El caso más sencillo es el de las conexiones salientes:</p>
+<ul>
+<li>Para conexiones salientes con certificado - utilice TLSCipherCert13 o TLSCipherCert</li>
+<li>Para conexiones salientes con PSK - utilice TLSCipherPSK13 o TLSCipherPSK</li>
+<li>En el caso de las utilidades zabbix_get y zabbix_sender pueden utilizarse los parámetros de línea de comandos --tls-cipher13 o --tls-cipher (el cifrado se especifica inequívocamente con un parámetro --tls-connect)</li>
+</ul>
+<h4 id="conexiones-entrantes">Conexiones entrantes</h4>
+<p>Es un poco más complicado con las conexiones entrantes porque las reglas son específicas para los componentes y la configuración.</p>
+<p>Para el agente <strong>Zabbix</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Configuración de la conexión del agente</th>
+<th>Configuración del cifrado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLSConnect=cert</td>
+<td>TLSCipherCert, TLSCipherCert13</td>
+</tr>
+<tr>
+<td>TLSConnect=psk</td>
+<td>TLSCipherPSK, TLSCipherPSK13</td>
+</tr>
+<tr>
+<td>TLSAccept=cert</td>
+<td>TLSCipherCert, TLSCipherCert13</td>
+</tr>
+<tr>
+<td>TLSAccept=psk</td>
+<td>TLSCipherPSK, TLSCipherPSK13</td>
+</tr>
+<tr>
+<td>TLSAccept=cert,psk</td>
+<td>TLSCipherAll, TLSCipherAll13</td>
+</tr>
+</tbody>
+</table>
+<p>Para el <strong>Servidor</strong> y el <strong>Proxy</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Configuración de la conexión</th>
+<th>Configuración del cifrado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Outgoing connections using PSK</td>
+<td>TLSCipherPSK, TLSCipherPSK13</td>
+</tr>
+<tr>
+<td>Incoming connections using certificates</td>
+<td>TLSCipherAll, TLSCipherAll13</td>
+</tr>
+<tr>
+<td>Incoming connections using PSK if server has no certificate</td>
+<td>TLSCipherPSK, TLSCipherPSK13</td>
+</tr>
+<tr>
+<td>Incoming connections using PSK if server has certificate</td>
+<td>TLSCipherAll, TLSCipherAll13</td>
+</tr>
+</tbody>
+</table>
+<p>En las dos tablas anteriores se puede observar un cierto patrón:</p>
+<ul>
+<li>TLSCipherAll y TLSCipherAll13 sólo pueden especificarse si se utiliza una lista combinada de cifrados basados en certificados <strong>y</strong> PSK. Hay dos casos en los que tiene lugar: servidor (proxy) con un certificado configurado (los cifrados PSK siempre se configuran en el servidor, proxy si la biblioteca criptográfica admite PSK), agente configurado para aceptar conexiones entrantes basadas tanto en certificados como en PSK.</li>
+<li>En otros casos TLSCipherCert<em> y/o TLSCipherPSK</em> son suficientes</li>
+</ul>
+<p>Las siguientes tablas muestran los valores por defecto incorporados en TLSCipher*. Podrían ser un buen punto de partida para sus propios valores personalizados.</p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>GnuTLS 3.6.12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLSCipherCert</td>
+<td>NONE:+VERS-TLS1.2:+ECDHE-RSA:+RSA:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+SHA1:+CURVE-ALL:+COMP-NULL:+SIGN-ALL:+CTYPE-X.509</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>TLSCipherPSK</td>
+<td>NONE:+VERS-TLS1.2:+ECDHE-PSK:+PSK:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+SHA1:+CURVE-ALL:+COMP-NULL:+SIGN-ALL</td>
+</tr>
+<tr>
+<td>TLSCipherAll</td>
+<td>NONE:+VERS-TLS1.2:+ECDHE-RSA:+RSA:+ECDHE-PSK:+PSK:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+SHA1:+CURVE-ALL:+COMP-NULL:+SIGN-ALL:+CTYPE-X.509</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>OpenSSL 1.1.1d ^<strong>1</strong>^</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TLSCipherCert13</td>
+<td></td>
+</tr>
+<tr>
+<td>TLSCipherCert</td>
+<td>EECDH+aRSA+AES128:RSA+aRSA+AES128</td>
+</tr>
+<tr>
+<td>TLSCipherPSK13</td>
+<td>TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SHA256</td>
+</tr>
+<tr>
+<td>TLSCipherPSK</td>
+<td>kECDHEPSK+AES128:kPSK+AES128</td>
+</tr>
+<tr>
+<td>TLSCipherAll13</td>
+<td></td>
+</tr>
+<tr>
+<td>TLSCipherAll</td>
+<td>EECDH+aRSA+AES128:RSA+aRSA+AES128:kECDHEPSK+AES128:kPSK+AES128</td>
+</tr>
+</tbody>
+</table>
+<p>^1^ Los valores por defecto son diferentes para versiones antiguas de OpenSSL (1.0.1, 1.0.2, 1.1.0), para LibreSSL y si OpenSSL se compila sin soporte PSK.</p>
+<h5 id="ejemplos-de-cifrados-configurados-por-el-usuario">Ejemplos de cifrados configurados por el usuario</h5>
+<p>Vea a continuación los siguientes ejemplos de cifrados configurados por el usuario:</p>
+<ul>
+<li><a href="https://www.zabbix.com/documentation/devel/en/manual/encryption#testing-cipher-strings-and-allowing-only-pfs-ciphersuites">Probar cadenas de cifrado y permitir sólo cifrados PFS</a></li>
+<li><a href="https://www.zabbix.com/documentation/devel/en/manual/encryption#switching-from-aes128-to-aes256">Cambio de AES128 a AES256</a></li>
+</ul>
+<h3 id="probar-cadenas-de-cifrado-y-permitir-solo-cifrados-pfs">Probar cadenas de cifrado y permitir sólo cifrados PFS</h3>
+<p>Para ver qué cifrados se han seleccionado es necesario establecer <code>DebugLevel=4</code> en el archivo de configuración, o utilizar la opción <code>-vv</code> para <code>zabbix_sender</code>.</p>
+<p>Puede que sea necesario experimentar con los parámetros de TLSCipher<em> antes de obtener los cifrados deseados. Es inconveniente reiniciar el servidor Zabbix, proxy o agente varias veces sólo para ajustar los parámetros TLSCipher</em>. Opciones más convenientes son usar <strong>zabbix_sender</strong> o el comando <strong>openssl</strong>. Vamos a mostrar ambos.</p>
+<ol>
+<li>
+<p>Usando zabbix_sender.
+  Hagamos un archivo de configuración de prueba, por ejemplo /home/zabbix/test.conf, con la sintaxis de un archivo zabbix_agentd.conf:
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Hostname=nonexisting
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ServerActive=nonexisting
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>TLSConnect=cert
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>TLSCAFile=/home/zabbix/ca.crt
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>TLSCertFile=/home/zabbix/agent.crt
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>TLSKeyFile=/home/zabbix/agent.key
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>TLSPSKIdentity=nonexisting
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>TLSPSKFile=/home/zabbix/agent.psk
+</code></pre></div></p>
+<p>Para este ejemplo necesita certificados CA y de agente y PSK válidos. Adapte las rutas y los nombres de los archivos de certificados y PSK a su entorno.</p>
+<p>Si no utiliza certificados, sino sólo PSK, puede crear un archivo de prueba más sencillo:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Hostname=nonexisting
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ServerActive=nonexisting
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>TLSConnect=psk
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>TLSPSKIdentity=nonexisting
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>TLSPSKFile=/home/zabbix/agentd.psk
+</code></pre></div></p>
+<p>Los cifrados seleccionados pueden verse ejecutando zabbix_sender (ejemplo compilado con OpenSSL 1.1.d):
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>zabbix_sender<span class="w"> </span>-vv<span class="w"> </span>-c<span class="w"> </span>/home/zabbix/test.conf<span class="w"> </span>-k<span class="w"> </span>nonexisting_item<span class="w"> </span>-o<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cifrado
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>zabbix_sender [41271]: DEBUG: zbx_tls_init_child() certificate ciphersuites: TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA256 ECDHE-RSA-AES128-SHA AES128-GCM-SHA256 AES128-CCM8 AES128-CCM AES128-SHA256 AES128-SHA
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>zabbix_sender [41271]: DEBUG: zbx_tls_init_child() PSK ciphersuites: TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-PSK-AES128-CBC-SHA256 ECDHE-PSK-AES128-CBC-SHA PSK-AES128-GCM-SHA256 PSK-AES128-CCM8 PSK-AES128-CCM PSK-AES128-CBC-SHA256 PSK-AES128-CBC-SHA
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>zabbix_sender [41271]: DEBUG: zbx_tls_init_child() certificate and PSK ciphersuites: TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA256 ECDHE-RSA-AES128-SHA AES128-GCM-SHA256 AES128-CCM8 AES128-CCM AES128-SHA256 AES128-SHA ECDHE-PSK-AES128-CBC-SHA256 ECDHE-PSK-AES128-CBC-SHA PSK-AES128-GCM-SHA256 PSK-AES128-CCM8 PSK-AES128-CCM PSK-AES128-CBC-SHA256 PSK-AES128-CBC-SHA
+</code></pre></div></p>
+<p>Aquí puede ver los cifrados seleccionados por defecto. Estos valores por defecto se eligen para garantizar la interoperabilidad con los agentes Zabbix que se ejecutan en sistemas con versiones anteriores de OpenSSL (a partir de 1.0.1).</p>
+<p>Con los nuevos sistemas puedes elegir reforzar la seguridad permitiendo sólo unos pocos cifrados, por ejemplo, sólo cifrados con PFS (Perfect Forward Secrecy). Intentemos permitir sólo cifrados con PFS usando los parámetros TLSCipher*.</p>
+<p><strong>ATENCIÓN</strong>:</p>
+<blockquote>
+<p>El resultado no será interoperable con sistemas que utilicen OpenSSL 1.0.1 y 1.0.2, si se utiliza PSK. El cifrado basado en certificados debería funcionar</p>
+</blockquote>
+<p>Añada dos líneas al archivo de configuración test.conf:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>TLSCipherCert=EECDH+aRSA+AES128
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>TLSCipherPSK=kECDHEPSK+AES128
+</code></pre></div></p>
+<p>y prueba de nuevo:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>zabbix_sender<span class="w"> </span>-vv<span class="w"> </span>-c<span class="w"> </span>/home/zabbix/test.conf<span class="w"> </span>-k<span class="w"> </span>nonexisting_item<span class="w"> </span>-o<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ciphersuites<span class="w">            </span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>zabbix_sender [42892]: DEBUG: zbx_tls_init_child() certificate ciphersuites: TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA256 ECDHE-RSA-AES128-SHA        
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>zabbix_sender [42892]: DEBUG: zbx_tls_init_child() PSK ciphersuites: TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-PSK-AES128-CBC-SHA256 ECDHE-PSK-AES128-CBC-SHA        
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>zabbix_sender [42892]: DEBUG: zbx_tls_init_child() certificate and PSK ciphersuites: TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA256 ECDHE-RSA-AES128-SHA AES128-GCM-SHA256 AES128-CCM8 AES128-CCM AES128-SHA256 AES128-SHA ECDHE-PSK-AES128-CBC-SHA256 ECDHE-PSK-AES128-CBC-SHA PSK-AES128-GCM-SHA256 PSK-AES128-CCM8 PSK-AES128-CCM PSK-AES128-CBC-SHA256 PSK-AES128-CBC-SHA
+</code></pre></div></p>
+<p>Las listas "certificados cifrados" y "PSK cifrados" han cambiado: son más cortas que antes y sólo contienen cifrados TLS 1.3 y cifrados TLS 1.2 ECDHE-*, como era de esperar.</p>
+</li>
+<li>
+<p>TLSCipherAll y TLSCipherAll13 no se pueden probar con zabbix_sender; no afectan al valor de "certificate and PSK cifrados" mostrado en el ejemplo anterior. Para ajustar TLSCipherAll y TLSCipherAll13 necesita experimentar con el agente, proxy o servidor.</p>
+<p>Por lo tanto, para permitir sólo cifrados PFS, puede que tenga que añadir hasta tres parámetros
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>TLSCipherCert=EECDH+aRSA+AES128
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>TLSCipherPSK=kECDHEPSK+AES128
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>TLSCipherAll=EECDH+aRSA+AES128:kECDHEPSK+AES128
+</code></pre></div></p>
+<p>A zabbix_agentd.conf, zabbix_proxy.conf y zabbix_server_conf si cada uno de ellos tiene un certificado configurado y el agente también tiene PSK.</p>
+<p>Si su entorno Zabbix utiliza sólo el cifrado basado en PSK y sin certificados, entonces sólo uno:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>TLSCipherPSK=kECDHEPSK+AES128
+</code></pre></div></p>
+<p>Ahora que entiendes cómo funciona puedes probar la selección de la cifrado incluso fuera de Zabbix, con el comando openssl. Vamos a probar los tres valores del parámetro TLSCipher*:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>openssl<span class="w"> </span>ciphers<span class="w"> </span>EECDH+aRSA+AES128<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/:/ /g&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA256 ECDHE-RSA-AES128-SHA
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>openssl<span class="w"> </span>ciphers<span class="w"> </span>kECDHEPSK+AES128<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/:/ /g&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-PSK-AES128-CBC-SHA256 ECDHE-PSK-AES128-CBC-SHA
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>openssl<span class="w"> </span>ciphers<span class="w"> </span>EECDH+aRSA+AES128:kECDHEPSK+AES128<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/:/ /g&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>TLS_AES_256_GCM_SHA384 TLS_CHACHA20_POLY1305_SHA256 TLS_AES_128_GCM_SHA256 ECDHE-RSA-AES128-GCM-SHA256 ECDHE-RSA-AES128-SHA256 ECDHE-RSA-AES128-SHA ECDHE-PSK-AES128-CBC-SHA256 ECDHE-PSK-AES128-CBC-SHA
+</code></pre></div>
+Puede que prefiera openssl ciphers con la opción -V para una salida más verbosa:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>openssl<span class="w"> </span>ciphers<span class="w"> </span>-V<span class="w"> </span>EECDH+aRSA+AES128:kECDHEPSK+AES128
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>        0x13,0x02 - TLS_AES_256_GCM_SHA384  TLSv1.3 Kx=any      Au=any  Enc=AESGCM(256) Mac=AEAD
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>        0x13,0x03 - TLS_CHACHA20_POLY1305_SHA256 TLSv1.3 Kx=any      Au=any  Enc=CHACHA20/POLY1305(256) Mac=AEAD
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>        0x13,0x01 - TLS_AES_128_GCM_SHA256  TLSv1.3 Kx=any      Au=any  Enc=AESGCM(128) Mac=AEAD
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        0xC0,0x2F - ECDHE-RSA-AES128-GCM-SHA256 TLSv1.2 Kx=ECDH     Au=RSA  Enc=AESGCM(128) Mac=AEAD
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        0xC0,0x27 - ECDHE-RSA-AES128-SHA256 TLSv1.2 Kx=ECDH     Au=RSA  Enc=AES(128)  Mac=SHA256
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>        0xC0,0x13 - ECDHE-RSA-AES128-SHA    TLSv1 Kx=ECDH     Au=RSA  Enc=AES(128)  Mac=SHA1
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>        0xC0,0x37 - ECDHE-PSK-AES128-CBC-SHA256 TLSv1 Kx=ECDHEPSK Au=PSK  Enc=AES(128)  Mac=SHA256
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>        0xC0,0x35 - ECDHE-PSK-AES128-CBC-SHA TLSv1 Kx=ECDHEPSK Au=PSK  Enc=AES(128)  Mac=SHA1
+</code></pre></div></p>
+<p>Del mismo modo, puede probar las cadenas de prioridad para GnuTLS:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>gnutls-cli<span class="w"> </span>-l<span class="w"> </span>--priority<span class="o">=</span>NONE:+VERS-TLS1.2:+ECDHE-RSA:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+CURVE-ALL:+COMP-NULL:+SIGN-ALL:+CTYPE-X.509
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Cipher suites for NONE:+VERS-TLS1.2:+ECDHE-RSA:+AES-128-GCM:+AES-128-CBC:+AEAD:+SHA256:+CURVE-ALL:+COMP-NULL:+SIGN-ALL:+CTYPE-X.509
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>TLS_ECDHE_RSA_AES_128_GCM_SHA256                        0xc0, 0x2f      TLS1.2
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>TLS_ECDHE_RSA_AES_128_CBC_SHA256                        0xc0, 0x27      TLS1.2
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>Protocols: VERS-TLS1.2
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>Ciphers: AES-128-GCM, AES-128-CBC
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>MACs: AEAD, SHA256
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>Key Exchange Algorithms: ECDHE-RSA
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a>Groups: GROUP-SECP256R1, GROUP-SECP384R1, GROUP-SECP521R1, GROUP-X25519, GROUP-X448, GROUP-FFDHE2048, GROUP-FFDHE3072, GROUP-FFDHE4096, GROUP-FFDHE6144, GROUP-FFDHE8192
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a>PK-signatures: SIGN-RSA-SHA256, SIGN-RSA-PSS-SHA256, SIGN-RSA-PSS-RSAE-SHA256, SIGN-ECDSA-SHA256, SIGN-ECDSA-SECP256R1-SHA256, SIGN-EdDSA-Ed25519, SIGN-RSA-SHA384, SIGN-RSA-PSS-SHA384, SIGN-RSA-PSS-RSAE-SHA384, SIGN-ECDSA-SHA384, SIGN-ECDSA-SECP384R1-SHA384, SIGN-EdDSA-Ed448, SIGN-RSA-SHA512, SIGN-RSA-PSS-SHA512, SIGN-RSA-PSS-RSAE-SHA512, SIGN-ECDSA-SHA512, SIGN-ECDSA-SECP521R1-SHA512, SIGN-RSA-SHA1, SIGN-ECDSA-SHA1
+</code></pre></div></p>
+</li>
+</ol>
+<h4 id="cambio-de-aes128-a-aes256">Cambio de AES128 a AES256</h4>
+<p>Zabbix utiliza AES128 por defecto para los datos. Supongamos que está utilizando certificados y desea cambiar a AES256, en OpenSSL 1.1.1.</p>
+<p>Esto se puede conseguir añadiendo los parámetros respectivos en <code>zabbix_server.conf</code>:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>TLSCAFile=/home/zabbix/ca.crt
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>TLSCertFile=/home/zabbix/server.crt
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>TLSKeyFile=/home/zabbix/server.key
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>TLSCipherCert13=TLS_AES_256_GCM_SHA384
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>TLSCipherCert=EECDH+aRSA+AES256:-SHA1:-SHA384
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>TLSCipherPSK13=TLS_CHACHA20_POLY1305_SHA256
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>TLSCipherPSK=kECDHEPSK+AES256:-SHA1
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>TLSCipherAll13=TLS_AES_256_GCM_SHA384
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>TLSCipherAll=EECDH+aRSA+AES256:-SHA1:-SHA384
+</code></pre></div></p>
+<p><strong>ATENCIÓN</strong>:</p>
+<blockquote>
+<p>Aunque sólo se utilizarán los cifrados relacionados con certificados, también se definen los parámetros TLSCipherPSK* para evitar sus valores por defecto, que incluyen cifrados menos seguros para una mayor interoperabilidad. Los cifrados PSK no pueden deshabilitarse completamente en el servidor/proxy.</p>
+</blockquote>
+<p>Y en zabbix_agentd.conf:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>TLSConnect=cert
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>TLSAccept=cert
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>TLSCAFile=/home/zabbix/ca.crt
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>TLSCertFile=/home/zabbix/agent.crt
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>TLSKeyFile=/home/zabbix/agent.key
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>TLSCipherCert13=TLS_AES_256_GCM_SHA384
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>TLSCipherCert=EECDH+aRSA+AES256:-SHA1:-SHA384
+</code></pre></div></p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        ¿Te ha resultado útil esta página?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="¿Te ha resultado útil esta página?" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="Esta página podría mejorarse" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios.
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios. Ayúdenos a mejorar esta página utilizando nuestro <a href="..." target="_blank" rel="noopener">formulario de comentarios</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 <a href="https://github.com/terracenter target="_blank" rel="noopener"> Freddy Taborda </a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/terracenter" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/terracenter0" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/freddy-taborda-5199802a/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3298 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Freddy Taborda">
+      
+      
+      
+        <link rel="prev" href="../02.Preparando%20las%20cosas%20con%20la%20gesti%C3%B3n%20de%20usuarios%20de%20Zabbix/">
+      
+      
+        <link rel="next" href="../04.Cap%C3%ADtulo_%20Trabajar%20con%20disparadores%20y%20alertas/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>Capítulo 3: Configuración de la monitorización de Zabbix - El Blog de Humanbyte</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-5T8Q8F61MQ"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-5T8Q8F61MQ",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-5T8Q8F61MQ",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-3-configuracion-de-la-monitorizacion-de-zabbix" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="El Blog de Humanbyte" class="md-header__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            El Blog de Humanbyte
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Capítulo 3: Configuración de la monitorización de Zabbix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Bienvenidos a la Biblioteca
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-tabs__link">
+          
+  
+  Cursos
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Docs/" class="md-tabs__link">
+          
+  
+  Docs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  Libros
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Manuales/Linux/00.Seguridad/" class="md-tabs__link">
+          
+  
+  Manuales
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Monitoreo_de_Redes/Log_Serer/rsyslog_Server/" class="md-tabs__link">
+          
+  
+  Monitoreo de Redes
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-tabs__link">
+          
+  
+  Virtualizacion
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="El Blog de Humanbyte" class="md-nav__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    El Blog de Humanbyte
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bienvenidos a la Biblioteca
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cursos
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Docs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Docs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Libros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Libros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Libros de:
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../Odoo/Fundamentos-de-desarrollo-de-Odoo-15/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Odoo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix 6 Supervisión de infraestructuras de TI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix 6 Supervisión de infraestructuras de TI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix 6 IT Infrastructure Monitoring Cookbook - Second Edition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00.Prefacio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00.Prefacio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01.Instalaci%C3%B3n%20de%20Zabbix%20y%20primeros%20pasos%20con%20el%20frontend/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    01.Instalación de Zabbix y primeros pasos con el frontend
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02.Preparando%20las%20cosas%20con%20la%20gesti%C3%B3n%20de%20usuarios%20de%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02.Preparando las cosas con la gestión de usuarios de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Capítulo 3: Configuración de la monitorización de Zabbix
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Capítulo 3: Configuración de la monitorización de Zabbix
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos técnicos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-monitorizacion-del-agente-2-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la monitorización del agente 2 de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la monitorización del agente 2 de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo hacerlo...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalando-el-agente-2-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalando el agente 2 de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalando el agente 2 de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-un-agente-zabbix-en-modo-pasivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso de un agente Zabbix en modo pasivo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usando-un-agente-zabbix-en-modo-activo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usando un agente Zabbix en modo activo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo funciona...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agente-pasivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agente pasivo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agente-activo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agente activo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-tambien" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver también
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajando-con-monitorizacion-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajando con monitorización SNMP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajando con monitorización SNMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-comprobaciones-sencillas-de-zabbix-y-el-trap-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de comprobaciones sencillas de Zabbix y el trap de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de comprobaciones sencillas de Zabbix y el trap de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo hacerlo...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-comprobaciones-simples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de comprobaciones simples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-un-trapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de un trapper
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo funciona...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobaciones-simples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprobaciones simples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajar-con-items-calculados-y-dependientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajar con items calculados y dependientes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajar con items calculados y dependientes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trabajando-con-items-calculados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajando con ítems calculados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajando con ítems calculados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trabajar-con-elementos-dependientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajar con elementos dependientes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-comprobaciones-externas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de comprobaciones externas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de comprobaciones externas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-monitorizacion-jmx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la monitorización JMX
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la monitorización JMX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-tambien_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver también
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-supervision-de-bases-de-datos-configuracion-de-la-supervision-de-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la supervisión de bases de datos Configuración de la supervisión de bases de datos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la supervisión de bases de datos Configuración de la supervisión de bases de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y-aun-hay-mas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Y aún hay más...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-monitorizacion-del-agente-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la monitorización del agente HTTP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la monitorización del agente HTTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso-del-preprocesamiento-de-zabbix-para-modificar-los-valores-de-los-elementos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso del preprocesamiento de Zabbix para modificar los valores de los elementos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uso del preprocesamiento de Zabbix para modificar los valores de los elementos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comenzando" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comenzando
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-tambien_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver también
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04.Cap%C3%ADtulo_%20Trabajar%20con%20disparadores%20y%20alertas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04.Capítulo  Trabajar con disparadores y alertas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.Cap%C3%ADtulo_%20Cree%20sus%20propias%20plantillas%20estructuradas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05.Capítulo  Cree sus propias plantillas estructuradas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06.Cap%C3%ADtulo_%20Visualizaci%C3%B3n%20de%20datos%2C%20inventario%20e%20informes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.Capítulo  Visualización de datos, inventario e informes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07.Cap%C3%ADtulo_%20Uso%20de%20Discovery%20para%20la%20creaci%C3%B3n%20autom%C3%A1tica/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07.Capítulo  Uso de Discovery para la creación automática
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08.Cap%C3%ADtulo_%20Configuraci%C3%B3n%20de%20proxies%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08.Capítulo  Configuración de proxies Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09.Cap%C3%ADtulo_%20Integraci%C3%B3n%20de%20Zabbix%20con%20servicios%20externos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09.Capítulo  Integración de Zabbix con servicios externos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10.Cap%C3%ADtulo_%20Ampliaci%C3%B3n%20de%20la%20funcionalidad%20de%20Zabbix%20con%20scripts%20personalizados%20y%20la%20API%20de%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.Capítulo  Ampliación de la funcionalidad de Zabbix con scripts personalizados y la API de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11.Cap%C3%ADtulo_%20Mantenimiento%20de%20la%20configuraci%C3%B3n%20de%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11.Capítulo  Mantenimiento de la configuración de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12.Cap%C3%ADtulo_%20Gesti%C3%B3n%20avanzada%20de%20bases%20de%20datos%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12.Capítulo  Gestión avanzada de bases de datos Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13.Cap%C3%ADtulo_%20Llevar%20Zabbix%20a%20la%20nube%20con%20Zabbix%20Cloud%20Integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13.Capítulo  Llevar Zabbix a la nube con Zabbix Cloud Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Otros%20libros%20que%20le%20pueden%20interesar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Otros libros que le pueden interesar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Manuales/Linux/00.Seguridad/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Manuales
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Monitoreo_de_Redes/Log_Serer/rsyslog_Server/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Monitoreo de Redes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Virtualizacion
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos técnicos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-monitorizacion-del-agente-2-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la monitorización del agente 2 de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la monitorización del agente 2 de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo hacerlo...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalando-el-agente-2-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalando el agente 2 de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalando el agente 2 de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uso-de-un-agente-zabbix-en-modo-pasivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso de un agente Zabbix en modo pasivo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usando-un-agente-zabbix-en-modo-activo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usando un agente Zabbix en modo activo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo funciona...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#agente-pasivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agente pasivo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agente-activo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agente activo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-tambien" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver también
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajando-con-monitorizacion-snmp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajando con monitorización SNMP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajando con monitorización SNMP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-funciona_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-comprobaciones-sencillas-de-zabbix-y-el-trap-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de comprobaciones sencillas de Zabbix y el trap de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de comprobaciones sencillas de Zabbix y el trap de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo hacerlo...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-comprobaciones-simples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de comprobaciones simples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#creacion-de-un-trapper" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de un trapper
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo funciona...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprobaciones-simples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprobaciones simples
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajar-con-items-calculados-y-dependientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajar con items calculados y dependientes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajar con items calculados y dependientes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trabajando-con-items-calculados" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajando con ítems calculados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Trabajando con ítems calculados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trabajar-con-elementos-dependientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajar con elementos dependientes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-comprobaciones-externas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de comprobaciones externas
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Creación de comprobaciones externas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-monitorizacion-jmx" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la monitorización JMX
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la monitorización JMX">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-tambien_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver también
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-supervision-de-bases-de-datos-configuracion-de-la-supervision-de-bases-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la supervisión de bases de datos Configuración de la supervisión de bases de datos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la supervisión de bases de datos Configuración de la supervisión de bases de datos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#y-aun-hay-mas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Y aún hay más...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-de-la-monitorizacion-del-agente-http" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la monitorización del agente HTTP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración de la monitorización del agente HTTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uso-del-preprocesamiento-de-zabbix-para-modificar-los-valores-de-los-elementos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uso del preprocesamiento de Zabbix para modificar los valores de los elementos
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Uso del preprocesamiento de Zabbix para modificar los valores de los elementos">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comenzando" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comenzando
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ver-tambien_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ver también
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="capitulo-3-configuracion-de-la-monitorizacion-de-zabbix">Capítulo 3: Configuración de la monitorización de Zabbix</h1>
+<p>Zabbix está construido para ser flexible y debe ser capaz de monitorizar casi cualquier cosa que pueda necesitar. En este capítulo, vamos a aprender más acerca de cómo trabajar con Zabbix para construir un montón de diferentes opciones para la monitorización. Vamos a ir sobre ellos receta por receta, por lo que va a terminar con una sólida comprensión de cómo funcionan. Cubriremos las siguiente<strong>s</strong> recetas sobre los diferentes tipos de monitorización:</p>
+<ul>
+<li>Configuración de la monitorización del agente Zabbix</li>
+<li>Trabajando con monitorización SNMP</li>
+<li>Creación de comprobaciones simples de Zabbix y Zabbix trapper</li>
+<li>Trabajo con elementos calculados y dependientes</li>
+<li>Creación de comprobaciones externas</li>
+<li>Configuración de la monitorización JMX</li>
+<li>Configuración de la monitorización de bases de datos</li>
+<li>Configuración de la monitorización del agente HTTP</li>
+<li>Uso del preprocesamiento de Zabbix para modificar los valores de los elementos</li>
+</ul>
+<h2 id="requisitos-tecnicos">Requisitos técnicos</h2>
+<p>Necesitaremos un servidor Zabbix capaz de realizar monitorización, con los siguientes requisitos:</p>
+<ul>
+<li>Un servidor con el servidor Zabbix instalado en una distribución Linux de su elección, como CentOS o Ubuntu, pero una distribución como Debian, Rocky Linux, o cualquier otra le vendrá igual de bien</li>
+<li>Un servidor MariaDB para monitorizar</li>
+</ul>
+<p>Utilizaré el mismo servidor que usamos en el capítulo anterior, pero cualquier servidor Zabbix puede servir.</p>
+<h2 id="configuracion-de-la-monitorizacion-del-agente-2-de-zabbix">Configuración de la monitorización del agente 2 de Zabbix</h2>
+<p>A partir del lanzamiento de Zabbix 5, Zabbix también inició oficialmente el soporte para el nuevo agente Zabbix 2. Zabbix agente 2 trae algunas mejoras importantes e incluso está escrito en otro lenguaje de codificación, que es Golang en lugar de C.  En esta receta, vamos a explorar cómo trabajar con Zabbix agente 2 y explorar algunas de las nuevas características introducidas por ella.</p>
+<h3 id="preparandonos">Preparándonos</h3>
+<p>Para empezar con el agente 2 de Zabbix, todo lo que necesitamos hacer es instalarlo en un host que queramos monitorizar. Asegúrate de que tienes un host vacío basado en Red Hat Enterprise Linux (RHEL) o Ubuntu Linux listo para monitorizar.</p>
+<h3 id="como-hacerlo">Cómo hacerlo...</h3>
+<p>Vamos a ver cómo instalar Zabbix agente 2 y luego pasar a trabajar realmente con él.</p>
+<h4 id="instalando-el-agente-2-de-zabbix">Instalando el agente 2 de Zabbix</h4>
+<p>Comencemos instalando el agente 2 de Zabbix en el host Linux que queremos monitorizar. Te mostraré cómo hacer los pasos tanto en sistemas RHEL como Ubuntu:</p>
+<ol>
+<li>Ejecuta el siguiente comando para añadir el repositorio:
+   Para sistemas basados en RHEL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>rpm<span class="w"> </span>-Uvh<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>wget<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-1+ubuntu20.04_all.deb
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>dpkg<span class="w"> </span>-i<span class="w"> </span>zabbix-release_6.0-1+ubuntu20.04_all.deb
+</code></pre></div>
+2. A continuación, ejecute el siguiente comando para instalar el agente 2 de Zabbix:
+   Para sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>zabbix-agent2
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>apt<span class="w"> </span>install<span class="w"> </span>zabbix-agent2
+</code></pre></div>
+<p>Enhorabuena, el agente 2 de Zabbix ya está instalado y listo para usar.</p>
+<p><strong>Nota importante</strong>
+Cuando añadas nuevos repositorios a tu sistema, consulta siempre la página de descargas de Zabbix. Aquí podemos encontrar el repositorio actualizado adecuado para nuestro sistema:
+https://www.zabbix.com/download</p>
+<h5 id="uso-de-un-agente-zabbix-en-modo-pasivo">Uso de un agente Zabbix en modo pasivo</h5>
+<p>Empecemos construyendo un agente Zabbix con comprobaciones pasivas:</p>
+<ol>
+<li>Después de instalar el agente 2 de Zabbix, vamos a abrir el fichero de configuración del agente Zabbix para editarlo:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>vim<span class="w"> </span>/etc/zabbix/zabbix_agent2.conf
+</code></pre></div></li>
+</ol>
+<p>En este archivo, editamos todos los valores de configuración del agente Zabbix que podríamos necesitar desde el lado del servidor.</p>
+<ol>
+<li>Empecemos por editar los siguientes parámetros</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Server=127.0.0.1
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Hostname=Zabbix server
+</code></pre></div>
+3. Cambie el valor de Server por la IP del servidor Zabbix que monitorizará este agente pasivo. Cambiar el valor de Hostname por el nombre de host del servidor monitorizado. Podemos obtener la dirección IP de nuestro servidor con el siguiente comando:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ip<span class="w"> </span>addr
+</code></pre></div>
+4. Ahora reinicie el proceso del agente 2 de Zabbix:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>zabbix-agent2
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zabbix-agent2
+</code></pre></div>
+5. A continuación, vaya al frontend de su servidor Zabbix y añada este host para su monitorización.
+6. Vaya a <strong>Configuration</strong> | <strong>Hosts</strong> en su frontend Zabbix y haga clic en Crear host en la esquina superior derecha.
+7. Para crear este host en nuestro servidor Zabbix, tenemos que rellenar los valores como se ve en la siguiente captura de pantalla
+   <img alt="Figura 3.1 - Página de creación de host Zabbix para el host lar-book-agent" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_001.jpg" />
+   Figura 3.1 - Página de creación de host Zabbix para el host lar-book-agent</p>
+<p><strong>Es importante añadir lo siguiente</strong></p>
+<ul>
+<li><strong>Nombre del Host</strong>: Para identificar este host</li>
+<li><strong>Grupos</strong>: Para agrupar hosts de forma lógica</li>
+<li>
+<p><strong>Interfaces</strong>: Para supervisar este host en una interfaz específica. Sin interfaz no hay comunicación. Es posible tener un host sin interfaz en Zabbix 6, si no lo necesitamos. En el caso de un host monitorizado por un agente Zabbix, necesitamos una interfaz de agente.</p>
+</li>
+<li>
+<p>Asegúrese de añadir la dirección IP correcta a la configuración de la interfaz del agente.</p>
+</li>
+<li>También es importante añadir una plantilla a este host, que con Zabbix 6 debe hacerse en la misma pestaña. Como se trata de un servidor Linux monitorizado por un agente Zabbix, vamos a añadir la plantilla out-of-the-box correcta, como se muestra en la siguiente captura de pantalla:
+   <img alt="Figura 3.2 - Página de plantilla de host Zabbix para el host lar-book-agent" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_002.jpg" /></li>
+</ul>
+<p>Figura 3.2 - Página de plantilla de host Zabbix para el host lar-book-agent
+10. Pulsa el botón azul Añadir y habrás terminado de crear este host agente. Ahora que tienes este host, asegúrate de que el icono ZBX se vuelve verde, indicando que este host está activo y siendo monitorizado por el agente pasivo de Zabbix:
+    <img alt="Figura 3.3 - Página de configuración de hosts de Zabbix, host lar-book-agent" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_003.jpg" />
+    Figura 3.3 - Página de configuración de hosts de Zabbix, host lar-book-agent
+11. Como hemos configurado nuestro host y añadido una plantilla con ítems, ahora podemos ver los valores recibidos en los ítems para este host yendo a <strong>Monitoring</strong> | <strong>Hosts</strong> y marcando el botón <strong>Latest data</strong>. Tenga en cuenta que los valores pueden tardar un poco en aparecer:
+    <img alt="Figura 3.4 - Página de Latest data de Zabbix para el host lar-book-agent" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_004.jpg" />
+    Figura 3.4 - Página de Latest data de Zabbix para el host lar-book-agent</p>
+<hr />
+<h5 id="usando-un-agente-zabbix-en-modo-activo">Usando un agente Zabbix en modo activo</h5>
+<p>Ahora vamos a ver cómo configurar el agente Zabbix con comprobaciones activas. Necesitamos cambiar algunos valores en el lado del host del servidor Linux monitorizado:</p>
+<ol>
+<li>Comience ejecutando el siguiente comando:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>vim<span class="w"> </span>/etc/zabbix/zabbix_agent2.conf
+</code></pre></div>
+2. Ahora vamos a editar el siguiente valor para cambiar este host a un agente activo:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ServerActive=127.0.0.1
+</code></pre></div>
+3. Cambia el valor de <code>serverActive</code> por la IP del servidor Zabbix que monitorizará este agente pasivo y cambia también el valor de <code>Hostname</code> por <code>lar-book-agent</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Hostname=lar-book-agent
+</code></pre></div>
+<p><strong>Nota importante</strong>
+   Ten en cuenta que si estás trabajando con múltiples servidores Zabbix o proxies Zabbix, por ejemplo cuando estás ejecutando el servidor Zabbix en alta disponibilidad, necesitas rellenar todas las direcciones IP de los servidores Zabbix o proxies en el parámetro <strong>ServerActive</strong>. Los nodos de <strong>Alta Disponibilidad (HA)</strong> están delimitados por un punto y coma (;) y las diferentes IPs del entorno Zabbix por una coma (,).
+4. Ahora reinicia el proceso del agente 2 de Zabbix</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zabbix-agent2
+</code></pre></div>
+5. A continuación, vaya al frontend de su servidor Zabbix y vamos a añadir otro host con una plantilla para hacer comprobaciones activas en lugar de pasivas.
+6. En primer lugar, vamos a cambiar el nombre de nuestro host pasivo. Para ello, vaya a <strong>Configuration</strong> | <strong>Hosts</strong> en su frontend Zabbix y haga clic en el host que acabamos de crear. Cambia el <strong>Host name</strong> como sigue:
+   <img alt="Figura 3.5 - Página de configuración del host Zabbix lar-book-agent_passive" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_005.jpg" />
+   Figura 3.5 - Página de configuración del host Zabbix lar-book-agent_passive</p>
+<p>Hacemos esto porque para un agente Zabbix activo, el nombre de host en el archivo de configuración del agente Zabbix necesita coincidir con la configuración de nuestro host como se ve en el frontend de Zabbix.</p>
+<ol>
+<li>Haga clic en el botón azul <strong>Update</strong> para guardar los cambios.</li>
+<li>Vaya a <strong>Configuration</strong> | <strong>Hosts</strong> en su frontend Zabbix y haga clic en <strong>Crear</strong> host en la esquina superior derecha.</li>
+<li>Ahora vamos a crear el host de la siguiente manera:
+   <img alt="Figura 3.6 - Página de configuración de host Zabbix para el host lar-book-agent" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_006.jpg" />
+   Figura 3.6 - Página de configuración de host Zabbix para el host lar-book-agent</li>
+<li>Además, asegúrese de añadir la plantilla correcta, llamada <code>Linux por el agente de Zabbix activo</code>:
+    <img alt=" Figura 3.7 - Página de plantilla de host Zabbix para el host lar-book-agent " src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_007.jpg" />
+    Figura 3.7 - Página de plantilla de host Zabbix para el host lar-book-agent</li>
+</ol>
+<p>Tenga en cuenta que el icono ZBX no se pondrá verde para un agente activo. Pero cuando navegamos a <strong>Monitoring</strong> | <strong>Hosts</strong> y comprobamos <strong>Latest data</strong>, podemos ver nuestros datos activos entrando.</p>
+<p><strong>Consejo</strong>
+Como se habrá dado cuenta hace un momento, un agente Zabbix puede funcionar en modo pasivo y activo al mismo tiempo. Tenga esto en cuenta cuando cree sus propias plantillas de agente Zabbix, ya que a veces puede querer combinar los tipos de comprobación.</p>
+<h3 id="como-funciona">Cómo funciona...</h3>
+<p>Ahora que ya hemos configurado nuestros agentes Zabbix y sabemos cómo deben estar configurados, vamos a ver cómo funcionan los diferentes modos.</p>
+<h4 id="agente-pasivo">Agente pasivo</h4>
+<p>El <strong>agente pasivo</strong> funciona recogiendo datos de nuestro host con el agente Zabbix. Cada vez que un elemento de nuestro host alcanza su intervalo de actualización, el servidor Zabbix pregunta al agente Zabbix cuál es el valor actual:
+<img alt="Figura 3.8 - Diagrama de comunicación entre el servidor y el agente pasivo" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_008.jpg" />
+Figura 3.8 - Diagrama de comunicación entre el servidor y el agente pasivo</p>
+<p>Los agentes pasivos son geniales cuando se trabaja en entornos en los que se quiere mantener la comunicación iniciada desde el lado del servidor Zabbix o del proxy Zabbix, por ejemplo, cuando hay un cortafuegos que sólo permite el tráfico saliente, visto desde el lado del servidor Zabbix o del proxy.</p>
+<h4 id="agente-activo">Agente activo</h4>
+<p>El agente activo funciona enviando datos desde el agente Zabbix a un servidor Zabbix o proxy Zabbix. Cada vez que un elemento de nuestro agente alcance su intervalo de actualización, el agente enviará el valor a nuestro servidor.
+<img alt="Figura 3.9 - Diagrama de comunicación entre el servidor y el agente activo" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_009.jpg" />
+Figura 3.9 - Diagrama de comunicación entre el servidor y el agente activo</p>
+<p>El agente activo es genial cuando se trabaja con un entorno en el que hay un cortafuegos que sólo acepta conexiones salientes, como se ve desde el lado del agente de Zabbix. Este es el caso en muchos entornos, y puede mitigar una de las principales preocupaciones de seguridad que se asocia principalmente con la monitorización de hosts.</p>
+<p>Por otro lado, el agente Zabbix trabajando en modo activo también puede ser mucho más eficiente. La mayor parte de la carga que viene de obtener datos a su servidor Zabbix está ahora en el lado del agente Zabbix. Debido a que hay más agentes Zabbix que servidores Zabbix o proxies, descargar la carga de esta manera es una gran idea.</p>
+<p>Como hemos mencionado, podemos utilizar ambos tipos de comprobaciones al mismo tiempo, dándonos la libertad de configurar cada tipo de comprobación que podamos necesitar. Nuestra configuración se vería así:
+<img alt="Figura 3.10 - Diagrama de comunicación entre el servidor y los dos tipos de agentes" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_010.jpg" />
+Figura 3.10 - Diagrama de comunicación entre el servidor y los dos tipos de agentes</p>
+<p>Este podría ser el caso en situaciones en las que queremos monitorizar principalmente de forma pasiva, pero, por ejemplo, la monitorización de ficheros log con el agente Zabbix debe hacerse con un agente Zabbix activo. Entonces podemos combinar nuestros modos y asegurarnos de utilizar la escala completa de nuestras características proporcionadas en el agente Zabbix.</p>
+<h3 id="ver-tambien">Ver también</h3>
+<p>Hay un montón de cosas pasando bajo el capó del agente Zabbix 2; si estás interesado en aprender más sobre el núcleo del agente Zabbix 2, echa un vistazo a esta interesante entrada del blog de Alexey Petrov: https://blog.zabbix.com/magic-of-new-zabbix-agent/8460/</p>
+<hr />
+<h2 id="trabajando-con-monitorizacion-snmp">Trabajando con monitorización SNMP</h2>
+<p>Ahora vamos a hacer algo de lo que más disfruto cuando trabajo con Zabbix: construir monitorización SNMP. Mis raíces profesionales están en la ingeniería de redes, y he trabajado mucho con monitorización SNMP para monitorizar todos estos diferentes dispositivos de red.</p>
+<h3 id="preparacion">Preparación</h3>
+<p>Para empezar, necesitamos los dos hosts Linux que utilizamos en las recetas anteriores:</p>
+<ul>
+<li>Nuestro host servidor Zabbix</li>
+<li>El host que usamos en la receta anterior para monitorizar a través del agente activo de Zabbix</li>
+</ul>
+<h3 id="como-hacerlo_1">Cómo hacerlo...</h3>
+<p>Monitorizar mediante SNMP polling es fácil y muy potente. Empezaremos configurando SNMPv3 en nuestro host Linux monitorizado:</p>
+<ol>
+<li>Empecemos emitiendo los siguientes comandos para instalar SNMP en nuestro host.
+   Para sistemas basados en RHEL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>net-snmp<span class="w"> </span>net-snmp-utils
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>apt<span class="w"> </span>install<span class="w"> </span>snmp<span class="w"> </span>snmpd<span class="w"> </span>libsnmp-dev
+</code></pre></div>
+2. Ahora, vamos a crear el nuevo usuario SNMPv3 que utilizaremos para monitorizar nuestro host. Tenga en cuenta que vamos a utilizar contraseñas inseguras, pero asegúrese de utilizar contraseñas seguras para sus entornos de producción. Emita el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>net-snmp-create-v3-user<span class="w"> </span>-ro<span class="w"> </span>-a<span class="w"> </span>my_authpass<span class="w"> </span>-x<span class="w"> </span>my_privpass<span class="w"> </span>-A<span class="w"> </span>SHA<span class="w"> </span>-X<span class="w"> </span>AES<span class="w"> </span>snmpv3user
+</code></pre></div>
+<p>Esto creará un usuario SNMPv3 con el nombre de usuario <code>snmpv3user</code>, la contraseña de autenticación <code>my_authpass</code>, y la contraseña de privilegios <code>my_ privpass</code>.</p>
+<ol>
+<li>Asegúrate de editar el archivo de configuración SNMP para permitirnos leer todos los objetos SNMP:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>vim<span class="w"> </span>/etc/snmp/snmpd.conf
+</code></pre></div>
+4. Añade la siguiente línea en el resto de las líneas de la <code>view systemview</code>:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>view    systemview    included   .1
+</code></pre></div>
+5. Ahora inicie y habilite el demonio snmpd para permitirnos empezar a monitorizar este servidor:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>snmpd
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>systemctl<span class="w"> </span>start<span class="w"> </span>snmpd
+</code></pre></div>
+<p>Esto es todo lo que necesitamos hacer en el lado del host Linux; ahora podemos ir al frontend de Zabbix para configurar nuestro host. Vaya a <strong>Configuration</strong> | <strong>Hosts</strong> en su frontend Zabbix y haga clic en Crear host en la esquina superior derecha.</p>
+<ol>
+<li>Ahora rellene la página de configuración del host:
+   <img alt="Figura 3.11 - Página de configuración de host Zabbix para el host lar-book-agent_snmp" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_011.jpg" />
+   Figura 3.11 - Página de configuración de host Zabbix para el host lar-book-agent_snmp</li>
+<li>No olvides cambiar la dirección IP de la interfaz SNMP por tu propio valor.</li>
+<li>Asegúrese de añadir la plantilla out-of-the-box correcta como se muestra en la siguiente captura de pantalla:
+   <img alt="Figura 3.12 - Añadir la plantilla Linux SNMP al host" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_012.jpg" />
+   Figura 3.12 - Añadir la plantilla Linux SNMP al host</li>
+</ol>
+<p><strong>Consejo</strong>
+   Al actualizar desde una versión anterior de Zabbix a Zabbix 6, no obtendrás todas las nuevas plantillas out-of-the-box. Si crees que te faltan algunas plantillas, puedes descargarlas en el repositorio Git de Zabbix: https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates.
+9. Estamos utilizando algunas macros en nuestra configuración aquí para el nombre de usuario y contraseña. Podemos utilizar estas macros para añadir un montón de hosts con las mismas credenciales. Esto es muy útil, por ejemplo, si tienes un montón de switches con las mismas credenciales SNMPv3.</p>
+<p>Rellenemos las macros en <strong>Administración</strong> | <strong>General</strong> y utilicemos el desplegable para seleccionar <strong>Macros</strong>. Rellena las macros así:
+   <img alt="Figura 3.13 - Página de macros globales de Zabbix con macros SNMP" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_013.jpg" />
+   Figura 3.13 - Página de macros globales de Zabbix con macros SNMP&lt;</p>
+<p><strong>Consejo</strong>
+   Una característica interesante en Zabbix 6 es la posibilidad de ocultar macros en el frontend utilizando el tipo de macro Texto secreto. Hay que tener en cuenta que las macros de tipo Secret text siguen sin estar encriptadas en la base de datos de Zabbix, y para macros totalmente encriptadas necesitaríamos algo como HashiCorp Vault. Consulta la documentación para más información: https://www.zabbix.com/documentation/current/en/manual/config/secrets.
+10. Usa el desplegable para cambiar <code>{$SNMPV3_AUTH}</code> y <code>{$SNMPV3_PRIV}</code> a Secret text:
+    <img alt="Figura 3.14 - Texto secreto de Zabbix utilizado para ocultar datos sensibles (autenticación)" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_014.jpg" />
+    Figura 3.14 - Texto secreto de Zabbix utilizado para ocultar datos sensibles (autenticación)
+11. Ahora, después de aplicar estos cambios haciendo clic en Update, deberíamos ser capaces de monitorizar nuestro servidor Linux a través de SNMPv3. Vayamos a <strong>Monitoring</strong> | <strong>Hosts</strong> y comprobemos la página <strong>Latest data</strong> de nuestro nuevo host:
+    <img alt="Figura 3.15 - SNMP Lasta data para el host lar-book-agent_snmp" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_015.jpg" />
+    Figura 3.15 - SNMP Lasta data para el host lar-book-agent_snmp</p>
+<div class="highlight"><pre><span></span><code>Tenga en cuenta que sus datos pueden tardar algún tiempo en aparecer aquí.
+
+**Consejo**
+
+Cuando se trabaja con macros, hay tres niveles en orden de cascada: **Macros de nivel global**, **de plantilla** y **de host**. Cuando trabaje con macros de nivel Global, tenga en cuenta que no se exportan con plantillas o hosts. En la mayoría de los casos, es mejor utilizar el nivel de plantilla y el nivel de host, para mantener sus exportaciones independientes de la configuración global de Zabbix.
+</code></pre></div>
+<h2 id="como-funciona_1">Cómo funciona...</h2>
+<p>Cuando creamos un host como hicimos en el paso 4, Zabbix sondea el host usando SNMP. El sondeo SNMP funciona con OIDs SNMP. Por ejemplo, cuando sondeamos el elemento llamado Memoria libre, le pedimos al agente SNMP que se ejecuta en nuestro host Linux que nos proporcione el valor de <strong>1.3.6.1.4.1.2021.4.6.0.</strong> Ese valor es devuelto a nosotros en el host. Ese valor es entonces devuelto a nosotros en el servidor Zabbix:
+<img alt="Figura 3.16 - Diagrama que muestra la comunicación entre el servidor Zabbix y el host SNMP" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_016.jpg" />
+Figura 3.16 - Diagrama que muestra la comunicación entre el servidor Zabbix y el host SNMP</p>
+<p>SNMPv3 añade autenticación y encriptación a este proceso, asegurando que cuando nuestro servidor Zabbix solicita información, esa solicitud es primero encriptada y los datos son enviados de vuelta encriptados también.</p>
+<p>También incluimos la opción de utilizar <strong>solicitudes masivas</strong> al configurar nuestro host. Las peticiones masivas solicitan varios OIDs en el mismo flujo, por lo que este es el método preferido para hacer peticiones SNMP ya que es más eficiente. Sólo desactívalo para hosts que no soporten peticiones masivas.</p>
+<p>Por último, echemos un vistazo a los OIDs SNMP, la parte más importante de nuestra petición SNMP. Los OIDs funcionan en una estructura de árbol, lo que significa que cada número detrás del punto puede contener otro valor. Por ejemplo, veamos este OID para nuestro host:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="m">1</span>.3.6.1.4.1.2021.4<span class="w"> </span><span class="o">=</span><span class="w"> </span>UCD-SNMP-MIB::memory
+</code></pre></div>
+<p>Si sondeamos ese OID con la herramienta SnmpWalk CLI o con nuestro servidor Zabbix, obtendremos varios OID de vuelta:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>.1.3.6.1.4.1.2021.4.1.0<span class="w"> </span><span class="o">=</span><span class="w"> </span>INTEGER:<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>.1.3.6.1.4.1.2021.4.2.0<span class="w"> </span><span class="o">=</span><span class="w"> </span>STRING:<span class="w"> </span>swap
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>.1.3.6.1.4.1.2021.4.3.0<span class="w"> </span><span class="o">=</span><span class="w"> </span>INTEGER:<span class="w"> </span><span class="m">1679356</span><span class="w"> </span>kB
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>.1.3.6.1.4.1.2021.4.4.0<span class="w"> </span><span class="o">=</span><span class="w"> </span>INTEGER:<span class="w"> </span><span class="m">1674464</span><span class="w"> </span>kB
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>.1.3.6.1.4.1.2021.4.5.0<span class="w"> </span><span class="o">=</span><span class="w"> </span>INTEGER:<span class="w"> </span><span class="m">1872872</span><span class="w"> </span>kB
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>.1.3.6.1.4.1.2021.4.6.0<span class="w"> </span><span class="o">=</span><span class="w"> </span>INTEGER:<span class="w"> </span><span class="m">184068</span><span class="w"> </span>kB
+</code></pre></div>
+<p>Eso incluye nuestro OID <code>1.3.6.1.4.1.2021.4.6.0</code> con el valor que contiene nuestra memoria libre. Así es como se construye SNMP, como un árbol.</p>
+<hr />
+<h2 id="creacion-de-comprobaciones-sencillas-de-zabbix-y-el-trap-de-zabbix">Creación de comprobaciones sencillas de Zabbix y el trap de Zabbix</h2>
+<p>En esta receta, vamos a repasar dos comprobaciones que pueden ayudarte a construir algunas configuraciones más personalizadas. Las comprobaciones simples de Zabbix te proporcionan una forma sencilla de monitorizar algunos datos específicos. El Zabbix trapper se combina con el Zabbix sender para obtener datos de tus hosts en el servidor, permitiendo algunas opciones de scripting. Vamos a empezar.</p>
+<h3 id="preparacion_1">Preparación</h3>
+<p>Para crear estas comprobaciones, necesitaremos un servidor Zabbix y un host Linux para monitorizar. Podemos utilizar el host con un agente Zabbix y monitorización SNMP de las recetas anteriores.</p>
+<p>Ten en cuenta que para estas comprobaciones no necesitamos el agente Zabbix.</p>
+<h3 id="como-hacerlo_2">Cómo hacerlo...</h3>
+<p>Trabajar con cheques simples es bastante sencillo, como su nombre indica, así que empecemos.</p>
+<h4 id="creacion-de-comprobaciones-simples">Creación de comprobaciones simples</h4>
+<p>Vamos a crear una comprobación simple para monitorizar si un servicio está ejecutándose y aceptando conexiones TCP en un puerto determinado:</p>
+<ol>
+<li>Para ello, tendremos que crear un nuevo host en el frontend de Zabbix. Vaya a <strong>Configuration</strong> | <strong>Hosts</strong> en su interfaz Zabbix y haga clic en Crear host en la esquina superior derecha.</li>
+<li>Cree un host con la siguiente configuración:
+   <img alt="Figura 3.17 - Página de configuración de host Zabbix para el host lar-book-agent_simple" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_017.jpg" />
+   Figura 3.17 - Página de configuración de host Zabbix para el host lar-book-agent_simple</li>
+<li>Ahora vaya a <strong>Configuration</strong> | <strong>Hosts</strong>, haga clic en el host recién creado, y vaya a <strong>Items</strong>. Queremos crear un nuevo elemento aquí haciendo clic en el botón Crear elemento.
+   Vamos a crear un nuevo elemento con los siguientes valores, y después de hacerlo, haremos clic en el botón Añadir en la parte inferior de la página:
+   <img alt="Figura 3.18 - Página de configuración de elementos de Zabbix para la comprobación del puerto 22 en el host lar-book-agent_simple" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_018.jpg" />
+   Figura 3.18 - Página de configuración de elementos de Zabbix para la comprobación del puerto 22 en el host lar-book-agent_simple</li>
+<li>Asegúrate de añadir también una etiqueta al ítem, ya que la necesitamos en varios lugares para filtrar y encontrar nuestro ítem cuando trabajemos con Zabbix. Configúralo así:
+   <img alt="Figura 3.19 - Puerto SSH de Zabbix, pestaña Etiqueta" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_019.jpg" />
+   Figura 3.19 - Puerto SSH de Zabbix, pestaña Etiqueta</li>
+</ol>
+<p><strong>Nota importante</strong>
+   Aquí estamos añadiendo el elemento clave <code>net.tcp.services[ssh,,22]</code>. El puerto en este caso es opcional, ya que podemos especificar el servicio SSH con un puerto diferente si queremos.
+5. Ahora deberíamos ser capaces de ver si nuestro servidor está aceptando conexiones SSH en el puerto 22 en nuestra pantalla de Latest data. Navegue a <strong>Monitoring</strong> | <strong>Hosts</strong> y compruebe en la pantalla <strong>Latest data</strong> nuestro nuevo valor:
+   <img alt="Figura 3.20 - Zabbix Última página de datos para el host lar-book-agent_simple, elemento puerto 22 comprobado" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_020.jpg" />
+   Figura 3.20 - Zabbix Última página de datos para el host lar-book-agent_simple, elemento puerto 22 comprobado
+6. Hay otra cosa mal aquí. Como puede ver, actualmente no tenemos una configuración de mapeo de valores. El último valor sólo muestra un 1 o un 0. Para cambiar esto, vuelva a <strong>Configuration</strong> | <strong>Hosts</strong> y edite el host <code>lar-book-agent_simple</code>.
+7. Haga clic en la ficha Asignación de valores y haga clic en el pequeño botón Agregar para agregar una asignación de valores. Cree lo siguiente:
+   <img alt="Figura 3.21 - Host lar-book-agent_simple, ventana de asignación de valores" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_021.jpg" />
+   Figura 3.21 - Host lar-book-agent_simple, ventana de asignación de valores
+8. Pulse el botón azul Añadir y pulse el botón azul Update.
+9. A continuación, de vuelta a la lista completa de <strong>Configuration</strong> | <strong>Hosts</strong>, navegue hasta nuestro <code>host lar-book-agent_simple</code> y pulse sobre Elementos para este host.
+10. Edite el elemento Comprobar si el puerto 22 está disponible y añada la asignación de valores como se indica a continuación:
+    <img alt="Figura 3.22 - Host lar-book-agent_simple, ventana de edición de elementos" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_022.jpg" />
+    Figura 3.22 - Host lar-book-agent_simple, ventana de edición de elementos</p>
+<div class="highlight"><pre><span></span><code>Eso es todo lo que hay que hacer para crear tus comprobaciones simples en Zabbix. La última página de datos tendrá ahora este aspecto:
+![Figura 3.23 - Última página de datos de nuestro elemento de comprobación del puerto 22](https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_023.jpg)
+Figura 3.23 - Última página de datos de nuestro elemento de comprobación del puerto 22
+</code></pre></div>
+<p>Como puede ver, hay un valor legible por humanos que ahora muestra Arriba o Abajo, lo que nos da una entrada legible por humanos, que es más fácil de entender. Ahora pasemos al elemento trap de Zabbix.</p>
+<h4 id="creacion-de-un-trapper">Creación de un trapper</h4>
+<p>Podemos hacer algunas cosas interesantes con los elementos trapper de Zabbix una vez que tengamos configuraciones más avanzadas. Pero por ahora, vamos a crear un elemento en nuestro host <code>lar-book-agent_simple</code>:</p>
+<ol>
+<li>Ve a <strong>Configuration</strong> | <strong>Hosts</strong> y haz click en el host, luego ve a <strong>Items</strong>. Queremos crear un nuevo elemento aquí de nuevo haciendo clic en el botón Crear elemento.</li>
+</ol>
+<p>Ahora vamos a crear el siguiente elemento y haga clic en el botón <strong>Create Item</strong>:
+   <img alt="Figura 3.24 - Pantalla de configuración del receptor de trampas de elementos de Zabbix para el host lar-book-agent_simple" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_024.jpg" />
+   Figura 3.24 - Pantalla de configuración del receptor de trampas de elementos de Zabbix para el host lar-book-agent_simple
+2. Asegúrese de navegar también a la pestaña Tags y añadir una etiqueta que utilizaremos más tarde para filtrar:
+   <img alt="Figura 3.25 - Pantalla de configuración de etiquetas receptoras de trampas de elementos de Zabbix para el host lar-book-agent_simple" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_025.jpg" />
+   Figura 3.25 - Pantalla de configuración de etiquetas receptoras de trampas de elementos de Zabbix para el host lar-book-agent_simple
+3. Si vamos a la CLI de nuestro servidor monitorizado, ahora podemos ejecutar lo siguiente para instalar Zabbix sender:
+   <strong>RHEL-based systems:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>zabbix-sender
+</code></pre></div>
+<p><strong>Ubuntu systems:</strong></p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>apt<span class="w"> </span>install<span class="w"> </span>zabbix-sender
+</code></pre></div>
+4. Después de la instalación, podemos utilizar Zabbix sender para enviar alguna información a nuestro servidor:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>zabbix_sender<span class="w"> </span>-z<span class="w"> </span><span class="m">10</span>.16.16.152<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;lar-book-agent_simple&quot;</span><span class="w"> </span>-k<span class="w"> </span><span class="nb">trap</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;Let&#39;s test this book trapper&quot;</span>
+</code></pre></div>
+<p>Ahora deberíamos ser capaces de ver si nuestro host monitorizado ha enviado el trap de Zabbix y el servidor de Zabbix ha recibido este trap para su procesamiento.
+5. Navegue a <strong>Monitoring</strong> | <strong>Hosts</strong> y compruebe en la pantalla Latest data nuestro nuevo valor:
+   <img alt="Figura 3.26 - Última página de datos de Zabbix para el host lar-book-agent_simple, elemento receptor de trampas" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_026.jpg" />
+   Figura 3.26 - Última página de datos de Zabbix para el host lar-book-agent_simple, elemento receptor de trampas</p>
+<p>Ahí está, nuestro tramper Zabbix en nuestro frontend Zabbix.</p>
+<h3 id="como-funciona_2">Cómo funciona...</h3>
+<p>Ahora que hemos construido nuestros nuevos elementos, vamos a ver cómo funcionan sumergiéndonos en el lado teórico de las comprobaciones simples y las trampas de Zabbix.</p>
+<h4 id="comprobaciones-simples">Comprobaciones simples</h4>
+<p>Las comprobaciones simples de Zabbix son básicamente una lista de comprobaciones incorporadas hechas para monitorizar ciertos valores. Hay una lista y descripción disponible en la documentación de Zabbix para todas las comprobaciones simples que están disponibles aquí: https://www.zabbix.com/documentation/current/manual/config/items/itemtypes/simple_checks.</p>
+<p>Todas estas comprobaciones son realizadas por el servidor Zabbix para recoger datos de un host monitorizado. Por ejemplo, cuando hacemos la comprobación simple de Zabbix para comprobar si un puerto está abierto, nuestro servidor Zabbix pregunta si puede alcanzar ese puerto y lo convierte en un estado que podemos ver en nuestro frontend Zabbix.</p>
+<p>Esto significa que si el firewall de su host monitorizado está bloqueando el puerto 22 desde el servidor Zabbix, obtendremos un valor de servicio está caído. Sin embargo, esto no significa necesariamente que SSH no se esté ejecutando en el servidor; simplemente significa que SSH está caído visto desde el lado del servidor Zabbix o proxy.
+<img alt="Figura 3.27 - Diagrama de comunicación servidor-host de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_027.jpg" />
+Figura 3.27 - Diagrama de comunicación servidor-host de Zabbix</p>
+<p><strong>Sugerencia</strong>
+Tenga en cuenta que trabajar con comprobaciones simples depende de factores externos como la configuración del cortafuegos en el host monitorizado. Cuando construya sus propias comprobaciones simples, asegúrese de comprobar también estos factores.</p>
+<p><strong>Trappers</strong>
+Cuando trabajamos con Zabbix zender, estamos haciendo exactamente lo contrario de la mayoría de los controles. Estamos construyendo un elemento en nuestro servidor Zabbix, que nos permite capturar elementos trapper. Esto nos permite construir algunos chequeos personalizados para enviar datos a nuestro servidor Zabbix desde un host monitorizado:</p>
+<p><img alt="Figura 3.28 - Diagrama del receptor de trampas del servidor Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_028.jpg" />
+Figura 3.28 - Diagrama del receptor de trampas del servidor Zabbix</p>
+<p>Digamos, por ejemplo, que usted quiere construir un script de Python personalizado que, al final de la ejecución de los scripts, envía la salida al servidor Zabbix. Podríamos pedirle a Python que envíe estos datos utilizando la utilidad de Zabbix zender, y entonces usted tendría estos datos disponibles para ser procesados en el servidor Zabbix.</p>
+<p>Por ejemplo, es utilizado por algunas empresas que escriben su propio software para integrar completamente su software en Zabbix. Como puede ver, podemos ampliar enormemente nuestras opciones con Zabbix trapper y personalizar aún más nuestro servidor Zabbix.</p>
+<hr />
+<h2 id="trabajar-con-items-calculados-y-dependientes">Trabajar con items calculados y dependientes</h2>
+<p>Los elementos calculados y dependientes se utilizan en Zabbix para producir valores adicionales a partir de valores existentes. A veces, ya hemos recogido un valor y necesitamos hacer algo más con los valores creados por ese elemento. Podemos hacer exactamente eso utilizando elementos calculados y dependientes.</p>
+<h3 id="preparandonos_1">Preparándonos</h3>
+<p>Para trabajar con elementos calculados y elementos dependientes, vamos a necesitar el servidor Zabbix y los hosts monitorizados de las recetas anteriores. Añadiremos los ítems en el host <code>lar-book-agent_passive</code> y en nuestro host servidor Zabbix (o cualquier servidor MySQL), así que ya tenemos algunos ítems disponibles para calcular y hacer dependientes.</p>
+<h3 id="como-hacerlo_3">Cómo hacerlo...</h3>
+<p>Veamos cómo podemos ampliar nuestros items empezando por los items calculados.</p>
+<h3 id="trabajando-con-items-calculados">Trabajando con ítems calculados</h3>
+<ol>
+<li>Naveguemos hasta la configuración de nuestro host yendo a <strong>Configuration</strong> | <strong>Hosts</strong> y pulsando sobre los <strong>ítems</strong> de nuestro host <code>lar-book-agent_passive</code>. En el campo de filtro llamado Nombre, introduzca <code>memory</code> y obtendrá la siguiente salida:
+   <img alt="Figura 3.29 - Página de elementos de Zabbix para el host lar-book-agent_passive" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_029.jpg" />
+   Figura 3.29 - Página de elementos de Zabbix para el host lar-book-agent_passive</li>
+<li>Lo que vamos a hacer ahora es crear un item calculado que nos mostrará la utilización media de memoria durante un periodo de 15 minutos. Podemos usar este valor para determinar cuán ocupado estuvo nuestro host durante ese período, sin tener que mirar los gráficos.</li>
+<li>Hagamos clic en el botón Create item y comencemos a crear nuestro nuevo item calculado. Queremos que nuestro elemento tenga los siguientes valores:</li>
+</ol>
+<p><img alt="Figura 3.30 - Página de configuración de elementos de Zabbix, memoria media utilizada" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_030.jpg" />
+Figura 3.30 - Página de configuración de elementos de Zabbix, memoria media utilizada</p>
+<ol>
+<li>Asegúrese de navegar también a la pestaña Etiquetas y añadir una etiqueta que utilizaremos más tarde para filtrar:
+   <img alt="Figura 3.31 - Pestaña Etiquetas de elementos calculados" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_031.jpg" />
+   Figura 3.31 - Pestaña Etiquetas de elementos calculados</li>
+<li>Ahora si vamos a nuestra página <strong>Monitoring</strong> | <strong>Hosts</strong> y seleccionamos <strong>Latest data</strong>, podemos comprobar nuestro valor. Asegúrese de filtrar en el campo Nombre para la <strong>memory</strong>, para que veamos los valores correctos:
+   <img alt="Figura 3.32 - Última página de datos de Zabbix para el host lar-book-agent_passive, elementos de memoria" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_032.jpg" />
+   Figura 3.32 - Última página de datos de Zabbix para el host lar-book-agent_passive, elementos de memoria</li>
+</ol>
+<p>Ahora podemos ver claramente que estamos calculando la media de 15 minutos de la utilización de memoria en nuestro elemento recién creado.</p>
+<hr />
+<h4 id="trabajar-con-elementos-dependientes">Trabajar con elementos dependientes</h4>
+<p>Es hora de hacer nuestro primer elemento dependiente. Usaré el host <code>lar-book-agent_centos</code> o nuestro (como se llama por defecto) servidor Zabbix, pero cualquier servidor de base de datos MySQL debería funcionar. Digamos que queremos solicitar algunas variables de nuestra base de datos MySQL en un gran lote. A continuación, podemos crear elementos dependientes en la parte superior del primer elemento para seguir procesando los datos:</p>
+<ol>
+<li>Empecemos creando el control principal. Navegue a <strong>Configuration</strong>| <strong>Hosts</strong>, seleccione nuestro host, y luego hagamos clic en el botón <strong>Create item</strong> para empezar a crear nuestro primer elemento nuevo. Queremos un ítem con las siguientes variables:
+   <img alt="Figura 3.33 - Página de configuración de elementos de Zabbix, estado de la base de datos" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_033.jpg" />
+   Figura 3.33 - Página de configuración de elementos de Zabbix, estado de la base de datos</li>
+</ol>
+<p>Ahora, este elemento es una comprobación SSH que inicia sesión en nuestro servidor Zabbix utilizando SSH y luego ejecuta el código introducido en el campo Script ejecutado. Este código iniciará sesión en nuestra base de datos MariaDB e imprimirá el estado. Asegúrese de introducir sus credenciales correctamente.</p>
+<p><strong>Sugerencia</strong></p>
+<p>En lugar de usar credenciales de texto plano en el comando MySQL, lo cual no es recomendable. Utilice macros en su campo Script ejecutado. De esta forma, puede utilizar el tipo de macro Texto secreto para asegurarse de que nadie pueda leer su contraseña desde el frontend.</p>
+<p>Antes de guardar este nuevo elemento, asegúrese de añadir también una etiqueta como esta:</p>
+<ol>
+<li>Antes de guardar este nuevo elemento, asegúrate de añadir también una etiqueta como ésta:
+   <img alt="Figura 3.34 - Página de configuración de elementos maestros de Zabbix, pestaña Etiquetas" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_034.jpg" />
+   Figura 3.34 - Página de configuración de elementos maestros de Zabbix, pestaña Etiquetas</li>
+<li>Ahora haga clic en el botón azul <strong>Add </strong>para guardar este nuevo elemento.</li>
+<li>De vuelta en la lista de ítems, hagamos click en el nombre de host de este host y luego en Macros. Cree una nueva macro <code>{$USERNAME}</code> y <code>{$PASSWORD}</code> con su nombre de usuario y contraseña SSH como valor.</li>
+<li>A continuación, vaya a <strong><em>*Monitoring</em></strong><em> | </em><em>Latest data</em>* y compruebe los datos de nuestra nueva comprobación. Debería haber una larga lista de valores MariaDB. Si es así, podemos continuar con nuestro siguiente paso de crear el elemento dependiente.</li>
+<li>Para crear el elemento dependiente, navegue a <strong>Configuration</strong> | <strong>Hosts</strong>, seleccione nuestro host, y hagamos clic en el botón <strong>Create item</strong>. Queremos que este elemento obtenga las siguientes variables:
+   <img alt="Figura 3.35 - Página de configuración de elementos de Zabbix, clientes MariaDB abortados" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_035.jpg" />
+   Figura 3.35 - Página de configuración de elementos de Zabbix, clientes MariaDB abortados</li>
+<li>Asegúrese de añadir la etiqueta, como sigue:
+   <img alt="Figura 3.36 - Página de configuración de elementos dependientes de Zabbix, pestaña Etiquetas" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_036.jpg" />
+   Figura 3.36 - Página de configuración de elementos dependientes de Zabbix, pestaña Etiquetas</li>
+<li>Es muy importante añadir preprocesamiento a este elemento también, de lo contrario, simplemente obtendremos los mismos datos que nuestro elemento maestro. Por lo tanto, vamos a añadir lo siguiente:
+   <img alt="Figura 3.37 - Página de preprocesamiento de elementos de Zabbix, clientes MariaDB abortados" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_037.jpg" />
+   Figura 3.37 - Página de preprocesamiento de elementos de Zabbix, clientes MariaDB abortados</li>
+</ol>
+<p>Con el preprocesamiento añadido, el resultado será el número de clientes abortados para nuestra instancia MariaDB:
+   <img alt="Figura 3.38 - Página de últimos datos de Zabbix, clientes MariaDB abortados" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_038.jpg" />
+   Figura 3.38 - Página de últimos datos de Zabbix, clientes MariaDB abortados</p>
+<p>Como puede ver, utilizando un elemento dependiente, podemos utilizar información ya disponible de otros elementos de Zabbix y dividirlos en elementos dependientes.</p>
+<h3 id="como-funciona_3">Cómo funciona...</h3>
+<p>Los tipos que hemos tratado en esta sección Cómo hacerlo... pueden ser bastante complicados; repasemos cómo funcionan realmente los elementos.</p>
+<p><strong>Elementos calculados</strong>
+Trabajar con elementos calculados puede ser una excelente manera de obtener aún más estadísticas de los datos existentes. A veces sólo necesita combinar varios elementos en un valor específico.</p>
+<p>Lo que acabamos de hacer funciona tomando varios valores de 1 elemento en un periodo de 15 minutos y calculando la media, como se indica a continuación:
+<img alt="Figura 3.39 - Diagrama de elementos dependientes de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_039.jpg" />
+Figura 3.39 - Diagrama de elementos dependientes de Zabbix</p>
+<p>Tomamos esos valores y calculamos la media cada 15 minutos. Nos da una buena indicación de lo que estamos haciendo en un periodo de tiempo determinado.</p>
+<p><strong>Elementos dependientes</strong>
+Los elementos dependientes funcionan simplemente tomando los datos de un elemento maestro y procesando esos datos en otros datos. De este modo, podemos estructurar nuestros datos y mantener el mismo intervalo de comprobación para todos estos elementos:
+<img alt="Figura 3.40 - Diagrama de elementos dependientes" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_040.jpg" /></p>
+<p>Figura 3.40 - Diagrama de elementos dependientes</p>
+<p>Como se ve aquí, los elementos dependientes funcionan básicamente como duplicadores, con opciones adicionales de preprocesamiento. Tenga en cuenta que el preprocesamiento debe utilizarse para extraer datos del elemento maestro. Sin preprocesamiento, nuestros datos serán exactamente los mismos que los del elemento maestro.</p>
+<p><strong>Sugerencia</strong></p>
+<p>A veces <strong>no necesitamos</strong> que nuestro elemento maestro se guarde en nuestra base de datos; ya tenemos la información en nuestros elementos dependientes. Cuando no queremos que se guarde el elemento maestro, simplemente seleccionamos la opción <strong>Do not keep history</strong> en ese elemento maestro.</p>
+<hr />
+<h2 id="creacion-de-comprobaciones-externas">Creación de comprobaciones externas</h2>
+<p>Para ampliar aún más la funcionalidad de Zabbix, podemos utilizar nuestros propios scripts personalizados, que son utilizados por los chequeos externos de Zabbix. No todo lo que queremos monitorizar será siempre estándar en Zabbix, aunque mucho lo es. Siempre hay algo que podría faltar, y las comprobaciones externas son sólo una forma de evitar algunas de ellas.</p>
+<h3 id="preparacion_2">Preparación</h3>
+<p>Para esta receta, vamos a necesitar sólo nuestro servidor Zabbix. Podemos crear un elemento en nuestro <code>host lar-book-centos</code>, que es nuestro host monitorizado del servidor Zabbix.</p>
+<h3 id="como-hacerlo_4">Cómo hacerlo...</h3>
+<ol>
+<li>En primer lugar, vamos a asegurarnos de que la configuración de nuestro servidor Zabbix está establecida correctamente. Ejecute lo siguiente en la CLI del servidor Zabbix:
+   <code>cat /etc/zabbix/zabbix_server.conf | grep ExternalScripts=</code></li>
+<li>Esto debería mostrarnos la ruta donde colocaremos el script que utiliza el chequeo externo de Zabbix. Por defecto, es <code>/usr/lib/zabbix/externalscripts/</code>, y crearemos un nuevo script llamado <code>test_external</code> en esta carpeta con el siguiente comando:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>vim<span class="w"> </span>/usr/lib/zabbix/externalscripts/test_external
+</code></pre></div>
+<p>Añade el siguiente código a este archivo y guárdalo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="ch">#!/bin/bash</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nb">echo</span><span class="w"> </span><span class="nv">$1</span>
+</code></pre></div>
+<ol>
+<li>Asegúrese de que nuestro servidor Zabbix puede ejecutar el script añadiendo los permisos adecuados al archivo. El usuario zabbix en su servidor Linux debe ser capaz de acceder y ejecutar el archivo:
+   chmod +x /usr/lib/zabbix/externalscripts/test_external</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>chown<span class="w"> </span>zabbix:zabbix<span class="w"> </span>/usr/lib/zabbix/externalscripts/test_external
+</code></pre></div>
+<ol>
+<li>Ahora estamos listos para ir a nuestro host para crear un nuevo elemento. Vaya a <strong>Configuration</strong> | <strong>Hosts</strong>, seleccione nuestro host, <strong>lar-book-centos</strong>, y haga clic en el botón <strong>Create item</strong>. Queremos que este item obtenga las siguientes variables:
+   <img alt="Figura 3.41 - Página de configuración de elementos de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_041.jpg" />
+   Figura 3.41 - Página de configuración de elementos de Zabbix</li>
+<li>Después de añadir este nuevo elemento, naveguemos a <strong>Monitoring</strong> | <strong>Hosts</strong> y comprobemos la página <strong>Latest data</strong> para nuestro host. Deberíamos obtener nuestra variable Test devuelta por nuestro script como Último valor en Zabbix, como se muestra en la siguiente captura de pantalla:</li>
+</ol>
+<p><img alt="Figura 3.42 - Página de últimos datos de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_042.jpg" />
+Figura 3.42 - Página de últimos datos de Zabbix</p>
+<p><strong>Sugerencia</strong>
+Utilice las macros del frontend como variables para enviar datos desde su frontend a sus scripts. Puede automatizar aún más sus comprobaciones con esto para mejorar sus comprobaciones externas.</p>
+<h3 id="como-funciona_4">Cómo funciona...</h3>
+<p>Las comprobaciones externas parecen tener una curva de aprendizaje empinada, pero en realidad son bastante simples desde el lado de Zabbix. Todo lo que hacemos es enviar un comando a un script externo y esperar un resultado:
+<img alt="Figura 3.43 - Diagrama de comunicación del script externo del servidor Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_043.jpg" />
+Figura 3.43 - Diagrama de comunicación del script externo del servidor Zabbix</p>
+<p>Como en nuestro ejemplo, enviamos el valor Test a nuestro script, el cual, a su vez, nos lo devuelve como $1.</p>
+<p>Cuando se tiene un buen conocimiento de un lenguaje de programación como Python, se puede utilizar esta función para construir muchas más expansiones sobre el actual conjunto de características existentes de Zabbix - una herramienta simple pero poderosa para trabajar.</p>
+<hr />
+<h2 id="configuracion-de-la-monitorizacion-jmx">Configuración de la monitorización JMX</h2>
+<p>Zabbix incorpora la monitorización JMX para que podamos monitorizar nuestras aplicaciones Java. En esta receta, vamos a ver cómo supervisar Apache Tomcat con Zabbix JMX para que podamos tener una idea de lo que esta opción de monitoreo se trata.</p>
+<h3 id="preparandonos_2">Preparándonos</h3>
+<p>Para prepararnos para esta receta, vamos a necesitar nuestro servidor Zabbix para monitorizar nuestra aplicación JMX.</p>
+<p>He utilizado una máquina CentOS 7 para el ejemplo de esta receta, con Tomcat instalado. Puede ser bastante complicado utilizar Tomcat en versiones posteriores de CentOS debido a las dependencias de paquetes, por lo que recomiendo seguir con CentOS 7 para el ejemplo. Puedes añadir lo siguiente a tu configuración de Tomcat después de la instalación para que funcione en nuestra receta:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="s2">&quot;-Djava.rmi.server.hostname=10.16.16.155 </span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="s2">dcom.sun.management.jmxremote </span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="s2">dcom.sun.management.jmxremote.port=12345</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="s2">dcom.sun.management.jmxremote.authenticate=false </span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="s2">dcom.sun.management.jmxremote.ssl=false&quot;</span>
+</code></pre></div>
+<p>Si desea configurar la monitorización JMX en su entorno de producción, puede utilizar la configuración que probablemente ya haya configurado allí. Basta con cambiar el puerto y la dirección IP en consecuencia.</p>
+<h3 id="como-hacerlo_5">Cómo hacerlo...</h3>
+<p>Para configurar la monitorización JMX, vamos a añadir un host a nuestro servidor Zabbix que monitorizará nuestra instalación Apache Tomcat. Pero primero, tendremos que añadir algunos ajustes a nuestro archivo<code>/etc/zabbix/zabbix_server.conf</code>:</p>
+<ol>
+<li>Vamos a editar el archivo <code>zabbix_server.conf</code> iniciando sesión en nuestro servidor Zabbix y ejecutando el siguiente comando:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>vim<span class="w"> </span>/etc/zabbix/zabbix_server.conf
+</code></pre></div>
+2. A continuación, tendremos que añadir las siguientes líneas a este archivo:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="nv">JavaGateway</span><span class="o">=</span><span class="m">127</span>.0.0.1
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="nv">StartJavaPollers</span><span class="o">=</span><span class="m">5</span>
+</code></pre></div>
+<p><strong>Consejo</strong></p>
+<p>Es posible instalar su pasarela Java en un host separado de su Zabbix. De esta manera podemos repartir la carga y escalar más fácilmente. Simplemente instálelo en un host separado y añada la dirección IP de ese host al parámetro JavaGateway. No haremos esto en el ejemplo, sino que mantendremos la configuración de la pasarela Java en el propio host del servidor Zabbix.
+3. También tendremos que instalar la aplicación zabbix-java-gateway en nuestro servidor Zabbix con el siguiente comando.</p>
+<p>Sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>zabbix-java-gateway
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>zabbix-java-gateway
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>systemctl<span class="w"> </span>start<span class="w"> </span>zabbix-java-gateway
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zabbix-server
+</code></pre></div>
+<p>Sistemas Ubuntu:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>apt<span class="w"> </span>install<span class="w"> </span>zabbix-java-gateway
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>zabbix-java-gateway
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>systemctl<span class="w"> </span>start<span class="w"> </span>zabbix-java-gateway
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zabbix-server
+</code></pre></div>
+<p>Eso es todo lo que tenemos que hacer en el lado del servidor de las cosas para obtener JMX monitoreo para trabajar. Zabbix no incluye esta configuración por defecto, por lo que necesitamos añadir el texto a nuestro archivo e instalar la aplicación.</p>
+<ol>
+<li>Para empezar con la monitorización de nuestro host JMX, vaya a Configuración | Hosts en su frontend Zabbix y haga clic en Crear host en la esquina superior derecha.</li>
+</ol>
+<p>A continuación, vamos a añadir un host con la siguiente configuración:</p>
+<p><img alt="Figura 3.44 - Página de configuración de elementos de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_044.jpg" />
+Figura 3.44 - Página de configuración de elementos de Zabbix</p>
+<ol>
+<li>Después de esto, nuestro icono JMX debería volverse verde; comprobémoslo en <strong>Monitoring</strong> | <strong>Hosts</strong>. Debería verse así:
+   <img alt="Figura 3.45 - Página Zabbix Monitoring | Hosts" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_045.jpg" />
+   Figura 3.45 - Página Zabbix Monitoring | Hosts</li>
+<li>Si pulsamos sobre <strong>Latest data</strong> para nuestro nuevo host monitorizado por <strong>JMX</strong>, deberíamos ver también nuestros datos entrantes. Compruébalo; debería devolver estadísticas como estas:</li>
+</ol>
+<p><img alt="Figura 3.46 - Página de últimos datos de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_046.jpg" />
+Figura 3.46 - Página de últimos datos de Zabbix</p>
+<h3 id="como-funciona_5">Cómo funciona...</h3>
+<p>Zabbix utiliza una pasarela Java alojada en el propio servidor Zabbix o en otro servidor (proxy) para monitorizar aplicaciones JMX:</p>
+<p><img alt="Figura 3.47 - Diagrama de comunicación entre el servidor Zabbix y Java" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_047.jpg" />
+Figura 3.47 - Diagrama de comunicación entre el servidor Zabbix y Java</p>
+<p>Zabbix sondea la pasarela Java y ésta, a su vez, se comunica con nuestra aplicación JMX, como lo hace con Tomcat en nuestro ejemplo. Los datos a su vez son devueltos a través de la misma ruta y podemos ver nuestros datos en nuestro servidor Zabbix.</p>
+<h3 id="ver-tambien_1">Ver también</h3>
+<p>Hay un montón de aplicaciones que pueden ser monitorizadas a través de Zabbix JMX. Echa un vistazo a la página de monitorización e integraciones de Zabbix para más usos de la monitorización JMX de Zabbix: https://www.zabbix.com/integrations/jmx.</p>
+<hr />
+<h2 id="configuracion-de-la-supervision-de-bases-de-datos-configuracion-de-la-supervision-de-bases-de-datos">Configuración de la supervisión de bases de datos Configuración de la supervisión de bases de datos</h2>
+<p>Las bases de datos son un agujero negro para muchos ingenieros: se escriben datos en ellas y se hace algo con ellos. ¿Pero qué pasa si quieres saber más sobre la salud de tu base de datos? Ahí es donde entra en juego la monitorización de bases de datos de Zabbix: podemos utilizarla para monitorizar la salud de nuestra base de datos.</p>
+<h3 id="preparandonos_3">Preparándonos</h3>
+<p>Vamos a monitorizar nuestra base de datos Zabbix, por comodidad. Esto significa que todo lo que vamos a necesitar es nuestro servidor Zabbix instalado con nuestra base de datos en él. Vamos a utilizar MariaDB en este ejemplo, así que si usted tiene una configuración PostgreSQL, asegúrese de instalar una instancia MariaDB en un host Linux.</p>
+<h3 id="como-hacerlo_6">Cómo hacerlo...</h3>
+<p>Antes de empezar con la configuración del elemento, tendremos que hacer algunas cosas en el lado CLI del servidor:</p>
+<ol>
+<li>Empecemos por instalar los módulos necesarios en nuestro servidor.</li>
+</ol>
+<p>Sistemas basados en <strong>RHEL</strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>unixODBC<span class="w"> </span>mariadb-connector-odbc
+</code></pre></div>
+<p>Sistemas <strong>Ubuntu</strong>:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>apt<span class="w"> </span>install<span class="w"> </span>odbc-mariadb<span class="w"> </span>unixodbc<span class="w"> </span>unixodbc-dev<span class="w"> </span>odbcinst
+</code></pre></div>
+2. Ahora vamos a comprobar si existen nuestros archivos de configuración de Open Database Connectivity (ODBC):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>odbcinst<span class="w"> </span>-j<span class="w">   </span>
+</code></pre></div>
+<p>El resultado debería ser el siguiente:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>unixODBC 2.3.7
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>DRIVERS............: /etc/odbcinst.ini
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>SYSTEM DATA SOURCES: /etc/odbc.ini
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>FILE DATA SOURCES..: /etc/ODBCDataSources
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>USER DATA SOURCES..: /root/.odbc.ini
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>SQLULEN Size.......: 8
+<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>SQLLEN Size........: 8
+<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>SQLSETPOSIROW Size.: 8
+</code></pre></div>
+3. Si la salida es correcta, podemos ir a la CLI de Linux y continuar editando odbc.ini para conectarnos a nuestra base de datos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>vim<span class="w"> </span>/etc/odbc.ini
+</code></pre></div>
+<p>Ahora rellene la información de su base de datos Zabbix. Se verá así:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>[book]
+<a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>Description = MySQL book test database
+<a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>Driver      = mariadb
+<a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>Server      = 127.0.0.1
+<a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>Port        = 3306
+<a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a>Database    = zabbix
+</code></pre></div>
+<ol>
+<li>Ahora vamos a probar si nuestra conexión funciona como esperábamos ejecutando esto:
+   <div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>isql<span class="w"> </span>-v<span class="w"> </span>book
+</code></pre></div></li>
+</ol>
+<p>Deberías recibir un mensaje diciendo Conectado; si no es así, comprueba tus archivos de configuración e inténtalo de nuevo.</p>
+<ol>
+<li>Ahora vamos al frontend de Zabbix para configurar nuestra primera comprobación de base de datos. Vaya a <strong>Configuration</strong> | <strong>Hosts</strong> y haga clic en el host llamado <code>lar-book-centos</code>, o todavía podría ser llamado servidor Zabbix. Ahora vaya a <strong>Items</strong>; queremos crear un nuevo elemento aquí haciendo clic en el botón <strong>Create item</strong>.</li>
+</ol>
+<p><strong>Consejo</strong>
+   Si aún no lo has hecho, una gran manera de mantener tu Zabbix estructurado es mantener todos los nombres de host en Zabbix iguales al nombre real del servidor. Cambie el nombre de su servidor Zabbix por defecto en el frontend a lo que realmente ha llamado a su servidor.</p>
+<p>Queremos añadir un elemento con los siguientes parámetros:</p>
+<p><img alt="Figura 3.48 - Página de configuración de elementos Zabbix, elementos en la base de datos Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_048.jpg" />
+Figura 3.48 - Página de configuración de elementos Zabbix, elementos en la base de datos Zabbix</p>
+<ol>
+<li>Asegúrese también de añadir una etiqueta al elemento:
+   <img alt="Figura 3.49 - Página de configuración de elementos Zabbix, elementos en la base de datos Zabbix, pestaña Etiquetas" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_049.jpg" />
+   Figura 3.49 - Página de configuración de elementos Zabbix, elementos en la base de datos Zabbix, pestaña Etiquetas</li>
+<li>Ahora haga clic en el botón <strong>Add</strong> y haga clic en el nombre del host para añadir las macros, como se indica a continuación:
+   <img alt="Figura 3.50 - Página de configuración de macros de host Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_050.jpg" />
+   Figura 3.50 - Página de configuración de macros de host Zabbix</li>
+<li>Ahora si vamos a <strong>Monitoring</strong> | <strong>Hosts</strong> y pulsamos en <strong>Latest data</strong> para nuestro host, veremos esto:
+   <img alt="Figura 3.51 - Página de últimos datos de Zabbix para el host lar-book-centos, elementos en la base de datos de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_051.jpg" />
+   Figura 3.51 - Página de últimos datos de Zabbix para el host lar-book-centos, elementos en la base de datos de Zabbix</li>
+</ol>
+<p>Ahora podemos ver directamente desde la base de datos cuántos elementos se han escrito en ella.</p>
+<h3 id="como-funciona_6">Cómo funciona...</h3>
+<p>La monitorización de bases de datos de Zabbix funciona conectándose a tu base de datos con el middleware API ODBC. Cualquier base de datos soportada por ODBC puede ser consultada con la monitorización de bases de datos de Zabbix:</p>
+<p><img alt="Figura 3.52 - Diagrama de comunicación entre el servidor Zabbix y ODBC" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_052.jpg" />
+Figura 3.52 - Diagrama de comunicación entre el servidor Zabbix y ODBC</p>
+<p>Básicamente, su servidor Zabbix envía un comando con, por ejemplo, su consulta MySQL al conector ODBC. Su conector ODBC envía esta consulta a la base de datos a través de la API ODBC, que a su vez devuelve un valor a ODBC. ODBC reenvía el valor al servidor Zabbix y listo: tenemos un valor en nuestro elemento.</p>
+<h3 id="y-aun-hay-mas">Y aún hay más...</h3>
+<p>Puedes hacer un montón de consultas a tus bases de datos con la monitorización de bases de datos de Zabbix, pero ten en cuenta que estás trabajando con consultas reales. Consultar una base de datos requiere tiempo y capacidad de procesamiento, así que mantenga su monitorización de bases de datos estructurada y defina los tiempos de ejecución adecuados.</p>
+<p>Alternativamente, podemos utilizar el agente 2 de Zabbix para monitorizar la mayoría de las bases de datos de forma nativa. Esto puede mejorar la seguridad y el rendimiento y mantener la complejidad más baja.</p>
+<hr />
+<h2 id="configuracion-de-la-monitorizacion-del-agente-http">Configuración de la monitorización del agente HTTP</h2>
+<p>Con el agente HTTP de Zabbix, podemos monitorizar una página web o API recuperando datos de ella. Por ejemplo, si hay un contador en una página web y queremos mantener un ojo en ese valor del contador, podemos hacerlo con el monitor HTTP de Zabbix.</p>
+<h3 id="preparandonos_4">Preparándonos</h3>
+<p>Vamos a necesitar una página web para monitorizar y necesitaremos nuestro servidor Zabbix. Para su comodidad, hemos añadido una página a nuestro propio sitio web para recuperar un valor de. Aquí está la página: https://oicts.com/book-page/.</p>
+<p>Tenga en cuenta también que su servidor Zabbix necesitará una conexión activa a Internet para esta receta.</p>
+<h3 id="como-hacerlo_7">Cómo hacerlo...</h3>
+<p>Vamos a sondear la página web especial que hemos creado para usted mostrando un recuento de visitantes que actualmente está configurado en ella. Se trata de un contador real del número de veces que los visitantes (únicos) han abierto la URL:</p>
+<ol>
+<li>Navegue a su frontend Zabbix y vaya a <strong>Configuration</strong> | <strong>Hosts</strong>, a continuación, haga clic en el host llamado <code>lar-book-agent_simple</code>.</li>
+<li>Ahora vaya a <strong>item</strong>; queremos crear un nuevo elemento aquí haciendo clic en el botón <strong>Create item</strong>. Vamos a necesitar crear un elemento de agente HTTP como se muestra en la siguiente captura de pantalla:</li>
+</ol>
+<p><img alt="Figura 3.53 - Página de configuración de Zabbix Item, recuento de visitantes en la página oicts.com" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_053.jpg" />
+Figura 3.53 - Página de configuración de Zabbix Item, recuento de visitantes en la página oicts.com</p>
+<ol>
+<li>No olvide editar Tipo de información.</li>
+</ol>
+<p><img alt="Figura 3.54 - Página de configuración de Zabbix Item, recuento de visitantes en la página oicts.com, parte inferior de la página" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_054.jpg" />
+Figura 3.54 - Página de configuración de Zabbix Item, recuento de visitantes en la página oicts.com, parte inferior de la página</p>
+<ol>
+<li>También necesitaremos añadir una etiqueta a este elemento.</li>
+</ol>
+<p><img alt="Figura 3.55 - Página de configuración de elementos de Zabbix, recuento de visitantes en la página oicts.com, pestaña Etiquetas" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_055.jpg" />
+Figura 3.55 - Página de configuración de elementos de Zabbix, recuento de visitantes en la página oicts.com, pestaña Etiquetas</p>
+<ol>
+<li>Utilice los siguientes pasos de preprocesamiento:
+   <img alt="Figura 3.56 - Página de configuración de elementos de Zabbix, recuento de visitantes en la página oicts.com, pestaña Preprocesamiento" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_056.jpg" />
+   Figura 3.56 - Página de configuración de elementos de Zabbix, recuento de visitantes en la página oicts.com, pestaña Preprocesamiento</li>
+<li>Ahora navegue a <strong>Monitoring</strong> | <strong>Hosts</strong> y abra la página Últimos datos para nuestro host <code>lar-book-agent_simple</code>. Si todo está funcionando como debería, ahora deberíamos estar solicitando el recuento de visitantes de esta página cada 15 minutos de la siguiente manera:
+   <img alt="Figura 3.57 - Página de últimos datos de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_057.jpg" />
+   Figura 3.57 - Página de últimos datos de Zabbix</li>
+</ol>
+<h3 id="como-funciona_7">Cómo funciona...</h3>
+<p>Lo que hacemos aquí es solicitar la página web completa a Zabbix navegando a la página con el agente HTTP y descargándola. Cuando tenemos el contenido completo de la página, en este caso, una página HTML/PHP, podemos procesar los datos:
+<img alt="Figura 3.58 - Diagrama que muestra la comunicación del agente HTTP de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_058.jpg" />
+Figura 3.58 - Diagrama que muestra la comunicación del agente HTTP de Zabbix</p>
+<p>Le pedimos a nuestro preprocesador mediante una regex que recorra el código solicitado y sólo muestre el número que hay detrás de donde pone Total Page Visits:.</p>
+<p>Todo lo que queda es el número, listo para que lo utilicemos en gráficos y otros tipos de visualización de datos.</p>
+<hr />
+<h2 id="uso-del-preprocesamiento-de-zabbix-para-modificar-los-valores-de-los-elementos">Uso del preprocesamiento de Zabbix para modificar los valores de los elementos</h2>
+<p>El preprocesamiento de valores de ítems es una funcionalidad importante en Zabbix; podemos usarla para crear todo tipo de comprobaciones. Ya hemos hecho algo de preprocesamiento en este capítulo, pero vamos a profundizar un poco más en él y en lo que hace.</p>
+<h3 id="comenzando">Comenzando</h3>
+<p>Vamos a necesitar un servidor Zabbix para crear nuestra comprobación. También necesitaremos un agente Zabbix pasivo en un host Linux para obtener nuestros valores y preprocesarlos. Podemos utilizar el agente que se está ejecutando en nuestro servidor Zabbix para esto; en mi caso, este es <code>lar-book-centos</code>.</p>
+<h3 id="como-hacerlo_8">Cómo hacerlo...</h3>
+<ol>
+<li>Vamos a empezar por iniciar sesión en nuestro frontend Zabbix e ir a <strong>Configuration</strong> | <strong>Hosts</strong>.</li>
+<li>Haz clic en el host de tu servidor Zabbix; en mi caso, se llama <code>lar-book-centos</code>.</li>
+<li>Ahora ve a Items y haz clic en el botón azul <strong>Create item</strong> en la esquina superior derecha. Vamos a crear un nuevo elemento con la siguiente información:
+   <img alt="Figura 3.59 - Pantalla de creación de nuevo elemento, Obtener estadísticas de tráfico desde CLI" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_059.jpg" />
+   Figura 3.59 - Pantalla de creación de nuevo elemento, Obtener estadísticas de tráfico desde CLI</p></li>
+<li>No olvide añadir su etiqueta:
+   <img alt="Figura 3.60 - Pantalla de creación de nuevo elemento, Obtener estadísticas de tráfico de CLI, pestaña Etiquetas" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_060.jpg" />
+   Figura 3.60 - Pantalla de creación de nuevo elemento, Obtener estadísticas de tráfico de CLI, pestaña Etiquetas</li>
+<li>Asegúrese de cambiar <code>ens192</code> a su propia interfaz de red primaria. Puede encontrar su interfaz de red primaria iniciando sesión en la CLI de Linux y ejecutando lo siguiente:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="w"> </span>Ifconfig<span class="w"> </span>
+</code></pre></div>
+6. De vuelta en la pantalla de creación de <strong>item</strong>, haga clic en el botón azul <strong>Add</strong>. Este item utilizará el agente de Zabbix para ejecutar un comando remoto en la CLI de Linux.
+7. Cuando navegamos a este nuevo item, podemos ver que el item se convierte en no soportado. Esto se debe a que cuando usamos la clave <strong>system.run</strong>, necesitamos permitirla en la configuración del agente de Zabbix:</p>
+<p><img alt="Figura 3.61 - Información de item system.run sistema métrico no admitida" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_061.jpg" />
+   Figura 3.61 - Información de item <code>system.run</code> sistema métrico no admitida
+8. Acceda a la CLI Linux del host monitorizado y edite la configuración del agente Zabbix con esto:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>vim<span class="w"> </span>/etc/zabbix/zabbix_agent2.conf
+</code></pre></div>
+9. Vaya a la línea Option: <strong>AllowKey</strong> y añada <strong>AllowKey=system.run[*]</strong> como se muestra aquí:
+   <img alt="Figura 3.62 - Fichero de configuración del agente Zabbix, AllowKey=system.run[*]" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_062.jpg" />
+   Figura 3.62 - Fichero de configuración del agente Zabbix, AllowKey=system.run[*]
+10. Guarde el archivo y reinicie el agente Zabbix con esto</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zabbix-agent2
+</code></pre></div>
+<ol>
+<li>De vuelta en el frontend de Zabbix, el error que notamos en el paso 7 debería desaparecer después de unos minutos.</li>
+<li>Navegue a <strong>Monitoring</strong> | <strong>Latest data</strong> y filtre en el host <strong>lar-book-centos</strong> de su servidor Zabbix y el nombre del nuevo item Obtener estadísticas de tráfico desde CLI.</li>
+<li>Ahora el valor debería ser extraído del host. Si hacemos clic en <strong>History</strong>, podemos ver el valor completo; debería tener el siguiente aspecto:
+    <img alt="Figura 3.63 - Comando system.run del agente Zabbix ejecutando los resultados de ifconfig ens192" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_063.jpg" />
+    Figura 3.63 - Comando system.run del agente Zabbix ejecutando los resultados de ifconfig ens192</li>
+<li>La información que se ve en la imagen es demasiada para un solo item. Necesitamos dividirla. Usemos el preprocesado para obtener el número de bytes RX de la información.</li>
+<li>Vuelva a <strong>Configuration</strong> | <strong>Hosts</strong> y haga clic en el host de su servidor Zabbix. Vaya a <strong>Items</strong> de este host.</li>
+<li>Haga clic en el Item <strong>Obtener estadísticas de tráfico de CLI</strong> para editarlo. Cambie el nombre a <code>Total RX traffic in bytes for ens192</code> y añada <code>B</code> a Units, donde B significa bytes. Quedará así:
+    <img alt="Figura 3.64 - Elemento system.run del agente Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_064.jpg" />
+    Figura 3.64 - Elemento system.run del agente Zabbix</li>
+<li>Añada su tag:
+    <img alt="Figura 3.65 - Pantalla de creación de nuevo item, Obtener estadísticas de tráfico de CLI, pestaña Etiquetas" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_065.jpg" />
+    Figura 3.65 - Pantalla de creación de nuevo item, Obtener estadísticas de tráfico de CLI, pestaña Etiquetas</li>
+<li>Ahora haga clic en <strong>Preprocessing</strong> y pulse el botón subrayado <strong>Add</strong>.</li>
+<li>Se añadirá un campo de expresión regular (regex), que vamos a rellenar para que coincida con el número total de bytes de su interfaz. Rellene lo siguiente:
+    <img alt="Figura 3.66 - Preprocesamiento del elemento system.run del agente Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_066.jpg" />
+    Figura 3.66 - Preprocesamiento del elemento system.run del agente Zabbix</li>
+<li>Asegúrese de seleccionar también la casilla <strong>Custom on fail</strong>.</li>
+<li>Hagamos clic de nuevo en el botón subrayado <strong>Add</strong> y utilicemos el menú desplegable de este nuevo paso para seleccionar <strong>Discard unchanged</strong>. El resultado final será el siguiente:
+    <img alt="Figura 3.67 - Preprocesamiento del elemento system.run del agente Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_067.jpg" />
+    Figura 3.67 - Preprocesamiento del elemento system.run del agente Zabbix</li>
+<li>Ahora podemos pulsar el botón azul Update para terminar de editar este elemento.</li>
+<li>Navegue de nuevo a <strong>Monitoring</strong> | <strong>Latest data</strong> y filtre sobre su host y el nuevo nombre del ítem, <strong>Tráfico RX total en bytes para ens192</strong>. Asegúrese de utilizar su propio nombre de interfaz.</li>
+<li>Ahora podemos ver nuestro valor entrando, y tenemos un elemento mostrando nuestro tráfico RX total para nuestra interfaz principal:
+    <img alt="Figura 3.68 - Últimos datos del elemento de tráfico Zabbix Total RX" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_068.jpg" />
+    Figura 3.68 - Últimos datos del elemento de tráfico Zabbix Total RX</li>
+</ol>
+<h3 id="como-funciona_8">Cómo funciona...</h3>
+<p>Ya hemos realizado algún preprocesamiento en la receta Trabajar con elementos calculados y dependientes para obtener datos de un elemento maestro. También hemos utilizado el preprocesamiento en la receta Configuración de la monitorización del agente HTTP para obtener un valor específico de una página web. Sin embargo, no hemos repasado los conceptos de preprocesamiento utilizados en esas recetas, así que vamos a repasarlos.</p>
+<p>Cuando se trabaja con preprocesamiento, es importante conocer la configuración básica. Echemos un vistazo a los datos entrantes antes de utilizar el preprocesamiento:
+<img alt="Figura 3.69 - Comando system.run del agente Zabbix ejecutando los resultados de ifconfig ens192" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_063.jpg" />
+Figura 3.69 - Comando system.run del agente Zabbix ejecutando los resultados de ifconfig ens192</p>
+<p>Esto es mucha información. Cuando nos fijamos en cómo se utilizan los elementos de Zabbix, tratamos de poner la información comprensible en un solo elemento. Por suerte, podemos preprocesar este elemento antes de almacenar el valor en Zabbix. En la siguiente figura, podemos ver los pasos de preprocesamiento que añadimos a nuestro elemento:
+<img alt="Figura 3.70 - Preprocesamiento del elemento system.run del agente Zabbix con dos pasos" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_03_070.jpg" />
+Figura 3.70 - Preprocesamiento del elemento system.run del agente Zabbix con dos pasos</p>
+<p>Nuestro primer paso es una regex. Este paso se asegurará de utilizar sólo los números que necesitamos. Hacemos coincidir la palabra <strong>RX</strong>, luego la palabra <strong>bytes</strong>, y una secuencia de números después de ellas. De esta manera, terminamos con el número total de bytes RX en el grupo de captura 2. Por eso rellenamos <code>\2</code> en el campo de salida. También especificamos <strong>Custom on fail</strong>, que descartará cualquier valor si la regex no coincide.</p>
+<p>Nuestro segundo paso es descartar cualquier valor que sea igual al valor recibido anteriormente. En lugar de almacenar valores duplicados, simplemente los descartamos y ahorramos algo de espacio en nuestra base de datos Zabbix.</p>
+<p><strong>Consejo</strong></p>
+<p>Es mucho más fácil construir una regex cuando se utiliza una herramienta en línea como <code>https://regex101.com/</code>. Puedes ver qué número obtendrán tus grupos de captura, y también hay mucha información valiosa en las herramientas.</p>
+<p>Es importante señalar aquí que los pasos se ejecutan en la secuencia en que se definen en el frontend. Si el primer paso falla, el elemento se convierte en no soportado a menos que Custom on fail esté configurado para hacer otra cosa.</p>
+<p>Al añadir preprocesamiento a Zabbix, abrimos todo un abanico de opciones para nuestros elementos, y podemos alterar nuestros datos de casi cualquier forma que sea necesaria. Estos dos pasos son sólo el comienzo de las opciones que se abren al sumergirse en el mundo del preprocesamiento de Zabbix.</p>
+<h3 id="ver-tambien_2">Ver también</h3>
+<p>El preprocesamiento en Zabbix es un tema importante, y es imposible cubrir todos sus aspectos en una sola receta. Los dos pasos de preprocesamiento en el ejemplo de esta receta son sólo dos de las muchas opciones que podemos utilizar. Echa un vistazo a la documentación oficial de Zabbix para ver las otras opciones que podemos utilizar:</p>
+<p>https://www.zabbix.com/documentation/current/en/manual/config/items/preprocessing</p>
+<hr />
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        ¿Te ha resultado útil esta página?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="¿Te ha resultado útil esta página?" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="Esta página podría mejorarse" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios.
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios. Ayúdenos a mejorar esta página utilizando nuestro <a href="..." target="_blank" rel="noopener">formulario de comentarios</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 <a href="https://github.com/terracenter target="_blank" rel="noopener"> Freddy Taborda </a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/terracenter" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/terracenter0" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/freddy-taborda-5199802a/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>

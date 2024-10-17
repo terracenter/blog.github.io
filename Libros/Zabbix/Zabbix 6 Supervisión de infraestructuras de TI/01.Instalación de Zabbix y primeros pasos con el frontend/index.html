@@ -1,0 +1,2711 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Freddy Taborda">
+      
+      
+      
+        <link rel="prev" href="../00.Prefacio/">
+      
+      
+        <link rel="next" href="../02.Preparando%20las%20cosas%20con%20la%20gesti%C3%B3n%20de%20usuarios%20de%20Zabbix/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.41">
+    
+    
+      
+        <title>01.Instalación de Zabbix y primeros pasos con el frontend - El Blog de Humanbyte</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-5T8Q8F61MQ"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-5T8Q8F61MQ",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-5T8Q8F61MQ",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#capitulo-1-instalando-zabbix-y-empezando-a-usar-el-frontend" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="El Blog de Humanbyte" class="md-header__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            El Blog de Humanbyte
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              01.Instalación de Zabbix y primeros pasos con el frontend
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Bienvenidos a la Biblioteca
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-tabs__link">
+          
+  
+  Cursos
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Docs/" class="md-tabs__link">
+          
+  
+  Docs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+  Libros
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Manuales/Linux/00.Seguridad/" class="md-tabs__link">
+          
+  
+  Manuales
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Monitoreo_de_Redes/Log_Serer/rsyslog_Server/" class="md-tabs__link">
+          
+  
+  Monitoreo de Redes
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-tabs__link">
+          
+  
+  Virtualizacion
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="El Blog de Humanbyte" class="md-nav__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    El Blog de Humanbyte
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bienvenidos a la Biblioteca
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cursos
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Docs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Docs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Libros
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Libros
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Libros de:
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../Odoo/Fundamentos-de-desarrollo-de-Odoo-15/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Odoo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix 6 Supervisión de infraestructuras de TI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix 6 Supervisión de infraestructuras de TI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zabbix 6 IT Infrastructure Monitoring Cookbook - Second Edition
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00.Prefacio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    00.Prefacio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    01.Instalación de Zabbix y primeros pasos con el frontend
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    01.Instalación de Zabbix y primeros pasos con el frontend
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capitulo-1-instalando-zabbix-y-empezando-a-usar-el-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capítulo 1: Instalando Zabbix y Empezando a Usar el Frontend
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos técnicos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-del-servidor-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación del servidor Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación del servidor Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-del-frontend-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración del frontend Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del frontend Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hay-mas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hay más...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#habilitar-la-alta-disponibilidad-del-servidor-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Habilitar la alta disponibilidad del servidor Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Habilitar la alta disponibilidad del servidor Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo hacerlo...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-la-base-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la base de datos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-los-nodos-del-cluster-del-servidor-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de los nodos del cluster del servidor Zabbix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurando-apache-con-alta-disponibilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurando Apache con alta disponibilidad
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hay-mas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hay más...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usando-el-frontend-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usando el frontend de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usando el frontend de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navegando-por-el-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navegando por el frontend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Navegando por el frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02.Preparando%20las%20cosas%20con%20la%20gesti%C3%B3n%20de%20usuarios%20de%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    02.Preparando las cosas con la gestión de usuarios de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03.Cap%C3%ADtulo_%20Configuraci%C3%B3n%20de%20la%20monitorizaci%C3%B3n%20de%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Capítulo 3: Configuración de la monitorización de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04.Cap%C3%ADtulo_%20Trabajar%20con%20disparadores%20y%20alertas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    04.Capítulo  Trabajar con disparadores y alertas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.Cap%C3%ADtulo_%20Cree%20sus%20propias%20plantillas%20estructuradas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    05.Capítulo  Cree sus propias plantillas estructuradas
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06.Cap%C3%ADtulo_%20Visualizaci%C3%B3n%20de%20datos%2C%20inventario%20e%20informes/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    06.Capítulo  Visualización de datos, inventario e informes
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07.Cap%C3%ADtulo_%20Uso%20de%20Discovery%20para%20la%20creaci%C3%B3n%20autom%C3%A1tica/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    07.Capítulo  Uso de Discovery para la creación automática
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08.Cap%C3%ADtulo_%20Configuraci%C3%B3n%20de%20proxies%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    08.Capítulo  Configuración de proxies Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09.Cap%C3%ADtulo_%20Integraci%C3%B3n%20de%20Zabbix%20con%20servicios%20externos/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    09.Capítulo  Integración de Zabbix con servicios externos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10.Cap%C3%ADtulo_%20Ampliaci%C3%B3n%20de%20la%20funcionalidad%20de%20Zabbix%20con%20scripts%20personalizados%20y%20la%20API%20de%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    10.Capítulo  Ampliación de la funcionalidad de Zabbix con scripts personalizados y la API de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11.Cap%C3%ADtulo_%20Mantenimiento%20de%20la%20configuraci%C3%B3n%20de%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    11.Capítulo  Mantenimiento de la configuración de Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12.Cap%C3%ADtulo_%20Gesti%C3%B3n%20avanzada%20de%20bases%20de%20datos%20Zabbix/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    12.Capítulo  Gestión avanzada de bases de datos Zabbix
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13.Cap%C3%ADtulo_%20Llevar%20Zabbix%20a%20la%20nube%20con%20Zabbix%20Cloud%20Integration/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    13.Capítulo  Llevar Zabbix a la nube con Zabbix Cloud Integration
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Otros%20libros%20que%20le%20pueden%20interesar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Otros libros que le pueden interesar
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Manuales/Linux/00.Seguridad/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Manuales
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Monitoreo_de_Redes/Log_Serer/rsyslog_Server/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Monitoreo de Redes
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Virtualizacion
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capitulo-1-instalando-zabbix-y-empezando-a-usar-el-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Capítulo 1: Instalando Zabbix y Empezando a Usar el Frontend
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos técnicos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-del-servidor-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación del servidor Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación del servidor Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-del-frontend-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración del frontend Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del frontend Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hay-mas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hay más...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#habilitar-la-alta-disponibilidad-del-servidor-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Habilitar la alta disponibilidad del servidor Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Habilitar la alta disponibilidad del servidor Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparación
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cómo hacerlo...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-la-base-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de la base de datos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuracion-de-los-nodos-del-cluster-del-servidor-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración de los nodos del cluster del servidor Zabbix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurando-apache-con-alta-disponibilidad" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configurando Apache con alta disponibilidad
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo funciona...
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hay-mas_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hay más...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usando-el-frontend-de-zabbix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Usando el frontend de Zabbix
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Usando el frontend de Zabbix">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navegando-por-el-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Navegando por el frontend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Navegando por el frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparandonos_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparándonos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-hacerlo_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cómo hacerlo...
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+  <h1>01.Instalación de Zabbix y primeros pasos con el frontend</h1>
+
+<h2 id="capitulo-1-instalando-zabbix-y-empezando-a-usar-el-frontend">Capítulo 1: Instalando Zabbix y Empezando a Usar el Frontend</h2>
+<p>Zabbix 6 es como una continuación de Zabbix 5, ya que esta vez no estamos viendo grandes cambios en la interfaz de usuario. Sin embargo, en Zabbix 6, usted todavía encontrará un montón de mejoras, tanto en la interfaz de usuario y componentes básicos. Por ejemplo, la introducción de alta disponibilidad para el servidor Zabbix. Detallaremos todos los cambios importantes a lo largo del libro.</p>
+<p>En este capítulo, vamos a instalar el servidor Zabbix y explorar la interfaz de usuario Zabbix para que se familiarice con ella. Vamos a ir sobre la búsqueda de sus hosts, triggers, dashboards, y más para asegurarse de que se sienta seguro de sumergirse en el material más profundo más adelante en este libro. La interfaz de usuario de Zabbix tiene un montón de opciones para explorar, así que si estás empezando, no te sientas abrumado. Está bastante estructurada y una vez que le cojas el truco, estoy seguro de que encontrarás tu camino sin problemas. Aprenderás todo sobre estos temas en las siguientes recetas:</p>
+<ul>
+<li>Instalación del servidor Zabbix</li>
+<li>Configuración del frontend Zabbix</li>
+<li>Habilitar la alta disponibilidad del servidor Zabbix</li>
+<li>Uso del frontend Zabbix</li>
+<li>Navegación por el frontend Zabbix</li>
+</ul>
+<h2 id="requisitos-tecnicos">Requisitos técnicos</h2>
+<p>Empezaremos este capítulo con una máquina (virtual) Linux vacía. Siéntete libre de elegir una distribución Linux basada en RHEL o Debian. A continuación, vamos a configurar un servidor Zabbix desde cero en este host.</p>
+<p>Así que antes de empezar, asegúrate de tener tu máquina Linux lista.</p>
+<h2 id="instalacion-del-servidor-zabbix">Instalación del servidor Zabbix</h2>
+<p>Antes de hacer nada dentro de Zabbix, necesitamos instalarlo y prepararnos para empezar a trabajar con él. En esta receta, vamos a descubrir cómo instalar el servidor Zabbix 6.</p>
+<h3 id="preparandonos">Preparándonos</h3>
+<p>Antes de instalar el servidor Zabbix, vamos a necesitar cumplir con algunos requisitos previos. Vamos a utilizar MariaDB principalmente a lo largo de este libro. MariaDB es popular y hay mucha información disponible sobre su uso con Zabbix.</p>
+<p>En este punto, deberías tener un servidor Linux preparado delante de ti ejecutando una distribución basada en RHEL o Debian. Yo instalaré CentOS y Ubuntu 20.04 en mi servidor; vamos a llamarlos <code>lar-book-centos</code> y <code>lar-book-ubuntu</code>.</p>
+<p>Cuando tengas tu servidor listo, podemos empezar el proceso de instalación.</p>
+<h3 id="como-hacerlo">Cómo hacerlo...</h3>
+<ol>
+<li>Comencemos añadiendo el repositorio Zabbix 6.0 a nuestro sistema.
+   Para sistemas basados en RHEL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>rpm<span class="w"> </span>-Uvh<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>dnf<span class="w"> </span>clean<span class="w"> </span>all
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>wget<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-1+ubuntu20.04_all.deb
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>dpkg<span class="w"> </span>-i<span class="w"> </span>zabbix-release_6.0-1+ubuntu20.04_all.deb
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>apt<span class="w"> </span>update
+</code></pre></div>
+<p>Para Debian:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>wget<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bdebian11_all.deb
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>dpkg<span class="w"> </span>-i<span class="w"> </span>zabbix-release_6.0-4+debian11_all.deb
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>apt<span class="w"> </span>update
+</code></pre></div>
+2. Ahora que el repositorio está añadido, vamos a añadir el repositorio MariaDB en nuestro servidor:</p>
+<p>Según este libro, pero instala una versión no soportada por Zabbix, a la fecha</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>wget<span class="w"> </span>https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>mariadb_repo_setup
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>./mariadb_repo_setup
+</code></pre></div>
+<p>Nota:
+Must not be higher than (10.10.xx). Use of supported database version is highly recommended
+Override by setting AllowUnsupportedDBVersions=1 in Zabbix server configuration file at your own risk.</p>
+<p>Para Debian 11 (estoy usando), como dice la documentacion https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>curl<span class="w"> </span>-LsS<span class="w"> </span>https://r.mariadb.com/downloads/mariadb_repo_setup<span class="w"> </span><span class="p">|</span><span class="w"> </span>bash<span class="w"> </span>-s<span class="w"> </span>--<span class="w"> </span>--mariadb-server-version<span class="o">=</span><span class="s2">&quot;mariadb-10.10&quot;</span><span class="w"> </span>--os-type<span class="o">=</span>debian<span class="w">  </span>--os-version<span class="o">=</span><span class="m">11</span>
+</code></pre></div>
+<ol>
+<li>A continuación, instálelo y habilítelo mediante los siguientes comandos:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>mariadb-server
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mariadb
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>systemctl<span class="w"> </span>start<span class="w"> </span>mariadb
+</code></pre></div>
+<p>Para sistemas Ubuntu/Debian:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>zabbix-server-mysql<span class="w"> </span>zabbix-sql-scripts
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>mariadb-server
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mariadb
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>systemctl<span class="w"> </span>start<span class="w"> </span>mariadb
+</code></pre></div>
+4. Después de instalar MariaDB, asegúrese de proteger su instalación con el siguiente comando:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>/usr/bin/mariadb-secure-installation
+</code></pre></div>
+5. Asegúrate de responder a las preguntas con un sí (Y) y configura una contraseña de root que sea segura.
+6. Ejecute la configuración de instalación segura y asegúrese de guardar su contraseña en algún lugar. Es muy recomendable utilizar una bóveda de contraseñas.
+7. Ahora, vamos a instalar nuestro servidor Zabbix con soporte MySQL.</p>
+<p>Para sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>zabbix-server-mysql<span class="w"> </span>zabbix-sql-scripts
+</code></pre></div>
+<p>Para sistemas basados en Debian / Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>apt<span class="w"> </span>install<span class="w"> </span>zabbix-server-mysql<span class="w"> </span>zabbix-sql-scripts
+</code></pre></div>
+8. Con el servidor Zabbix instalado, estamos listos para crear nuestra base de datos Zabbix. Inicie sesión en MariaDB con lo siguiente:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+9. Introduzca la contraseña que estableció durante la instalación segura y cree la base de datos Zabbix con los siguientes comandos. No olvide cambiar la <code>contraseña</code> en el segundo comando:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>create<span class="w"> </span>database<span class="w"> </span>zabbix<span class="w"> </span>character<span class="w"> </span><span class="nb">set</span><span class="w"> </span>utf8mb4<span class="w"> </span>collate<span class="w"> </span>utf8mb4_bin<span class="p">;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>create<span class="w"> </span>user<span class="w"> </span>zabbix@localhost<span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>grant<span class="w"> </span>all<span class="w"> </span>privileges<span class="w"> </span>on<span class="w"> </span>zabbix.*<span class="w"> </span>to<span class="w"> </span>zabbix@localhost<span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>flush<span class="w"> </span>privileges<span class="p">;</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>quit
+</code></pre></div>
+<p><strong>Consejo</strong></p>
+<p>Para aquellos que lo necesiten, Zabbix también soporta <code>utf8mb4</code> ahora. Hemos cambiado <code>utf8</code> por <code>utf8mb4</code> en el comando anterior y todo funcionará. Para una referencia, consulte el ticket de soporte de Zabbix aquí: https://support.zabbix.com/browse/ZBXNEXT-3706
+10. Ahora necesitamos importar nuestro esquema de base de datos Zabbix a nuestra recién creada base de datos Zabbix:</p>
+<div class="highlight"><pre><span></span><code>Sistemas (Ubuntu y RedHad) ??
+
+```bash
+zcat /usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz | mysql -u zabbix -p zabbix
+```
+
+Debian
+
+**Nota importante**
+
+En este punto, puede parecer que está atascado y que el sistema no responde. No se preocupe, ya que sólo tardará un poco en importar el esquema SQL.
+</code></pre></div>
+<p>Ahora hemos terminado con los preparativos para nuestro lado MariaDB y estamos listos para pasar al siguiente paso, que será la configuración del servidor Zabbix:</p>
+<ol>
+<li>El servidor Zabbix se configura utilizando el archivo de configuración del servidor Zabbix. Este archivo se encuentra en <code>/etc/zabbix/</code>. Vamos a abrir este archivo con nuestro editor favorito; Voy a utilizar <strong>Vim</strong> en todo el libro:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>vim<span class="w"> </span>/etc/zabbix/zabbix_server.conf
+</code></pre></div>
+2. Ahora, asegúrese de que las siguientes líneas del archivo coinciden con el nombre de su base de datos, el nombre de usuario de la base de datos y la contraseña del usuario de la base de datos:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nv">DBName</span><span class="o">=</span>zabbix
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nv">DBUser</span><span class="o">=</span>zabbix
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nv">DBPassword</span><span class="o">=</span>password
+</code></pre></div>
+<p><strong>Consejo</strong></p>
+<p>Antes de iniciar el servidor Zabbix, debe configurar SELinux o AppArmor para permitir el uso del servidor Zabbix. Si se trata de una máquina de prueba, puede utilizar una postura permisiva para SELinux o desactivar AppArmor, pero se recomienda no hacer esto en producción.
+3. Todo hecho; ahora estamos listos para iniciar nuestro servidor Zabbix:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>zabbix-server
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>systemctl<span class="w"> </span>start<span class="w"> </span>zabbix-server
+</code></pre></div>
+4. Comprueba si todo arranca como se espera con lo siguiente:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>systemctl<span class="w"> </span>status<span class="w"> </span>zabbix-server<span class="w"> </span>
+</code></pre></div>
+5. Alternativamente, supervise el archivo de registro, que proporciona una descripción detallada del proceso de inicio de Zabbix:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/zabbix/zabbix_server.log<span class="w"> </span>
+</code></pre></div>
+6. La mayoría de los mensajes en este archivo están bien y pueden ser ignorados con seguridad, pero asegúrese de leer bien y ver si hay algún problema con el arranque de su servidor Zabbix.</p>
+<h3 id="como-funciona">Cómo funciona...</h3>
+<p>El servidor Zabbix es el proceso principal de nuestra configuración Zabbix. Es responsable de nuestra monitorización, alertas de problemas, y muchas de las otras tareas descritas en este libro. Una pila completa de Zabbix consiste en al menos lo siguiente:</p>
+<ul>
+<li>Una base de datos (MySQL, PostgreSQL u Oracle)</li>
+<li>Un servidor Zabbix</li>
+<li>Apache o NGINX ejecutando el frontend Zabbix con PHP 7.2+, pero PHP 8 no está soportado actualmente</li>
+</ul>
+<p><strong>Nota</strong>:</p>
+<p>A la fecha funciona con 7.2.5 o superior, 8.0 - 8.2, según documentación: https://www.zabbix.com/documentation/6.0/en/manual/installation/requirements</p>
+<p>Podemos ver los componentes y cómo se comunican entre sí en la siguiente figura:</p>
+<p><img alt="Figura 1.1 - Diagrama de comunicaciones de la configuración de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_001.jpg" /></p>
+<p>Figura 1.1 - Diagrama de comunicaciones de la configuración de Zabbix</p>
+<p>Acabamos de configurar el servidor Zabbix y la base de datos; ejecutando estos dos, estamos básicamente listos para empezar a monitorizar. El servidor Zabbix se comunica con la base de datos Zabbix para escribir en ella los valores recogidos.</p>
+<p>Sin embargo, todavía hay un problema: no podemos configurar nuestro servidor Zabbix para hacer nada. Para ello, vamos a necesitar nuestro frontend Zabbix, que vamos a configurar en la siguiente receta.</p>
+<h2 id="configuracion-del-frontend-zabbix">Configuración del frontend Zabbix</h2>
+<p>El frontend de Zabbix es la cara de nuestro servidor. Es donde vamos a configurar todos nuestros hosts, plantillas, cuadros de mando, mapas, y todo lo demás. Sin él, estaríamos ciegos a lo que está pasando, en el lado del servidor. Por lo tanto, vamos a configurar nuestro frontend Zabbix en esta receta.</p>
+<h3 id="preparandonos_1">Preparándonos</h3>
+<p>Vamos a configurar el frontend de Zabbix usando Apache. Antes de comenzar con esta receta, asegúrese de que está ejecutando el servidor Zabbix en una distribución de Linux de su elección. Usaré los hosts <code>lar-book-centos</code> y <code>lar-book-ubuntu</code> en estas recetas para mostrar el proceso de configuración en CentOS 8 y Ubuntu 20.</p>
+<h3 id="como-hacerlo_1">Cómo hacerlo...</h3>
+<ol>
+<li>Vamos a instalar el frontend. Ejecute el siguiente comando para empezar.
+   Para sistemas basados en RHEL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>zabbix-web-mysql<span class="w"> </span>zabbix-apache-conf<span class="w"> </span>
+</code></pre></div>
+<p>Para sistemas Debian / Ubuntu:</p>
+<p><strong>Nota</strong>: Si deseas utilizar PHP 8.2 en Debian 11</p>
+<ul>
+<li>Instale los paquetes temporales necesarios:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="w"> </span>apt<span class="w"> </span>update
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>lsb-release<span class="w"> </span>ca-certificates<span class="w"> </span>apt-transport-https<span class="w"> </span>software-properties-common<span class="w"> </span>gnupg2
+</code></pre></div>
+<ul>
+<li>
+<p>Añada el repositorio Surý Debian PPA a su sistema Debian.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;deb https://packages.sury.org/php/ </span><span class="k">$(</span>lsb_release<span class="w"> </span>-sc<span class="k">)</span><span class="s2"> main&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/sury-php.list
+</code></pre></div>
+   * Importar paquetes firmando clave GPG;</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>curl<span class="w"> </span>-fsSL<span class="w">  </span>https://packages.sury.org/php/apt.gpg<span class="p">|</span><span class="w">  </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span>-o<span class="w"> </span>/etc/apt/trusted.gpg.d/sury-keyring.gpg
+</code></pre></div>
+   * Confirme si el repositorio funciona descargando la información de los paquetes de todas las fuentes configuradas:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="w"> </span>apt<span class="w"> </span>update
+</code></pre></div>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>zabbix-frontend-php<span class="w"> </span>zabbix-apache-conf<span class="w"> </span>
+</code></pre></div>
+<p><strong>Consejo</strong></p>
+<p>No olvide permitir los puertos 80 y 443 en su cortafuegos si está utilizando uno. Sin esto, no podrás conectarte al frontend.
+2. Reinicie los componentes de Zabbix y asegúrese de que se inician al arrancar el servidor con lo siguiente.</p>
+<p>Para sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd<span class="w"> </span>php-fpm
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zabbix-server<span class="w"> </span>httpd<span class="w"> </span>php-fpm
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>apache2
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>systemctl<span class="w"> </span>restart<span class="w"> </span>zabbix-server<span class="w"> </span>apache2
+</code></pre></div>
+3. Ahora deberíamos ser capaces de navegar a nuestro frontend Zabbix sin ningún problema y comenzar los pasos finales para configurar el frontend Zabbix.
+4. Vayamos a nuestro navegador y naveguemos hasta la IP de nuestro servidor. Debería verse así:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>http://&lt;your_server_ip&gt;/zabbix<span class="w"> </span>
+</code></pre></div>
+5. Ahora deberíamos ver la siguiente página web:
+   <img alt="Figura 1.2 - Pantalla de bienvenida de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_002.jpg" />
+   Figura 1.2 - Pantalla de bienvenida de Zabbix</p>
+<p>Si no ves esta página web, es posible que hayas omitido algunos pasos en el proceso de configuración. Vuelva sobre sus pasos y vuelva a comprobar sus archivos de configuración; incluso el más pequeño error tipográfico podría impedir que la página web se sirva.
+6. Continuemos haciendo clic en <strong>Siguiente paso</strong> en esta página, que le servirá con la siguiente página:
+   <img alt="Figura 1.3 - Página de requisitos previos para la instalación de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_003.jpg" /></p>
+<p>Figura 1.3 - Página de requisitos previos para la instalación de Zabbix
+7. Todas y cada una de las opciones deberían aparecer <strong>OK</strong> ahora; si no es así, corrija el error que le está mostrando. Si todo está bien, puede continuar haciendo clic en Siguiente paso de nuevo, que le llevará a la página siguiente:
+   <img alt="Figura 1.4 - Página de conexión a la base de datos de instalación de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_004.jpg" /></p>
+<p>Figura 1.4 - Página de conexión a la base de datos de instalación de Zabbix
+8. Aquí, tenemos que decirle a nuestro frontend Zabbix donde se encuentra nuestra base de datos MySQL. Desde que la instalamos en localhost, sólo tenemos que asegurarnos de que publicamos el nombre correcto de la base de datos, el nombre de usuario de la base de datos, y la contraseña del usuario de la base de datos.
+9. Esto debería hacer que el frontend Zabbix pueda comunicarse con la base de datos. Vamos a proceder haciendo clic en Siguiente paso de nuevo:
+   <img alt="Figura 1.5 - Página de detalles del servidor de instalación de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_005.jpg" /></p>
+<p>Figura 1.5 - Página de detalles del servidor de instalación de Zabbix</p>
+<p>Lo siguiente es la configuración del servidor Zabbix. Asegúrese de nombrar a su servidor algo útil o algo fresco. Por ejemplo, he configurado un servidor de producción llamado Meeseeks porque cada vez que recibíamos una alerta, podíamos hacer que Zabbix dijera "Soy el Sr. Meeseeks mírame". Pero algo como zabbix.ejemplo.com también funciona.
+10. Pongamos un nombre a nuestro servidor, configuremos la zona horaria para que coincida con la nuestra y pasemos al siguiente paso:
+    <img alt="Figura 1.6 - Página de resumen de la instalación de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_006.jpg" /></p>
+<div class="highlight"><pre><span></span><code>Figura 1.6 - Página de resumen de la instalación de Zabbix
+</code></pre></div>
+<ol>
+<li>
+<p>Verifique su configuración y proceda a hacer clic en Siguiente paso una vez más.
+    <img alt="Figura 1.7 - Página de finalización de la instalación de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_007.jpg" /></p>
+<p>Figura 1.7 - Página de finalización de la instalación de Zabbix
+12. Ha instalado correctamente el frontend Zabbix. Ahora puede hacer clic en el botón Finalizar y podemos empezar a utilizar el frontend. Se le mostrará una página de inicio de sesión donde puede utilizar las siguientes credenciales por defecto:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>Username:<span class="w"> </span>Admin
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>Password:<span class="w"> </span>zabbix
+</code></pre></div>
+</li>
+</ol>
+<h3 id="como-funciona_1">Cómo funciona...</h3>
+<p>Ahora que hemos instalado nuestro frontend Zabbix, nuestra configuración de Zabbix está completa y estamos listos para empezar a trabajar con ella. Nuestro frontend Zabbix se conectará a nuestra base de datos para editar los valores de configuración de nuestra configuración, como podemos ver en la siguiente figura:
+<img alt="Figura 1.8 - Diagrama de comunicaciones de configuración de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_008.jpg" /></p>
+<p>Figura 1.8 - Diagrama de comunicaciones de configuración de Zabbix</p>
+<p>El frontend Zabbix también hablará con nuestro servidor Zabbix, pero esto es sólo para asegurarse de que el servidor Zabbix está en funcionamiento. Ahora que sabemos cómo configurar el frontend Zabbix, podemos empezar a usarlo. Vamos a comprobarlo después de la siguiente receta.</p>
+<h3 id="hay-mas">Hay más...</h3>
+<p>Zabbix proporciona una guía de configuración muy práctica, que contiene muchos detalles sobre la instalación de Zabbix. Yo siempre recomendaría mantener esta página abierta durante una instalación de Zabbix, ya que contiene información como el enlace al último repositorio. Compruébalo aquí:</p>
+<p>https://www.zabbix.com/download</p>
+<hr />
+<h2 id="habilitar-la-alta-disponibilidad-del-servidor-zabbix">Habilitar la alta disponibilidad del servidor Zabbix</h2>
+<p>Zabbix 6 está aquí, con una de las características más esperadas de todos los tiempos. La alta disponibilidad llevará su configuración Zabbix al siguiente nivel, asegurándose de que si uno de sus servidores Zabbix tiene problemas, otro se hará cargo.</p>
+<p>Una gran cosa acerca de esta implementación es que soporta una forma propietaria fácil de poner de uno a muchos servidores Zabbix en un clúster. Una gran manera de asegurarse de que su monitorización se mantiene en el aire en todo momento (o al menos tanto como sea posible).</p>
+<p>Ahora tengo que ser honesto, no podemos hacer nada como el equilibrio de carga todavía. Pero eso está incluido en la hoja de ruta de Zabbix utilizando los proxies Zabbix en una versión posterior. Mantenga un ojo hacia fuera para cualquier actualización con respecto a que aquí:</p>
+<p>https://www.zabbix.com/roadmap</p>
+<h3 id="preparacion">Preparación</h3>
+<p>Antes de empezar, ten en cuenta que la creación de una configuración de alta disponibilidad se considera un tema avanzado. Puede ser más difícil que otras recetas de este capítulo.</p>
+<p>Para esta configuración, necesitaremos tres nuevas máquinas virtuales, ya que vamos a crear una configuración de Zabbix dividida, a diferencia de la configuración que creamos en la primera receta de este capítulo. Echemos un vistazo a cómo he nombrado a nuestras tres nuevas máquinas virtuales y cuáles serán sus direcciones IP:</p>
+<ul>
+<li><code>lar-book-ha1</code> (<code>192.168.0.1</code>)</li>
+<li><code>lar-book-ha2</code> (<code>192.168.0.2</code>)</li>
+<li><code>lar-book-ha-db</code> (<code>192.168.0.10</code>)</li>
+</ul>
+<p>Dos de estos servidores ejecutarán nuestro clúster de servidores Zabbix y un frontend Zabbix. El otro servidor es sólo para nuestra base de datos MySQL. Tenga en cuenta que las direcciones IP utilizadas en el ejemplo pueden ser diferentes para usted. Utilice las correctas para su entorno.</p>
+<p>También necesitaremos una dirección IP virtual para nuestros nodos de cluster. Usaremos <code>192.168.0.5</code> en el ejemplo.</p>
+<p><strong>Consejo</strong></p>
+<p>En nuestra configuración, estamos utilizando sólo una base de datos MySQL Zabbix. Para asegurarse de que todas las partes de Zabbix están configuradas como altamente disponibles, podría valer la pena considerar la configuración de MySQL en una configuración maestro/maestro. Esto sería una gran combinación con la alta disponibilidad del servidor Zabbix.</p>
+<p>Este libro de cocina NO utilizará SELinux o AppArmor, así que asegúrese de desactivarlas o añadir las políticas correctas antes de utilizar esta guía. Además, esta guía tampoco detalla cómo configurar su firewall, así que asegúrese de hacer esto de antemano también.</p>
+<h3 id="como-hacerlo_2">Cómo hacerlo...</h3>
+<p>Para su comodidad, hemos dividido esta sección de Cómo hacerlo... en tres partes. Una es la configuración de la base de datos, la otra es la configuración del cluster de servidores Zabbix, y la última es cómo configurar el frontend Zabbix de forma redundante. La sección Cómo funciona... proporcionará una explicación sobre toda la configuración.</p>
+<h4 id="configuracion-de-la-base-de-datos">Configuración de la base de datos</h4>
+<p>Vamos a empezar con la configuración de nuestra base de datos Zabbix, lista para ser utilizada en una configuración de servidor Zabbix de alta disponibilidad:</p>
+<ol>
+<li>Acceda a <code>lar-book-ha-db</code> e instale el repositorio MariaDB con el siguiente comando en sistemas basados en RedHat</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>wget<span class="w"> </span>https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>chmod<span class="w"> </span>+x<span class="w"> </span>mariadb_repo_setup
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>./mariadb_repo_setup
+</code></pre></div>
+2. A continuación, vamos a instalar la aplicación de servidor MariaDB con el siguiente comando.</p>
+<p>Para sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>mariadb-server
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mariadb
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>systemctl<span class="w"> </span>start<span class="w"> </span>mariadb
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>apt<span class="w"> </span>install<span class="w"> </span>mariadb-server
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>mariadb
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>systemctl<span class="w"> </span>start<span class="w"> </span>mariadb
+</code></pre></div>
+3. Después de instalar MariaDB, asegúrese de asegurar su instalación con el siguiente comando:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>/usr/bin/mariadb_secure_installation
+</code></pre></div>
+4. Asegúrate de responder a las preguntas con un sí (Y) y configura una contraseña raíz que sea segura. Es muy recomendable utilizar una bóveda de contraseñas para almacenarla.
+5. Ahora vamos a crear nuestra base de datos Zabbix para que nuestros servidores Zabbix se conecten. Inicie sesión en MariaDB con el siguiente comando:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>mysql<span class="w"> </span>-u<span class="w"> </span>root<span class="w"> </span>-p
+</code></pre></div>
+6. Introduzca la contraseña que estableció durante la instalación segura y cree la base de datos Zabbix con los siguientes comandos. No olvide cambiar la contraseña en los comandos segundo, tercero y cuarto:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>create<span class="w"> </span>database<span class="w"> </span>zabbix<span class="w"> </span>character<span class="w"> </span><span class="nb">set</span><span class="w"> </span>utf8mb4<span class="w"> </span>collate<span class="w"> </span>utf8mb4_bin<span class="p">;</span>
+<a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>create<span class="w"> </span>user<span class="w"> </span>zabbix@<span class="s1">&#39;192.168.0.1&#39;</span><span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>create<span class="w"> </span>user<span class="w"> </span>zabbix@<span class="s1">&#39;192.168.0.2&#39;</span><span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>create<span class="w"> </span>user<span class="w"> </span>zabbix@<span class="s1">&#39;192.168.0.5&#39;</span><span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>grant<span class="w"> </span>all<span class="w"> </span>privileges<span class="w"> </span>on<span class="w"> </span>zabbix.*<span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;zabbix&#39;</span>@<span class="s1">&#39;192.168.0.1&#39;</span><span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>grant<span class="w"> </span>all<span class="w"> </span>privileges<span class="w"> </span>on<span class="w"> </span>zabbix.*<span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;zabbix&#39;</span>@<span class="s1">&#39;192.168.0.2&#39;</span><span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>grant<span class="w"> </span>all<span class="w"> </span>privileges<span class="w"> </span>on<span class="w"> </span>zabbix.*<span class="w"> </span>to<span class="w"> </span><span class="s1">&#39;zabbix&#39;</span>@<span class="s1">&#39;192.168.0.5&#39;</span><span class="w"> </span>identified<span class="w"> </span>by<span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span>
+<a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>flush<span class="w"> </span>privileges<span class="p">;</span>
+<a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>quit
+</code></pre></div>
+7. Por último, necesitamos importar la configuración inicial de la base de datos Zabbix, pero para ello, necesitamos instalar el repositorio Zabbix.</p>
+<p>Para sistemas basados en RHEL:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>rpm<span class="w"> </span>-Uvh<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>dnf<span class="w"> </span>clean<span class="w"> </span>all
+</code></pre></div>
+8. A continuación, tenemos que instalar el módulo SQL scripts Zabbix.</p>
+<p>Para los sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>zabbix-sql-scripts
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>apt<span class="w"> </span>install<span class="w"> </span>zabbix-sql-scripts
+</code></pre></div>
+9. A continuación, ejecutamos el siguiente comando, que puede tardar un poco, así que ten paciencia hasta que termine:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>zcat<span class="w"> </span>/usr/share/doc/zabbix-sql-scripts/mysql/server.sql.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>mysql<span class="w"> </span>-uroot<span class="w"> </span>-p<span class="w"> </span>zabbix
+</code></pre></div>
+<h4 id="configuracion-de-los-nodos-del-cluster-del-servidor-zabbix">Configuración de los nodos del cluster del servidor Zabbix</h4>
+<p>La configuración de los nodos del cluster funciona de la misma manera que la configuración de cualquier nuevo servidor Zabbix. La única diferencia es que tendremos que especificar algunos parámetros nuevos de configuración.</p>
+<p>Para sistemas Ubuntu, utilice el siguiente comando:</p>
+<ol>
+<li>Empecemos añadiendo el repositorio Zabbix 6.0 a nuestros sistemas <code>lar-book-ha1</code> y <code>lar-book-ha2</code>:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>rpm<span class="w"> </span>-Uvh<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>dnf<span class="w"> </span>clean<span class="w"> </span>all
+</code></pre></div>
+<p>Para sistemas Ubuntu, utilice el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>wget<span class="w"> </span>https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-1+ubuntu20.04_all.deb
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>dpkg<span class="w"> </span>-i<span class="w"> </span>zabbix-release_6.0-1+ubuntu20.04_all.deb
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>apt<span class="w"> </span>update
+</code></pre></div>
+<ol>
+<li>Ahora vamos a instalar la aplicación de servidor Zabbix con el siguiente comando.</li>
+</ol>
+<p>Para sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>zabbix-server-mysql
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>apt<span class="w"> </span>install<span class="w"> </span>zabbix-server-mysql<span class="w"> </span>
+</code></pre></div>
+<ol>
+<li>Ahora editaremos los archivos de configuración del servidor Zabbix, empezando por <code>lar-book-ha1</code>. Emita el siguiente comando:</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>vim<span class="w"> </span>/etc/zabbix/zabbix_server.conf
+</code></pre></div>
+4. A continuación, añada las siguientes líneas para permitir una conexión a la base de datos:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nv">DBHost</span><span class="o">=</span><span class="m">192</span>.168.0.10
+<a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="nv">DBPassword</span><span class="o">=</span>password
+</code></pre></div>
+5. Para habilitar la alta disponibilidad en este host, añada las siguientes líneas en el mismo archivo:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nv">HANodeName</span><span class="o">=</span>lar-book-ha1
+</code></pre></div>
+6. Para asegurarnos de que nuestro frontend Zabbix sabe dónde conectarse si hay un fallo de nodo, rellene lo siguiente:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="nv">NodeAddress</span><span class="o">=</span><span class="m">192</span>.168.0.1
+</code></pre></div>
+7. Guarda el archivo y hagamos lo mismo para nuestro host <code>lar-book-ha2</code> editando su archivo:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>vim<span class="w"> </span>/etc/zabbix/zabbix_server.conf
+</code></pre></div>
+8. A continuación, añada las siguientes líneas para permitir una conexión a la base de datos:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nv">DBHost</span><span class="o">=</span><span class="m">192</span>.168.0.10
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nv">DBPassword</span><span class="o">=</span>password
+</code></pre></div>
+9. Para habilitar la alta disponibilidad en este host, añada las siguientes líneas en el mismo archivo:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nv">HANodeName</span><span class="o">=</span>lar-book-ha2
+</code></pre></div>
+10. Para asegurarnos de que nuestro frontend Zabbix sabe dónde conectarse si hay un fallo de nodo, rellene lo siguiente:</p>
+<div class="highlight"><pre><span></span><code>```bash
+systemctl enable zabbix-server
+systemctl start zabbix-server
+```
+</code></pre></div>
+<h4 id="configurando-apache-con-alta-disponibilidad">Configurando Apache con alta disponibilidad</h4>
+<p>Para asegurarnos de que nuestro frontend también está configurado de tal manera que si un servidor Zabbix tiene problemas falla, vamos a configurarlos con keepalived. Veamos cómo hacerlo.</p>
+<ol>
+<li>Comencemos iniciando sesión en <code>lar-book-ha1</code> y <code>lar-book-ha2</code> e instalando keepalived.
+   Para sistemas basados en RHEL:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>keepalived
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>apt<span class="w"> </span>install<span class="w"> </span>keepalived
+</code></pre></div>
+2. Luego, en lar-book-ha1, edita la configuración keepalived con el siguiente comando:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="w"> </span>vim<span class="w"> </span>/etc/keepalived/keepalived.conf
+</code></pre></div>
+3. Borre todo de este archivo y añada el siguiente texto al archivo:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>vrrp_track_process<span class="w"> </span>chk_apache_httpd<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a><span class="w">   </span>process<span class="w"> </span>httpd
+<a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a><span class="w">   </span>weight<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a><span class="w">   </span><span class="o">}</span>
+<a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>
+<a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>vrrp_instance<span class="w"> </span>ZBX_1<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a><span class="w">   </span>state<span class="w"> </span>MASTER
+<a id="__codelineno-54-8" name="__codelineno-54-8" href="#__codelineno-54-8"></a><span class="w">   </span>interface<span class="w"> </span>ens192
+<a id="__codelineno-54-9" name="__codelineno-54-9" href="#__codelineno-54-9"></a><span class="w">   </span>virtual_router_id<span class="w"> </span><span class="m">51</span>
+<a id="__codelineno-54-10" name="__codelineno-54-10" href="#__codelineno-54-10"></a><span class="w">   </span>priority<span class="w"> </span><span class="m">244</span>
+<a id="__codelineno-54-11" name="__codelineno-54-11" href="#__codelineno-54-11"></a><span class="w">   </span>advert_int<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-54-12" name="__codelineno-54-12" href="#__codelineno-54-12"></a>
+<a id="__codelineno-54-13" name="__codelineno-54-13" href="#__codelineno-54-13"></a><span class="w">   </span>authentication<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-54-14" name="__codelineno-54-14" href="#__codelineno-54-14"></a><span class="w">      </span>auth_type<span class="w"> </span>PASS
+<a id="__codelineno-54-15" name="__codelineno-54-15" href="#__codelineno-54-15"></a><span class="w">      </span>auth_pass<span class="w"> </span>password
+<a id="__codelineno-54-16" name="__codelineno-54-16" href="#__codelineno-54-16"></a><span class="w">   </span><span class="o">}</span>
+<a id="__codelineno-54-17" name="__codelineno-54-17" href="#__codelineno-54-17"></a>
+<a id="__codelineno-54-18" name="__codelineno-54-18" href="#__codelineno-54-18"></a><span class="w">   </span>track_process<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-54-19" name="__codelineno-54-19" href="#__codelineno-54-19"></a><span class="w">      </span>chk_apache_httpd
+<a id="__codelineno-54-20" name="__codelineno-54-20" href="#__codelineno-54-20"></a><span class="w">   </span><span class="o">}</span>
+<a id="__codelineno-54-21" name="__codelineno-54-21" href="#__codelineno-54-21"></a>
+<a id="__codelineno-54-22" name="__codelineno-54-22" href="#__codelineno-54-22"></a><span class="w">   </span>virtual_ipaddress<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-54-23" name="__codelineno-54-23" href="#__codelineno-54-23"></a><span class="w">      </span><span class="m">192</span>.168.0.5/24
+<a id="__codelineno-54-24" name="__codelineno-54-24" href="#__codelineno-54-24"></a><span class="w">      </span><span class="o">}</span>
+<a id="__codelineno-54-25" name="__codelineno-54-25" href="#__codelineno-54-25"></a><span class="o">}</span>
+</code></pre></div>
+4. No olvides actualizar la <code>contraseña</code>a algo seguro y editar la interfaz <code>ens192</code> a tu propio nombre/número de interfaz. Para Ubuntu, cambie <code>httpd</code> por <code>apache2</code>.
+   Nota Importante</p>
+<p>En el archivo anterior, hemos especificado <code>virtual_router_id 51</code>. Asegúrese de que el ID de enrutador virtual 51 no se utiliza en cualquier lugar de la red todavía. Si lo es, simplemente cambie el ID del enrutador virtual a lo largo de esta receta.
+5. En <code>lar-book-ha2</code>, edita el mismo archivo con el siguiente comando:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>vim<span class="w"> </span>/etc/keepalived/keepalived.conf
+</code></pre></div>
+6. Borre todo del archivo con dG y esta vez añadiremos la siguiente información:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>vrrp_track_process<span class="w"> </span>chk_apache_httpd<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="w">      </span>process<span class="w"> </span>httpd
+<a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="w">      </span>weight<span class="w"> </span><span class="m">10</span>
+<a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a><span class="o">}</span>
+<a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a>vrrp_instance<span class="w"> </span>ZBX_1<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a><span class="w">        </span>state<span class="w"> </span>BACKUP
+<a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a><span class="w">        </span>interface<span class="w"> </span>ens192
+<a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a><span class="w">        </span>virtual_router_id<span class="w"> </span><span class="m">51</span>
+<a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a><span class="w">        </span>priority<span class="w"> </span><span class="m">243</span>
+<a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a><span class="w">        </span>advert_int<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-56-11" name="__codelineno-56-11" href="#__codelineno-56-11"></a><span class="w">        </span>authentication<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-56-12" name="__codelineno-56-12" href="#__codelineno-56-12"></a><span class="w">                </span>auth_type<span class="w"> </span>PASS
+<a id="__codelineno-56-13" name="__codelineno-56-13" href="#__codelineno-56-13"></a><span class="w">                </span>auth_pass<span class="w"> </span>password
+<a id="__codelineno-56-14" name="__codelineno-56-14" href="#__codelineno-56-14"></a><span class="w">        </span><span class="o">}</span>
+<a id="__codelineno-56-15" name="__codelineno-56-15" href="#__codelineno-56-15"></a><span class="w">        </span>track_process<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-56-16" name="__codelineno-56-16" href="#__codelineno-56-16"></a><span class="w">                </span>chk_apache_httpd
+<a id="__codelineno-56-17" name="__codelineno-56-17" href="#__codelineno-56-17"></a><span class="w">        </span><span class="o">}</span>
+<a id="__codelineno-56-18" name="__codelineno-56-18" href="#__codelineno-56-18"></a><span class="w">        </span>virtual_ipaddress<span class="w"> </span><span class="o">{</span>
+<a id="__codelineno-56-19" name="__codelineno-56-19" href="#__codelineno-56-19"></a><span class="w">                </span><span class="m">192</span>.168.0.5/24
+<a id="__codelineno-56-20" name="__codelineno-56-20" href="#__codelineno-56-20"></a><span class="w">        </span><span class="o">}</span>
+<a id="__codelineno-56-21" name="__codelineno-56-21" href="#__codelineno-56-21"></a><span class="o">}</span>
+</code></pre></div>
+7. Una vez más, no olvide actualizar la <code>password</code> a algo seguro y editar la interfaz <code>ens192</code> a su propio nombre/número de interfaz. Para Ubuntu, cambia <code>httpd</code> por <code>apache2</code>.
+8. Ahora vamos a instalar el frontend Zabbix con el siguiente comando.</p>
+<p>Para sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>dnf<span class="w"> </span>install<span class="w"> </span>httpd<span class="w"> </span>zabbix-web-mysql<span class="w"> </span>zabbix-apache-conf
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>apt<span class="w"> </span>install<span class="w"> </span>apache2<span class="w"> </span>zabbix-frontend-php<span class="w"> </span>zabbix-apache-conf
+</code></pre></div>
+9. Inicie el servidor web y keepalived para que su frontend Zabbix esté disponible con el siguiente comando:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>httpd<span class="w"> </span>keepalived
+<a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>systemctl<span class="w"> </span>start<span class="w"> </span>httpd<span class="w"> </span>keepalived
+</code></pre></div>
+10. A continuación, estamos listos para configurar nuestro frontend Zabbix. Navega a tu dirección IP virtual (en el caso de la IP de ejemplo, <code>http://192.168.0.5/zabbix</code>) y verás la siguiente página:</p>
+<div class="highlight"><pre><span></span><code>![Figura 1.9 - Ventana de configuración inicial de Zabbix](https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_009.jpg)
+</code></pre></div>
+<p>Figura 1.9 - Ventana de configuración inicial de Zabbix</p>
+<ol>
+<li>Haga clic en Siguiente paso dos veces hasta que vea la siguiente página:
+    <img alt="Figura 1.10 - Ventana de configuración de la base de datos Zabbix para lar-book-ha1" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_010.jpg" /></li>
+</ol>
+<p>Figura 1.10 - Ventana de configuración de la base de datos Zabbix para lar-book-ha1</p>
+<ol>
+<li>Asegúrese de rellenar el host de la base de datos con la dirección IP de nuestra base de datos Zabbix MariaDB (<code>192.168.0.10</code>). A continuación, rellene la contraseña de base de datos para nuestro usuario de base de datos zabbix.</li>
+<li>Entonces, para el último paso, para nuestro primer nodo, configure el nombre del servidor Zabbix como <code>lar-book-ha1</code> y seleccione su zona horaria como se ve en la siguiente captura de pantalla.
+    <img alt="Figura 1.11 - Ventana de configuración del servidor Zabbix para lar-book-ha1" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_011.jpg" /></li>
+</ol>
+<p>Figura 1.11 - Ventana de configuración del servidor Zabbix para lar-book-ha1</p>
+<ol>
+<li>A continuación, haga clic en <strong>Next step</strong> y <strong>Finish</strong>.</li>
+<li>Ahora tenemos que hacer lo mismo con nuestro segundo frontend. Inicie sesión en <code>lar-book-ha1</code> y haga lo siguiente.</li>
+</ol>
+<p>En sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>httpd
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>apache2
+</code></pre></div>
+<ol>
+<li>Cuando navegues a tu IP virtual (en el caso de la IP de ejemplo, <code>http://192.168.0.5/zabbix</code>), volverás a ver el mismo asistente de configuración.</li>
+<li>
+<p>Rellena de nuevo los datos de la base de datos:
+    <img alt="Figura 1.12 - Ventana de configuración de la base de datos Zabbix para lar-book-ha2" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_012.jpg" /></p>
+<p>Figura 1.12 - Ventana de configuración de la base de datos Zabbix para lar-book-ha2
+18. A continuación, asegúrese de configurar el nombre del servidor Zabbix como <code>lar-book-ha2</code> como se ve en la captura de pantalla.
+<img alt="Figura 1.13 - Ventana de configuración del servidor Zabbix para lar-book-ha2" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_013.jpg" /></p>
+<p>Figura 1.13 - Ventana de configuración del servidor Zabbix para lar-book-ha2
+19. Ahora tenemos que volver a habilitar el frontend lar-book-ha1 haciendo lo siguiente.
+En sistemas basados en RHEL:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>systemctl<span class="w"> </span>start<span class="w"> </span>httpd
+</code></pre></div>
+<p>Para sistemas Ubuntu:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>systemctl<span class="w"> </span>start<span class="w"> </span>apache2
+</code></pre></div>
+</li>
+</ol>
+<p>Ese debería ser nuestro último paso. Ahora todo debería estar funcionando como se esperaba. Asegúrese de comprobar el archivo de registro del servidor Zabbix para ver si los nodos de HA están funcionando como se esperaba.</p>
+<h3 id="como-funciona_2">Cómo funciona...</h3>
+<p>Ahora que lo hemos hecho, ¿cómo funciona realmente el servidor Zabbix en modo de alta disponibilidad? Empecemos por comprobar la página Informes | Información del sistema en nuestro frontend Zabbix.</p>
+<p><img alt="Figura 1.14 - Información del sistema del servidor Zabbix con información de HA" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_014.jpg" /></p>
+<p>Figura 1.14 - Información del sistema del servidor Zabbix con información de HA</p>
+<p>Ahora podemos ver que tenemos nueva información disponible. Por ejemplo, el parámetro Cluster de alta disponibilidad. Este parámetro nos dice ahora si la alta disponibilidad está habilitada o no y cuál es el retardo de conmutación por error. En nuestro caso, es de 1 minuto, lo que significa que puede pasar hasta 1 minuto antes de que se inicie la conmutación por error.</p>
+<p>Además, podemos ver cada nodo de nuestro cluster. Como Zabbix ahora soporta de uno a muchos nodos en un cluster, podemos ver cada uno de los que participan en nuestro cluster aquí mismo. Echemos un vistazo a la configuración que hemos construido:</p>
+<p><img alt="Figura 1.15 - Configuración de HA del servidor Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_015.jpg" /></p>
+<p>Figura 1.15 - Configuración de HA del servidor Zabbix</p>
+<p>Como se puede ver en la configuración, hemos conectado nuestros dos nodos de servidor Zabbix lar-book-ha1 y lar-book-ha2 a nuestra única base de datos Zabbix lar-book-ha-db. Debido a que nuestra base de datos Zabbix es nuestra única fuente de verdad, se puede utilizar para mantener la configuración de nuestro clúster también. Al final, todo lo que hace Zabbix se mantiene siempre en la base de datos, desde la configuración del host a los datos de la historia a la información de alta disponibilidad. Es por eso que la construcción de un clúster Zabbix es tan simple como poner el <code>HANodeName</code>en el archivo de configuración del servidor Zabbix.</p>
+<p>También incluimos el parámetro <code>NodeAddress</code> en el archivo de configuración. Este parámetro es utilizado por el frontend Zabbix para asegurarse de que nuestra información del sistema (widget) y el servidor Zabbix no están ejecutando el trabajo de notificación frontend. El parámetro <code>NodeAddress</code> le dirá al frontend a qué dirección IP conectarse para cada servidor respectivo una vez que se convierta en el servidor Zabbix activo.</p>
+<p>Para llevar las cosas un poco más lejos, he añadido una simple configuración keepalived a esta instalación también. Keepalived es una forma de construir configuraciones simples VRRP fail over entre servidores Linux. En nuestro caso, hemos introducido el VIP como <code>192.168.0.5</code> y hemos añadido la monitorización del proceso <code>chk_apache_httpd</code> para determinar cuándo se produce la conmutación por error. Nuestra conmutación por error funciona de la siguiente manera:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>lar-book-ha1<span class="w"> </span>has<span class="w"> </span>priority<span class="w"> </span><span class="m">244</span>
+<a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>lar-book-ha2<span class="w"> </span>has<span class="w"> </span>priority<span class="w"> </span><span class="m">243</span>
+</code></pre></div>
+<p>Si <strong>HTTPd</strong> o <strong>Apache 2</strong> se está ejecutando en nuestro nodo, eso añade un peso de 10 a nuestra prioridad, lo que lleva a la prioridad total de <code>254</code> y <code>253</code>, respectivamente. Ahora imaginemos que <code>lar-book-ha1</code> ya no tiene el proceso del servidor web en ejecución. Eso significa que su prioridad cae a <code>244</code>, que es inferior a <code>253</code> en <code>lar-book-ha2</code>, que tiene el proceso de servidor web en ejecución.</p>
+<p>Cualquier host que tenga la prioridad más alta es el host que tendrá el VIP <code>192.168.0.5</code>, lo que significa que ese host está ejecutando el frontend de Zabbix que será servido.</p>
+<p>Combinando estas dos formas de configurar la alta disponibilidad, acabamos de crear redundancia para dos de las partes que componen nuestra configuración de Zabbix, asegurándonos de que podemos mantener las interrupciones al mínimo.</p>
+<h3 id="hay-mas_1">Hay más...</h3>
+<p>Ahora te preguntarás, ¿qué pasa si quiero ir más allá en términos de configuración de alta disponibilidad? En primer lugar, la característica de alta disponibilidad de Zabbix está construida para ser simple y comprensible para toda la base de usuarios de Zabbix. Lo que significa que a partir de ahora, es posible que no vea la misma cantidad de características que obtendría con una implementación de terceros.</p>
+<p>Sin embargo, la nueva característica de alta disponibilidad del servidor Zabbix ha demostrado ser una característica muy esperada que realmente añade algo a la mesa. Si desea ejecutar una configuración de alta disponibilidad como esta, la mejor manera de añadir un nivel más de complejidad a la alta disponibilidad es una configuración maestro/maestro MySQL. Configurar la base de datos Zabbix con alta disponibilidad, que es la principal fuente de verdad, se asegurará de que su configuración Zabbix realmente es fiable en tantas formas como sea posible. Para obtener más información acerca de la replicación MariaDB, consulte la documentación aquí: https://mariadb.com/kb/en/standard-replication/.</p>
+<hr />
+<h2 id="usando-el-frontend-de-zabbix">Usando el frontend de Zabbix</h2>
+<p>Si es la primera vez que usas Zabbix, enhorabuena por llegar a la interfaz de usuario. Si eres un usuario que vuelve a Zabbix, ha habido algunos cambios en la UI de Zabbix 6 que puede que notes. Vamos a repasar algunos de los diferentes elementos que podemos encontrar en el frontend de Zabbix para que durante este libro, te sientas seguro de encontrar todo lo que necesitas.</p>
+<h3 id="preparandonos_2">Preparándonos</h3>
+<p>Para empezar con la interfaz de Zabbix, todo lo que tenemos que hacer es iniciar sesión en el frontend. Se le servirá con la siguiente página en la IP en la que su servidor está ejecutando el frontend Zabbix:</p>
+<p><img alt="Figura 1.16 - Pantalla de inicio de sesión de Zabbix" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_016.jpg" /></p>
+<p>Figura 1.16 - Pantalla de inicio de sesión de Zabbix</p>
+<p>Asegúrate de iniciar sesión en el frontend de Zabbix con las credenciales por defecto:</p>
+<ul>
+<li>Username: <code>Admin</code></li>
+<li>Password: <code>zabbix</code></li>
+</ul>
+<p><strong>Consejo</strong>
+Al igual que en Linux, Zabbix distingue entre mayúsculas y minúsculas en la mayoría de los sitios. Cuando introduzcas tu nombre de usuario, asegúrate de incluir las mayúsculas y minúsculas correctas; de lo contrario, ¡no podrás iniciar sesión!</p>
+<h3 id="como-hacerlo_3">Cómo hacerlo...</h3>
+<p>Después de iniciar sesión, se le servirá con la página por defecto, que es el tablero de instrumentos por defecto. Esto es lo que Zabbix ha llamado vista Global y nos proporciona una buena visión general de lo que está pasando. Podemos personalizar completamente este y todos los demás cuadros de mando que Zabbix proporciona, pero es una buena idea familiarizarse con la configuración por defecto antes de construir algo nuevo:</p>
+<p><img alt="Figura 1.17 - Cuadro de mandos de la vista global" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_017.jpg" /></p>
+<p>Figura 1.17 - Cuadro de mandos de la vista global</p>
+<p>Así que, vamos a empezar a conocer este frontend Zabbix 6 viendo el panel de control por defecto. Por favor, sigue a lo largo del frontend haciendo clic y comprobando el contenido mencionado.</p>
+<p>Zabbix utiliza dashboards y están llenos de widgets para mostrar la información. Vamos a repasar los diferentes widgets del dashboard por defecto y detallar su información.</p>
+<p>De izquierda a derecha, empecemos con el widget de Información del sistema:</p>
+<p><img alt="Figura 1.18 - Widget de información del sistema" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_018.jpg" /></p>
+<p>Figura 1.18 - Widget de información del sistema</p>
+<p>Este es el widget de Información del sistema, que como habrás adivinado te detalla toda la información del sistema. De esta manera, podemos mantener un ojo en lo que está pasando con nuestro servidor Zabbix y ver si nuestro Zabbix está funcionando. Vamos a repasar los parámetros:</p>
+<ul>
+<li><strong>El servidor Zabbix se está ejecutando</strong>: Nos informa de si el backend del servidor Zabbix se está ejecutando realmente y dónde se está ejecutando. En este caso, se está ejecutando en <code>localhost:10051</code>.</li>
+<li><strong>Número de hosts</strong>: Esto detallará el número de hosts <strong>habilitados</strong> (<code>11</code>), el número de hosts <strong>deshabilitados</strong> (<code>0</code>), y el número de <strong>plantillas</strong> que tenemos (<code>235</code>). Nos da una visión rápida de la información del host de nuestro servidor Zabbix.</li>
+<li><strong>Número de items</strong>: Aquí podemos ver los detalles de los items de nuestro servidor Zabbix, en este caso, <strong>habilitados</strong> (<code>287</code>), <strong>deshabilitados</strong> (<code>0</code>) y <strong>no soportados</strong> (<code>35</code>).</li>
+<li><strong>Número de triggers</strong>: Detalla el número de trigger. Podemos ver cuántos están <strong>activados</strong> (<code>120</code>) y <strong>desactivados</strong> (<code>0</code>), pero también cuántos están en estado <strong>problemático</strong> (<code>8</code>) y cuántos están en estado <strong>correcto</strong> (<code>112</code>).</li>
+<li><strong>Número de usuarios (en línea)</strong>: El primer valor detalla el número total de usuarios. El segundo valor detalla el número de usuarios conectados actualmente al frontend de Zabbix.</li>
+<li><strong>Rendimiento requerido del servidor, nuevos valores por segundo</strong>: Quizás le esté presentando un concepto completamente nuevo aquí, que es <strong>Nuevos Valores por Segundo</strong>, o <strong>NVPS</strong>. Un servidor recibe o solicita valores a través de elementos y los escribe en nuestra base de datos MariaDB (u otra base de datos). La información NVPS detallada aquí muestra el número estimado de NVPS recibidos por el servidor Zabbix. Mantenga un ojo en esto a medida que su servidor Zabbix crece, ya que es un buen indicador para ver qué tan rápido debe escalar.</li>
+<li><strong>Cluster de alta disponibilidad</strong>: Si está ejecutando un clúster de alta disponibilidad del servidor Zabbix, verá si está habilitado aquí y cuál es el retardo de conmutación por error. Además, la <strong>página de información del sistema</strong> mostrará información adicional de alta disponibilidad.</li>
+</ul>
+<p>También puede ver tres valores adicionales aquí dependiendo de su configuración:</p>
+<ul>
+<li><strong>Tablas del historial de la base de datos actualizadas</strong>: Si ves esto, está indicando que una de las tablas del historial de tu base de datos aún no se ha actualizado. Las tablas numéricas (flotantes) se han ampliado para permitir que se guarden más caracteres por punto de datos. Esta tabla no se actualiza automáticamente al pasar de Zabbix 4 a 5 o superior, ya que no todo el mundo la necesita y puede llevar mucho tiempo actualizarla.</li>
+<li><strong>Nombre de la base de datos</strong>: Si ve el nombre de su base de datos con el valor de su versión podría indicar que está ejecutando una versión de base de datos no soportada. Podrías ver un mensaje como <code>¡Atención! Versión del servidor de base de datos nombre no soportada. Debe ser al menos &lt;VERSION DE LA BASE DE DATOS&gt;</code>.</li>
+</ul>
+<p>Ahora, ese es uno de los widgets más importantes cuando se trata de su servidor Zabbix y es un gran uno para mantener en su tablero de instrumentos principal si usted me pregunta.</p>
+<p>Pasemos al siguiente widget, Host availability:</p>
+<p><img alt="Figura 1.19 - Widget de disponibilidad del host" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_019.jpg" /></p>
+<p>Figura 1.19 - Widget de disponibilidad del host</p>
+<p>El widget <strong>Disponibilidad del host</strong> es un widget de vista rápida que muestra todo lo que quieres saber sobre el estado de disponibilidad del host monitorizado. En este widget, se muestra si el host está <strong>Disponible</strong>, <strong>No Disponible</strong> o <strong>Desconocido</strong>. De esta manera, obtienes una buena visión general de la disponibilidad de todos los hosts que podrías estar monitorizando con tu servidor Zabbix en un único widget.</p>
+<p>Además de eso, también le muestra cuántos hosts tienen actualmente un disparador en un determinado estado. Hay varias severidades por defecto en Zabbix:</p>
+<ul>
+<li>Catástrofes (<strong>Disaster</strong>)</li>
+<li>Alta (<strong>High</strong>)</li>
+<li>Media (<strong>Average</strong>)</li>
+<li>Alerta (<strong>Warning</strong>)</li>
+<li>Información (<strong>Information</strong>)</li>
+<li>No clasificada (<strong>Not classified</strong>)</li>
+</ul>
+<p>Podemos personalizar completamente los niveles de gravedad y los colores; por ejemplo, qué niveles de gravedad queremos poner en qué disparadores. Por lo tanto, si usted está preocupado acerca de la gravedad en este momento, no se; vamos a llegar a eso más tarde.</p>
+<p><strong>Sugerencia</strong></p>
+<p>Personalizar los niveles de gravedad y los colores puede ser muy útil para su organización. Podemos personalizar los niveles de gravedad para que coincidan con los niveles utilizados en toda nuestra empresa o incluso para que coincidan con algunos de nuestros otros sistemas de monitoreo utilizados.</p>
+<p>El siguiente widget es Local:</p>
+<p><img alt="Figura 1.20 - El widget Local, indicando una hora" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_020.jpg" /></p>
+<p>Figura 1.20 - El widget Local, indicando una hora</p>
+<p>Es un reloj con la hora local del sistema Linux. ¿Necesito decir más? Pasemos al widget Problemas:
+<img alt="Figura 1.21 - Uno de los widgets de problemas disponibles" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_021.jpg" /></p>
+<p>Figura 1.21 - Uno de los widgets de problemas disponibles</p>
+<p>Este es un widget interesante que utilizo mucho. Vemos nuestros problemas actuales en esta pantalla, así que si tenemos nuestros disparadores configurados correctamente, obtenemos información valiosa aquí. Una visión rápida de cuántos hosts están teniendo problemas es una cosa, pero la página de Problemas también nos da más detalles sobre el problema:</p>
+<ul>
+<li><strong>Hora</strong>: Hora a la que el servidor de Zabbix detectó el problema.</li>
+<li><strong>Info</strong>: Información sobre el evento, con los estados Manual close y Suppressed representados aquí.</li>
+<li><strong>Host</strong>: En qué host ocurrió este problema.</li>
+<li><strong>Problema/Severidad</strong>: Cuál es el problema y su gravedad. La gravedad se muestra en un color, en este caso, naranja significa Media.</li>
+<li><strong>Duración</strong>: Cuánto tiempo ha durado el problema.</li>
+<li><strong>Reconocimiento</strong>: Si este problema ha sido reconocido o no por usted o por otro usuario de Zabbix.</li>
+<li><strong>Acciones</strong>: Qué acciones se han llevado a cabo tras producirse este problema, por ejemplo, un script personalizado que se ejecuta al crearse el problema. Si pasa el ratón sobre cualquier acción, le mostrará información detallada sobre todas las acciones que se han tomado para este problema.</li>
+<li><strong>Etiquetas</strong>: Qué etiquetas se han asignado a este problema.</li>
+</ul>
+<p><img alt="Figura 1.22 - Pantalla Editar widget" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_022.png" /></p>
+<p>Figura 1.22 - Pantalla Editar widget</p>
+<p><strong>Sugerencia</strong></p>
+<p>Podemos ocultar los niveles de gravedad de estos widgets para asegurarnos de que sólo vemos los importantes. A veces, no queremos ver problemas de gravedad informativa en nuestros cuadros de mando; puede distraernos de un problema más importante. Mantenga sus cuadros de mando limpios personalizando el widget en toda su extensión.</p>
+<p>Ahora, hay dos widgets más que están completamente vacíos en nuestro dashboard por defecto. Se trata de los widgets Mapas favoritos y Gráficos favoritos. Estos widgets se pueden rellenar con un enlace rápido a tus mapas y gráficos favoritos, respectivamente, ofreciéndote una forma rápida de acceder a ellos sin tener que hacer clic a través de los menús:</p>
+<p><img alt="Figura 1.23 - Los widgets Favoritos" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_023.jpg" /></p>
+<p>Figura 1.23 - Los widgets Favoritos</p>
+<p>Ahora ya sabemos cómo trabajar con el frontend de Zabbix y podemos continuar más adelante con cómo navegar por nuestra instancia.</p>
+<hr />
+<h2 id="navegando-por-el-frontend">Navegando por el frontend</h2>
+<p>Navegar por el frontend de Zabbix es más fácil de lo que parece a primera vista, especialmente con algunos de los increíbles cambios realizados en la interfaz de usuario a partir de Zabbix 5.0. Vamos a explorar la interfaz de navegación de Zabbix un poco más en esta receta mirando la barra de navegación y lo que tiene que ofrecer.</p>
+<h3 id="preparandonos_3">Preparándonos</h3>
+<p>Ahora que hemos visto la primera página después de iniciar sesión con el dashboard por defecto, es el momento de empezar a navegar a través de la interfaz de usuario de Zabbix y ver algunas de las otras páginas disponibles. Nos moveremos por la barra lateral y exploraremos las páginas disponibles en nuestra instalación de Zabbix para que cuando empecemos a monitorizar nuestras redes y aplicaciones, sepamos dónde podemos encontrarlo todo.</p>
+<p>Por lo tanto, antes de continuar, asegúrese de que tiene el servidor Zabbix listo como se configura en las recetas anteriores.</p>
+<h3 id="como-hacerlo_4">Cómo hacerlo...</h3>
+<p>La barra de navegación de Zabbix es la puerta de entrada a todas nuestras potentes herramientas y ajustes de configuración. Zabbix utiliza una barra de navegación en el lado izquierdo para mantener nuestra interfaz de usuario lo más limpia posible. Además, han hecho desaparecer la barra lateral para que podamos ver de cerca todo nuestro contenido, sin que la barra lateral bloquee nuestra visión.</p>
+<p><strong>Consejo</strong></p>
+<p>No podemos cambiar la ubicación del menú de navegación de Zabbix, pero es posible ocultarlo a una forma más pequeña u ocultarlo completamente. Si desea ocultar (o no) la barra de navegación, haga clic en el primer icono situado a la derecha del logotipo de Zabbix. Si desea ocultar completamente la barra de navegación, haga clic en el segundo icono a la derecha del logotipo de Zabbix.</p>
+<p>Echemos un vistazo a la barra lateral de Zabbix como la vemos desde nuestra página por defecto y conozcámosla. Por favor, siga en el frontend haciendo clic y comprobando el contenido mencionado:
+<img alt="Figura 1.24 - La página por defecto de Zabbix vista en su propio navegador web" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_017.jpg" /></p>
+<p>Figura 1.24 - La página por defecto de Zabbix vista en su propio navegador web</p>
+<p>Aquí tenemos algunas categorías para elegir, y un nivel por debajo de las categorías, tenemos nuestras diferentes páginas. Primero, empecemos detallando las categorías:</p>
+<ul>
+<li><strong>Monitoring</strong>: La categoría Monitoreo es donde podemos encontrar toda la información sobre nuestros datos recolectados. Es básicamente la categoría que desea utilizar cuando se está trabajando con Zabbix para leer cualquier información recopilada que ha trabajado duro para adquirir.</li>
+<li><strong>Services</strong>: La categoría Servicios es nueva en Zabbix 6 y viene como parte de las características mejoradas de Monitorización de Servicios de Negocio. Podemos encontrar toda la información relativa a la monitorización de servicios y SLAs aquí.</li>
+<li><strong>Inventory</strong>: La categoría de Inventario es una característica adicional interesante en Zabbix que podemos utilizar para ver nuestra información de inventario relacionada con el host. Puedes añadir cosas como versiones de software o números de serie a los hosts y verlos aquí.</li>
+<li><strong>Reports</strong>: La categoría Informes contiene una variedad de informes predefinidos y personalizables por el usuario centrados en mostrar una visión general de parámetros como información del sistema, disparadores y datos recopilados.</li>
+<li><strong>Configuration</strong>: La categoría Configuración es donde construimos todo lo que queremos ver en Monitorización, Inventario e Informes. Podemos editar nuestra configuración para adaptarla a cada una de nuestras necesidades para que Zabbix pueda mostrarnos esos datos de forma útil.</li>
+<li><strong>Administration</strong>: La categoría Administración es donde administramos el servidor Zabbix. Aquí encontrarás todas las configuraciones del servidor para que tú y tus compañeros tengáis una buena experiencia de trabajo con Zabbix.</li>
+</ul>
+<p>Vas a repasarlas bastante mientras utilices este libro, así que recuérdalas bien. Profundicemos un poco más en las categorías examinándolas una a una. Empecemos por la categoría Monitorización:
+<img alt="Figura 1.25 - Sección Supervisión de la barra lateral" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_025.jpg" /></p>
+<p>Figura 1.25 - Sección Monitoring de la barra lateral</p>
+<p>La pestaña <strong>Monitoring</strong> contiene las siguientes páginas:</p>
+<ul>
+<li><strong>Dashboard</strong>: Aquí es donde encontraremos el Dashboard por defecto que mostramos en la Figura 1.24. También es donde podemos añadir muchos más Dashboard para todo lo que se nos ocurra.</li>
+<li><strong>Problems</strong>: Aquí podemos ver en detalle nuestro problema actual. Se nos proporcionan un montón de opciones de filtro para acotar nuestra búsqueda de problemas si es necesario.</li>
+<li><strong>Hosts</strong>: Hosts proporcionará una visión rápida de lo que está pasando con los hosts. También proporciona enlaces para navegar a páginas que muestran los datos de nuestros hosts.</li>
+<li><strong>Latest data</strong>: Esta es una página que vamos a utilizar bastante a lo largo de nuestra vida profesional en Zabbix. La página de últimos datos es donde podemos encontrar los valores recogidos para cada host, que por supuesto podemos filtrar.</li>
+<li><strong>Maps</strong>: Los mapas son una herramienta muy útil en Zabbix para obtener una visión general de su infraestructura. Podemos utilizarlos para la visión general de la red y similares.</li>
+<li><strong>Discovery</strong>: Esta página nos proporciona una visión general de los dispositivos descubiertos. Trabajaremos más en esto más adelante.</li>
+</ul>
+<p>A continuación, tenemos la categoría <strong>Services</strong>:
+<img alt="Figura 1.26 - Sección Servicios de la barra lateral" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_026.jpg" /></p>
+<p>Figura 1.26 - Sección Services de la barra lateral</p>
+<p>Esta parte de la barra lateral contiene las siguientes páginas:</p>
+<ul>
+<li><strong>Services</strong>: Aquí es donde configuramos todos nuestros servicios que queremos monitorizar.</li>
+<li><strong>Service actions</strong>: La sección donde podemos configurar cualquier acción para nuestros servicios configurados. Encontraremos opciones como enviar nuestras notificaciones por SLAs y más.</li>
+<li><strong>SLA</strong>: Aquí podemos configurar cualquier SLA que luego podremos utilizar en nuestros servicios.</li>
+<li>SLA report**: Un resumen detallado de los servicios configurados con sus SLAs y si se están cumpliendo o no.</li>
+</ul>
+<p>A continuación, tenemos la categoría <strong>Inventory</strong>:
+<img alt="Figura 1.27 - La sección Inventario de la barra lateral" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_027.jpg" /></p>
+<p>Figura 1.27 - La sección <strong>Inventory</strong> de la barra lateral</p>
+<p>La pestaña Inventario contiene las siguientes páginas:</p>
+<ul>
+<li><strong>Overview</strong>: Una página de resumen rápido para la información de su inventario.</li>
+<li><strong>Hosts</strong>: Una vista más detallada de los valores de inventario por host.</li>
+</ul>
+<p>A continuación, tenemos la categoría <strong>Reports</strong>:</p>
+<p><img alt="Figura 1.28 - La sección Informes de la barra lateral" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_028.jpg" /></p>
+<p>Figura 1.28 - La sección <strong>Reports</strong> de la barra lateral</p>
+<p>La pestaña Informes contiene las siguientes páginas:</p>
+<ul>
+<li><strong>System information</strong>: Aquí puedes consultar la información del sistema; contiene la misma información que el widget Información del sistema.</li>
+<li><strong>Scheduled reports</strong>: Aquí es donde configuramos cualquier informe automático en PDF que queramos enviar.</li>
+<li><strong>Availability report</strong>: En esta página, podemos ver el porcentaje de tiempo que un trigger ha estado en estado problemático en comparación con el estado correcto. Esta es una forma útil de ver durante cuánto tiempo determinados elementos están realmente sanos.</li>
+<li><strong>Triggers top 100</strong>: Los 100 triggers que más veces han cambiado de estado dentro de un periodo de tiempo.</li>
+<li><strong>Audit</strong>: Aquí podemos ver quién ha cambiado qué en nuestro servidor Zabbix. Es una buena forma de ver qué compañero te ha bloqueado por accidente o si ha sido a propósito.</li>
+<li><strong>Action log</strong>: Podemos ver una lista de las acciones que se han realizado, por ejemplo, debido a que los disparadores han pasado a estado problema o ok.</li>
+<li><strong>Notifications</strong>: En esta página podemos ver el número de notificaciones enviadas a nuestros usuarios.</li>
+</ul>
+<p>A continuación, tenemos la categoría <strong>Configuration</strong>:</p>
+<p><img alt="Figura 1.29 - Sección Configuración de la barra lateral" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_029.jpg" /></p>
+<p>Figura 1.29 - Sección <strong>Configuration</strong> de la barra lateral</p>
+<p>La pestaña <strong>Configuration</strong> contiene las siguientes páginas:</p>
+<ul>
+<li><strong>Host groups</strong>: Aquí configuramos nuestros grupos de hosts; por ejemplo, un grupo para todos los servidores Linux.</li>
+<li><strong>Templates</strong>: Aquí configuramos nuestras plantillas que podemos utilizar para monitorizar hosts desde el servidor Zabbix.</li>
+<li><strong>Hosts</strong>: Otra pestaña de hosts, pero esta vez no es para comprobar los datos. Aquí es donde añadimos y configuramos los hosts.</li>
+<li><strong>Maintenance</strong>: En Zabbix tenemos la disponibilidad de establecer periodos de mantenimiento; de esta forma, los disparadores o notificaciones no te molestarán mientras desconectas algo para mantenimiento, por ejemplo.</li>
+<li><strong>Actions</strong>: ¿Recuerdas que mencioné que podemos configurar acciones para cuando un disparador cambia de estado? Aquí es donde configuramos esas acciones.</li>
+<li><strong>Event correlation</strong>: Aquí podemos correlacionar problemas para reducir el ruido o prevenir tormentas de eventos. Esto se consigue cerrando problemas nuevos o antiguos cuando se correlacionan con otros problemas.</li>
+<li><strong>Discovery</strong>: Aquí es donde configuramos el descubrimiento de Zabbix para la creación automática de hosts.</li>
+</ul>
+<p>Por último, tenemos la categoría <strong>Administration</strong>:</p>
+<p><img alt="Figura 1.30 - La sección Administración de la barra lateral" src="https://static.packt-cdn.com/products/9781803246918/graphics/image/B18275_01_030.jpg" /></p>
+<p>Figura 1.30 - La sección Administración de la barra lateral</p>
+<p>La pestaña Administración contiene las siguientes páginas:</p>
+<ul>
+<li><strong>General</strong>: La página general contiene la configuración de nuestro servidor Zabbix. Aquí se encuentran ajustes que van desde el housekeeper hasta el tema del frontend.</li>
+<li><strong>Proxies</strong>: Aquí es donde configuramos los proxies que deben conectarse a este servidor Zabbix.</li>
+<li><strong>Authentication</strong>: Aquí podemos encontrar nuestra configuración de autenticación, como LDAP, SAML y HTTP.</li>
+<li><strong>User groups</strong>: Aquí es donde configuramos los grupos de usuarios y los permisos para estos grupos de usuarios.</li>
+<li><strong>User roles</strong>: Aquí es posible configurar diferentes roles de usuario, para limitar o ampliar ciertas funcionalidades del frontend a determinados usuarios.</li>
+<li><strong>Users</strong>: Añade usuarios a esta página.</li>
+<li><strong>Media types</strong>: Hay varios tipos de medios preconfigurados en Zabbix, que ya encontrarás aquí. También podemos añadir tipos de medios personalizados.</li>
+<li><strong>Scripts</strong>: Aquí es donde podemos añadir scripts personalizados, para extender**** la funcionalidad de Zabbix en el frontend.</li>
+<li><strong>Queue</strong>: Aquí puedes ver la cola de tu servidor Zabbix. Los elementos pueden estar atascados en una cola debido a la recopilación de datos o problemas de rendimiento.</li>
+</ul>
+<p><strong>Consejo</strong></p>
+<p>Cuando se utiliza la autenticación Zabbix como HTTP, LDAP o SAML, todavía tenemos que crear nuestros usuarios internamente con los permisos adecuados. Configure sus usuarios para que coincidan con el nombre de usuario de su método de autenticación en Zabbix y utilice el método de autenticación para la gestión de contraseñas. Mantente atento al siguiente caso de Zabbix para ver actualizaciones sobre la implementación o dejar un voto:</p>
+<p>https://support.zabbix.com/browse/ZBXNEXT-276</p>
+<hr />
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        ¿Te ha resultado útil esta página?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="¿Te ha resultado útil esta página?" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="Esta página podría mejorarse" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios.
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios. Ayúdenos a mejorar esta página utilizando nuestro <a href="..." target="_blank" rel="noopener">formulario de comentarios</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 <a href="https://github.com/terracenter target="_blank" rel="noopener"> Freddy Taborda </a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/terracenter" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/terracenter0" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/freddy-taborda-5199802a/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
