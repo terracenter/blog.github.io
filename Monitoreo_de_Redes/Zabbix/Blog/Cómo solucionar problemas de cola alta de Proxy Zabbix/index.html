@@ -1,0 +1,1856 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Freddy Taborda">
+      
+      
+      
+        <link rel="prev" href="../Creacion_de_plantillas_para_dispositivos_SNMP/">
+      
+      
+        <link rel="next" href="../../../../Odoo/Libros/Fundamentos-de-desarrollo-de-Odoo-15/">
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.42">
+    
+    
+      
+        <title>Cómo solucionar problemas de cola alta de Proxy Zabbix - El Blog de Humanbyte</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.0253249f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function e(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],e("js",new Date),e("config","G-5T8Q8F61MQ"),document.addEventListener("DOMContentLoaded",(function(){document.forms.search&&document.forms.search.query.addEventListener("blur",(function(){this.value&&e("event","search",{search_term:this.value})}));document$.subscribe((function(){var t=document.forms.feedback;if(void 0!==t)for(var a of t.querySelectorAll("[type=submit]"))a.addEventListener("click",(function(a){a.preventDefault();var n=document.location.pathname,d=this.getAttribute("data-md-value");e("event","feedback",{page:n,data:d}),t.firstElementChild.disabled=!0;var r=t.querySelector(".md-feedback__note [data-md-value='"+d+"']");r&&(r.hidden=!1)})),t.hidden=!1})),location$.subscribe((function(t){e("config","G-5T8Q8F61MQ",{page_path:t.pathname})}))}));var t=document.createElement("script");t.async=!0,t.src="https://www.googletagmanager.com/gtag/js?id=G-5T8Q8F61MQ",document.getElementById("__analytics").insertAdjacentElement("afterEnd",t)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#como-solucionar-problemas-de-cola-alta-de-proxy-zabbix" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="El Blog de Humanbyte" class="md-header__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            El Blog de Humanbyte
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Cómo solucionar problemas de cola alta de Proxy Zabbix
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="tealblue-grey" data-md-color-accent="purple"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6m0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4M7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="lime"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Bienvenidos a la Biblioteca
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-tabs__link">
+          
+  
+  Cursos
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Docs/" class="md-tabs__link">
+          
+  
+  Docs
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Linux/Gentoo/Instalacion_base/" class="md-tabs__link">
+          
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Manuales/Linux/00.Seguridad/" class="md-tabs__link">
+          
+  
+  Manuales
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../Grafana/Zabbix_plugin/" class="md-tabs__link">
+          
+  
+  Monitoreo de Redes
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Odoo/Libros/Fundamentos-de-desarrollo-de-Odoo-15/" class="md-tabs__link">
+          
+  
+  Odoo
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-tabs__link">
+          
+  
+  Virtualizacion
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="El Blog de Humanbyte" class="md-nav__button md-logo" aria-label="El Blog de Humanbyte" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    El Blog de Humanbyte
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/terracenter/blog" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Bienvenidos a la Biblioteca
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../../../Cursos/Linux/NDG_Linux_Essentias_Spanish/Modulo_01/Introduccion_a_Linux/1.1.Introduccion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Cursos
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../../Docs/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Docs
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Linux/Gentoo/Instalacion_base/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Manuales/Linux/00.Seguridad/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Manuales
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Monitoreo de Redes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Monitoreo de Redes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Grafana/Zabbix_plugin/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Grafana
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Log_Serer/rsyslog_Server/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Log Serer
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../../Prometheus/00.Instalacion_prometheus_debian/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Prometheus
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Zabbix
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            Zabbix
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../6.0/Documentacion/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    6.0
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    <a href="../../7.0/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    7.0
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_4_3" id="__nav_6_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_6_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Creacion_de_plantillas_para_dispositivos_SNMP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Creación de plantillas para dispositivos SNMP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Cómo solucionar problemas de cola alta de Proxy Zabbix
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Cómo solucionar problemas de cola alta de Proxy Zabbix
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contenido" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contenido
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contenido">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-crece-la-cola" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Por qué crece la cola?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Por qué crece la cola?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mala-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mala configuración
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-puede-conectarse-al-agente" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no puede conectarse al agente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-puede-conectarse-al-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no puede conectarse al servidor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-puede-enviar-datos-lo-suficientemente-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no puede enviar datos lo suficientemente rápido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-tiene-suficientes-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no tiene suficientes procesos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-servidor-no-puede-seguir-el-ritmo-de-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      El servidor no puede seguir el ritmo de los datos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demasiados-valores-sin-enviar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demasiados valores sin enviar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    
+  
+  
+    <a href="../../../../Odoo/Libros/Fundamentos-de-desarrollo-de-Odoo-15/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Odoo
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+  
+
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+      
+        
+        
+      
+    
+    <li class="md-nav__item md-nav__item--pruned md-nav__item--nested">
+      
+        
+  
+  
+    
+  
+  
+    <a href="../../../../Virtualizacion/Proxmox/Cambiar_el_nombre_de_un_proxmox/" class="md-nav__link">
+      
+  
+  <span class="md-ellipsis">
+    Virtualizacion
+  </span>
+  
+
+      
+        <span class="md-nav__icon md-icon"></span>
+      
+    </a>
+  
+
+  
+
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contenido" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contenido
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contenido">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#por-que-crece-la-cola" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Por qué crece la cola?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Por qué crece la cola?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mala-configuracion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mala configuración
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-puede-conectarse-al-agente" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no puede conectarse al agente
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-puede-conectarse-al-servidor" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no puede conectarse al servidor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-puede-enviar-datos-lo-suficientemente-rapido" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no puede enviar datos lo suficientemente rápido
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-proxy-no-tiene-suficientes-procesos" class="md-nav__link">
+    <span class="md-ellipsis">
+      El proxy no tiene suficientes procesos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#el-servidor-no-puede-seguir-el-ritmo-de-los-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      El servidor no puede seguir el ritmo de los datos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#demasiados-valores-sin-enviar" class="md-nav__link">
+    <span class="md-ellipsis">
+      Demasiados valores sin enviar
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="como-solucionar-problemas-de-cola-alta-de-proxy-zabbix">Cómo solucionar problemas de cola alta de Proxy Zabbix</h1>
+<p>Por  Dmitry Lambert 15 de Octubre 2020</p>
+<p>El proxy de Zabbix es un componente importante en toda la arquitectura de Zabbix. Como resultado, muy a menudo el fracaso de un proxy puede conducir a resultados dramáticos en toda la configuración de monitoreo causando una tormenta de eventos y problemas.</p>
+<h2 id="contenido">Contenido</h2>
+<ul>
+<li>Configuración</li>
+<li>¿Por qué crece la cola?</li>
+<li>Mala configuración</li>
+<li>El proxy no puede conectarse al agente</li>
+<li>El proxy no puede conectarse al servidor</li>
+<li>El proxy no puede enviar datos lo suficientemente rápido (13:52)</li>
+<li>El proxy no tiene suficientes procesos</li>
+<li>El servidor no puede seguir el ritmo de los datos</li>
+<li>Demasiados valores sin enviar</li>
+</ul>
+<p>En este post, se consideran los casos más comunes en la solución de problemas de proxy, lo que le dará una idea rápida de dónde debe buscar cuando algo va mal.</p>
+<h3 id="configuracion">Configuración</h3>
+<p>Configuración (instalado desde los paquetes):</p>
+<ul>
+<li>Zabbix 5.01</li>
+<li>CentOS 8</li>
+<li>Proxy Zabbix en la misma máquina con el servidor Zabbix</li>
+<li>El motor de base de datos MariaDB aloja la base de datos del servidor Zabbix y la base de datos del proxy Zabbix.</li>
+<li>Tres servidores Zabbix (duplicados) en <strong>Configuration</strong> &gt; <strong>Hosts</strong>.</li>
+<li>"<strong>Training proxy</strong>" - proxy activo sin cifrado con compresión activada - añadido en <strong>Administration</strong> &gt; <strong>Proxies</strong>.</li>
+</ul>
+<p>En <strong>Administration</strong> &gt; <strong>Queue</strong> los números crecen, pero teniendo en cuenta el número de elementos monitorizados, no se reciben datos de todos los elementos de mis hosts.</p>
+<p><img alt="Queue overview" src="../assets/20230821_144831_1-4.jpg" /></p>
+<p><center>Queue overview</center></p>
+<p>En la instancia de producción, esto también provocaría problemas. En este caso, todos los triggers con la función de disparo <code>nodata()</code> se dispararían y crearían muchos problemas.</p>
+<h3 id="por-que-crece-la-cola">¿Por qué crece la cola?</h3>
+<p>Zabbix Proxy monitoriza nuestros agentes Zabbix. Las comprobaciones y tipos de monitorización pueden ser tanto pasivas como activas. Los chequeos activos significan que los agentes se conectan al proxy para solicitar la configuración que contendrá información sobre qué datos deben ser recogidos. Recogen esos datos en el host y los pasan al proxy. Las comprobaciones pasivas de agentes funcionan de forma opuesta. El proxy se conecta a los agentes y sondea el valor que debe ser recogido. El proxy también puede trabajar en modo activo o pasivo, que también describe las mismas características de conexión.</p>
+<p><img alt="" src="../assets/20230821_173843_8-3.jpg" /></p>
+<h4 id="mala-configuracion">Mala configuración</h4>
+<p>Si tenemos un problema con el proxy, deberíamos comprobar los registros del proxy. Lo que significa que tendríamos que tener la posibilidad de SSH al servidor proxy.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/zabbix/zabbix_proxy.log
+</code></pre></div>
+<p><img alt="" src="../assets/20230821_174131_2-1.jpg" /></p>
+<p><center>Mensaje de spam 'no se pueden enviar datos proxy al servidor</center></p>
+<p>El mensaje de que los datos del proxy no se pueden enviar al servidor en la dirección IP localhost, porque el proxy "Proxy de formación" no se encuentra aparecerá sólo en un caso - cuando el parámetro de nombre de host en el archivo de configuración del proxy Zabbix no coincide con el nombre del proxy en el frontend Zabbix.</p>
+<p><img alt="" src="../assets/20230821_174759_3-1.jpg" /></p>
+<p>Mientras tenemos el 'Training proxy' funcionando, en el frontend, en <strong>Administration</strong> &gt; <strong>Proxies</strong>, el 'training proxy' está especificado en minúsculas. Esto es suficiente para que el proxy deje de reportar los datos al servidor y comience a escribir estos errores en el log.</p>
+<p><img alt="" src="../assets/20230821_174954_4-2.jpg" /></p>
+<p><center>Escritura diferente del nombre del proxy</center></p>
+<p>Por lo tanto, tenemos que cambiar el nombre del proxy y haga clic en <strong>Update</strong>.</p>
+<p><img alt="" src="../assets/20230821_175202_5-3.jpg" /></p>
+<p><center>Actualización del nombre del proxy</center></p>
+<p>Entonces, para ahorrarnos el tiempo de forzar la recarga de la caché de configuración en el Servidor Zabbix, puede ejecutar:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>zabbix_server<span class="w"> </span>-R<span class="w"> </span>config_cache_reload
+</code></pre></div>
+<p>y luego comprueba los registros del proxy. Verás que el mensaje ha dejado de enviar spam. Tenga en cuenta que el servidor actualiza su caché de configuración automáticamente cada minuto por defecto.</p>
+<p><img alt="" src="../assets/20230821_175353_6-3.jpg" /></p>
+<p>En <strong>Administration</strong> &gt; <strong>Queue</strong> no se retrasa ningún valor y se procesan todos los datos.</p>
+<p><img alt="" src="../assets/20230821_175504_7-1.jpg" /></p>
+<p><center>Proxy queue overview</center></p>
+<p>Por lo tanto, en los casos de mala configuración, es necesario:
+a) Comprobar el registro del proxy, que en la mayoría de los casos será suficiente, y
+b) En casos excepcionales, compruebe el registro del servidor.</p>
+<h4 id="el-proxy-no-puede-conectarse-al-agente">El proxy no puede conectarse al agente</h4>
+<p>Si el proxy no es capaz de obtener los datos de un agente, no tiene nada que ver con la comunicación proxy-servidor o con el propio servidor. Por lo tanto, tenemos que buscar alguna pista sobre el problema en los archivos de registro del proxy y del agente.</p>
+<p>En primer lugar, comprueba el proxy. Lo más probable es que en los registros veas algunos</p>
+<ul>
+<li>network errors</li>
+<li>hosts unavailable</li>
+<li>connection timed out</li>
+<li>TCP connection problems</li>
+<li>O errores similares.</li>
+</ul>
+<p>Por lo tanto, si hay un mensaje de error que indica que se ha perdido la conexión, por ejemplo, con el agente 1, pero todo lo demás funciona bien, lo más probable es que el problema esté en la red. Puede haber algún cambio en la red que impida al proxy obtener los datos del agente. Podemos ejecutar <strong>zabbix_get</strong> desde el proxy con la IP del agente, que estamos tratando de solucionar el problema, y alguna clave simple para probar la conectividad.</p>
+<p><img alt="" src="../assets/20230821_181355_9-2.jpg" /></p>
+<p>Si no hay problemas, el agente debería informar. Si el agente está informando pero en el frontend seguimos sin ver ningún dato, puede haber otros problemas, por ejemplo, si el proxy no tiene suficientes procesos responsables de este tipo de monitorización.</p>
+<p>Puede que el agente simplemente se haya detenido, se haya bloqueado o se haya eliminado. En este caso, veríamos mensajes de error al ejecutar <strong>zabbix_get</strong>.</p>
+<p><img alt="" src="../assets/20230821_182100_10-2.jpg" /></p>
+<p>Si obtenemos este mensaje, el proxy no será capaz de obtener el valor, y el problema está en alguna parte con una conexión entre el proxy y el agente o con el propio agente. En este caso, necesitamos comprobar el host, que estamos monitorizando - si el agente se está ejecutando, o escuchando el puerto, o si hay algunas reglas de firewall que puedan estar bloqueando la conexión del proxy al agente. Quizás simplemente la dirección IP del Servidor en la configuración del agente difiere de la dirección IP del Proxy</p>
+<p>Por lo tanto, si el proxy no puede conectarse al agente:</p>
+<ul>
+<li>Compruebe los registros del proxy</li>
+<li>Compruebe los registros de los agentes</li>
+<li>Aísle los agentes que no funcionan. Si todos los agentes no funcionan, entonces es un problema de red</li>
+<li>Usa <strong>zabbix_get</strong> o <strong>snmpget</strong> (problemas de snmp) para probar la conexión entre el proxy y el host.</li>
+</ul>
+<h4 id="el-proxy-no-puede-conectarse-al-servidor">El proxy no puede conectarse al servidor</h4>
+<p>Cuando el proxy no puede conectarse al servidor, es posible que no veamos nada en el registro del servidor, ya que la conexión está interrumpida y el servidor no recibirá ningún dato. Tenemos que comprobar los registros del proxy, donde veremos mensajes de error como "<strong>cannot connect to server</strong>" o "<strong>cannot send proxy data to server</strong>".</p>
+<p>Si el proxy no puede conectarse al servidor, es necesario:</p>
+<ul>
+<li>Comprobar los registros del proxy.</li>
+</ul>
+<h4 id="el-proxy-no-puede-enviar-datos-lo-suficientemente-rapido">El proxy no puede enviar datos lo suficientemente rápido</h4>
+<p>Si hay una cola del proxy pero algunos datos están pasando, el proxy es capaz de conectarse al servidor y a los agentes, a medida que los datos son recibidos y enviados, aunque con un retraso. Esto significa que el proxy no puede seguir el flujo de datos, y los datos en el proxy se acumulan más rápido de lo que se envían. Puedes ver el problema en <strong>Latest data</strong>, donde los gráficos tendrán huecos y puntos.</p>
+<p>Para comprobar el problema, debe ejecutar <strong>ps ax | grep sender en el host Proxy de Zabbix</strong>.</p>
+<p><img alt="" src="../assets/20230821_183057_11-2.jpg" /></p>
+<p>Sólo hay un proceso - remitente de datos en el proxy Zabbix, que no existe en el servidor y que es el único proceso responsable de enviar datos al servidor. Aquí, estamos interesados en las líneas que describen el remitente. Si ejecutamos el comando varias veces, las líneas que describen el remitente irán cambiando.</p>
+<p><img alt="" src="../assets/20230821_183306_12-3.jpg" /></p>
+<p>El problema existe, si vemos que el número de valores enviados por segundo no es suficiente. Una iteración del remitente de datos tarda cientos de segundos o incluso más.  En este caso, podemos abrir la base de datos y ejecutar la consulta:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">select</span><span class="w"> </span>max<span class="o">(</span>id<span class="o">)</span>-<span class="o">(</span><span class="k">select</span><span class="w"> </span>nextid<span class="w"> </span>from<span class="w"> </span>ids<span class="w"> </span>where<span class="w"> </span>table_name<span class="w"> </span>+<span class="w"> </span><span class="s2">&quot;proxy_history&quot;</span><span class="w"> </span>limit<span class="w"> </span>l<span class="o">)</span><span class="w"> </span>from<span class="w"> </span>proxy_history<span class="p">;</span>
+</code></pre></div>
+<p>Esta consulta nos dirá cuántos valores quedan en la base de datos del proxy que aún no se han enviado al servidor Zabbix. Básicamente, se trata de una cola de backlog en el proxy.</p>
+<p><img alt="" src="../assets/20230821_183539_13-1.jpg" /></p>
+<p>En el ejemplo anterior, todo funciona bien, la cola no se acumula.</p>
+<p>Si observamos que el emisor de datos tarda cientos de segundos en enviar los valores al servidor, lo más probable es que el resultado de la consulta no sea cero. Y si se ejecuta la consulta varias veces, se verá que la acumulación en el proxy no hace más que aumentar.</p>
+<p><img alt="" src="../assets/20230821_183712_14-1.jpg" /></p>
+<p>Estos problemas pueden deberse a varias razones, una de ellas es una conexión de red lenta entre el proxy Zabbix y el servidor Zabbix. En este caso, el ping no suele ser suficiente para saber si la red es buena o mala. Si todos los procesos no están ocupados, pero el emisor de datos está luchando para enviar los datos, entonces probablemente debería consultar a su equipo de redes. También podría ser un problema en el lado del servidor Zabbix. El remitente de datos es el único proceso que está enviando datos al servidor, pero en el lado del servidor sólo los Trappers son responsables de aceptar esos datos. Así que asegúrese de que tiene suficientes trappers en el servidor y que no están 100% ocupados.</p>
+<p>Por lo tanto, si el proxy no puede enviar datos lo suficientemente rápido, es necesario:</p>
+<ul>
+<li>Comprobación de los datos del remitente</li>
+<li>Comprobar la cola en la base de datos proxy</li>
+<li>Compruebe la velocidad de conexión a la red</li>
+</ul>
+<h4 id="el-proxy-no-tiene-suficientes-procesos">El proxy no tiene suficientes procesos</h4>
+<p>Supongamos que tenemos un servidor Zabbix en funcionamiento, Zabbix frontend, y la mayor parte del medio ambiente se controla a través del servidor Zabbix.</p>
+<p>En Administration &gt; <strong>Proxies</strong> vemos que nuestro proxy de formación sólo tiene tres hosts añadidos.</p>
+<p><img alt="" src="../assets/20230822_090159_15-2.jpg" /></p>
+<p>Estos tres hosts están recibiendo datos, no hay cola y no falta ningún dato. Supongamos que en un mes necesitamos desplegar un descubrimiento de red o un registro de agente activo en el proxy y añadir más hosts a monitorizar. Podríamos llegar a unos 30.000 hosts cuando veamos los problemas: lagunas o aumento de la cola en los proxies.</p>
+<p>Si comprobamos el registro del servidor, puede que no haya nada malo en él: ni problemas, ni consultas lentas. También podemos <strong>Monitoring</strong> &gt; <strong>Hosts</strong> y mostrar, por ejemplo el gráfico <strong>internal process busy</strong></p>
+<p>Entonces el problema puede estar en el proxy. Como hemos añadido 30.000 hosts nuevos, el número de procesos en el proxy podría no ser suficiente para la cantidad actual de datos que pasan por el proxy.</p>
+<p><img alt="" src="../assets/20230822_090540_16-3.jpg" /></p>
+<p><center>Procesos que se ejecutan en el proxy</center></p>
+<p>Así, cuando desplegamos 30.000 hosts, la cantidad de procesos que teníamos anteriormente no es suficiente para la configuración actual. Este problema no se mostrará en los registros del servidor o en el gráfico del servidor. En este caso, necesitamos monitorizar el proxy. Para ello, vaya a <strong>Configuration</strong> &gt; <strong>Hosts</strong>, crear un host, añadirlo al grupo, especificar que el host es supervisado por el proxy, y el propio proxy. Haga clic en <strong>Add</strong>.</p>
+<p><img alt="" src="../assets/20230822_091016_17-3.jpg" /></p>
+<p><center>Añadir host</center>
+<strong>NOTA</strong>. Los usuarios suelen especificar la interfaz del agente con la dirección externa del proxy, lo que no es exactamente correcto.</p>
+<p>Supervisará el proxy con la función template <strong>Template App Zabbix Proxy</strong> en <strong>Configuration</strong> &gt; <strong>Templates</strong>. Este proxy tiene elementos internos que no utilizan la dirección IP especificada en la interfaz del agente Zabbix.</p>
+<p><img alt="" src="../assets/20230822_091325_18-1.jpg" /></p>
+<p><center>Items internos del proxy</center></p>
+<p>Si no va a configurar este host para que sea supervisado por el propio proxy en <strong>Configuration</strong> &gt; <strong>Hosts</strong> seguirá viendo los datos en esos gráficos de rendimiento, pero esos datos provendrán del servidor Zabbix, y podría ser engañado mediante los gráficos <strong>Monitoring</strong> &gt; <strong>Hosts</strong>, procesos de recopilación de datos y procesos internos. Así, usted vería realmente los datos del servidor, que podría no estar ocupado, mientras que el proxy podría estar luchando. En este caso, todo lo que necesitas es añadir más procesos como <strong>pollers</strong>, <strong>trappers</strong>, <strong>etc</strong>.</p>
+<p>Si el proxy no tiene suficientes procesos, debes asegurarte de monitorizarlo correctamente y comprobar los gráficos de rendimiento del proxy:</p>
+<ul>
+<li>Procesos de recopilación de datos ocupados.</li>
+<li>Procesos internos ocupados.</li>
+<li>Porcentaje de caché libre.</li>
+</ul>
+<h4 id="el-servidor-no-puede-seguir-el-ritmo-de-los-datos">El servidor no puede seguir el ritmo de los datos</h4>
+<p>Si los datos son extraídos de los agentes por el proxy, que luego los empuja al servidor, puede haber problemas en el servidor. Podremos darnos cuenta de esto en los logs del servidor donde lo más probable es que veamos algunas consultas lentas o tiempos de espera. Más importante aún, veremos la misma información en los gráficos de rendimiento en <strong>Monitoring</strong> &gt; Hosts.</p>
+<p>Aquí tenemos que comprobar, por ejemplo <strong>data gathering process busy</strong></p>
+<p><img alt="" src="../assets/20230822_094907_20-1.jpg" /></p>
+<p><center><b>data gathering process busy</b> performance graphs</center></p>
+<p>Más concretamente, nos interesan los trappers, ya que sólo los trappers operan con los proxies activos que estamos considerando en este ejemplo.</p>
+<p>Por lo tanto, si los trappers están completamente ocupados, lo más probable es que lo único que tengas que hacer sea simplemente aumentar el número de trappers.</p>
+<p>Si los trappers están ocupados, pero en el gráfico 'Zabbix internal process busy %' vemos que housekeeper, history sinker, y básicamente la mayoría de los gráficos están funcionando con una carga del 100%, y hay algunos puntos y huecos en el gráfico, esto significa que tienes serios problemas de rendimiento con el servidor Zabbix. En el 99% de los casos, esto será causado por problemas de rendimiento de base de datos y el problema con la configuración de Zabbix.</p>
+<h4 id="demasiados-valores-sin-enviar">Demasiados valores sin enviar</h4>
+<p>A veces, cualquiera de los problemas anteriores puede hacer que el proxy recoja un backlog cuando la cola no cae o cae con extrema lentitud una vez solucionado el problema. En este caso, podemos ejecutar la consulta para comprobar la acumulación en la base de datos del proxy.</p>
+<p><img alt="" src="../assets/20230822_100536_21-1.jpg" /></p>
+<p>Si ves, por ejemplo, millones de valores, entonces el proxy no está funcionando durante algún tiempo, tiene una enorme acumulación en la base de datos, y la cola sigue acumulándose. En este caso, lo único que podemos hacer es eliminar el backlog - borrar todos los datos almacenados en la base de datos del proxy y empezar de cero. Perderemos el historial de datos no enviados de ese periodo, pero al menos volverá a monitorizarse.</p>
+<p>Para ello, necesitamos:</p>
+<ol>
+<li>Detenga el proxy Zabbix</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>systemctl<span class="w"> </span>stop<span class="w"> </span>zabbix-proxy
+</code></pre></div>
+2. Abrir la base de datos</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mysql
+</code></pre></div>
+3. Vaciar completamente dos  tablas</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>truncate<span class="w"> </span>proxy_history<span class="p">;</span>
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>truncate<span class="w"> </span>ids<span class="p">;</span>
+</code></pre></div>
+4. Salga de la base de datos e inicie el proxy Zabbix</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>systemctl<span class="w"> </span>start<span class="w"> </span>zabbix-proxy
+</code></pre></div>
+<p><img alt="" src="../assets/20230822_101249_22-2.jpg" /></p>
+<ol>
+<li>Recargar</li>
+</ol>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>zabbix_server<span class="w"> </span>-R<span class="w"> </span>config_cache_reload
+</code></pre></div>
+6. Abrir la Base de Datos</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mysql
+</code></pre></div>
+7. Entrar en la Base de Datos del Zabbix Proxy</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>use<span class="w"> </span>zabbix-proxy<span class="p">;</span>
+</code></pre></div>
+<p>y en la consulta, no verá ningún retraso.</p>
+<div class="highlight"><pre><span></span><code>![](assets/20230822_101611_23-2.jpg)
+
+Proxy backlog dropped
+</code></pre></div>
+<p><strong>NOTA</strong>. No olvide truncar la tabla de IDs. Si trunca sólo las tablas de historial de proxy, nada va a funcionar.</p>
+<p>Por lo tanto, si hay demasiados valores sin enviar y la cola de proxy se está acumulando, es necesario eliminar el retraso.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        ¿Te ha resultado útil esta página?
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="¿Te ha resultado útil esta página?" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9zm4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21zm0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="Esta página podría mejorarse" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12zM15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3zm0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios.
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Gracias por sus comentarios. Ayúdenos a mejorar esta página utilizando nuestro <a href="..." target="_blank" rel="noopener">formulario de comentarios</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2024 <a href="https://github.com/terracenter target="_blank" rel="noopener"> Freddy Taborda </a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/terracenter" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8M97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/terracenter0" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/freddy-taborda-5199802a/" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5m282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.prune", "navigation.top", "search.suggest", "search.highlight", "search.share"], "search": "../../../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
